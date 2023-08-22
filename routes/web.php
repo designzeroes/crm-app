@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/s', function () {
+Route::get('/ark', function () {
     return view('welcome');
 });
 
