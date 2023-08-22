@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/a', function () {
+Route::get('/as', function () {
     return view('welcome');
 });
 
