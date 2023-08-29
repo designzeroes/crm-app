@@ -14,7 +14,7 @@
 }
 .bg-img{
 
-    background-image: url('{{ asset('images/background.jpg') }}');
+    background-image: url('{{ asset('images/bg1.jpg') }}');
 }
 </style>
 </head>
