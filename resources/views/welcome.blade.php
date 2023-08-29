@@ -109,54 +109,101 @@
         </div>
     </div>
 </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Freelancer Clone</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Browse Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Post a Project</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log In</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-@if (Route::has('jobs'))
-            <!-- Content wrapper -->
+  <!-- Hero Section -->
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="display-4">Find the Perfect Freelancer</h1>
+      <p class="lead">Get your projects done by expert freelancers from around the world.</p>
+      <a href="#" class="btn btn-primary btn-lg">Browse Projects</a>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="container mt-5">
+    <h2 class="text-center mb-4">Popular Categories</h2>
+    <div class="row">
+      <!-- Repeat this block for each category -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="category-image.jpg" class="card-img-top" alt="Category Image">
+          <div class="card-body">
+            <h5 class="card-title">Category Name</h5>
+            <p class="card-text">Brief description of the category.</p>
+            <a href="#" class="btn btn-primary">View Projects</a>
+          </div>
+        </div>
+      </div>
+      <!-- End of category block -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2023 Freelancer Clone. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+            <!-- Content wrapper
             <div class="container-xxl">
                 <div class="authentication-wrapper authentication-basic container-p-y">
                     <div class="content-wrapper mt-5">
                         <!-- Content -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h3>Jobs</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Position</th>
-                                            <th>Experience</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Laravel Developer</td>
-                                            <td>3 years</td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
-                                        </tbody>
-                                    </table>
+                        <!-- <div>
+
+
+                        </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Content -->
                         <!-- Footer -->
-                        <footer class="content-footer footer bg-footer-theme"></footer>
+                        <!-- <footer class="content-footer footer bg-footer-theme"></footer> -->
                         <!-- / Footer -->
-                        <div class="content-backdrop fade"></div>
-                    </div>
+                        <!-- <div class="content-backdrop fade"></div>
+                    </div> -->
                     <!-- Content wrapper -->
                 </div>
             </div>
             <!-- / Layout page -->
         </div>
-        @else
         <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
+        <!-- <div class="layout-overlay layout-menu-toggle"></div>
+    </div> -->
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
-    @include('includes.controlpanel.scripts')
-    @endif
+    @include('includes.controlpanel.scripts') -->
+
 </body>
 </html>
