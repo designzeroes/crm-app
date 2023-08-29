@@ -1,4 +1,4 @@
-@extends('layouts.controlpanel')
+@extends('layouts.guest')
 @section('content')
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -10,7 +10,7 @@
                 <h5 class="card-title text-primary">
                 </h5>
 
-            @if (Route::has('login'))
+            <!-- @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
@@ -22,7 +22,7 @@
                         @endif
                     @endauth
                 </div>
-            @endif
+            @endif -->
             <nav
 class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
 id="layout-navbar"
@@ -74,15 +74,19 @@ id="layout-navbar"
           <a class="dropdown-item" href="#">
             <div class="d-flex">
               <div class="flex-shrink-0 me-3">
-                <div class="avatar avatar-online">
-                  <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+              @if (Route::has('login'))
+                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                        @endif
+                    @endauth
                 </div>
-              </div>@auth
-    <div class="flex-grow-1">
-        <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-        <small class="text-muted">Admin</small>
-    </div>
-@endauth
+            @endif
 
                 <p class="mb-4">
                   You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
