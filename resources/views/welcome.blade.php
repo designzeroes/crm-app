@@ -39,6 +39,9 @@
                <!-- Navbar -->
 
              <!-- Content wrapper -->
+             <div class="container-xxl">
+                    <div class="authentication-wrapper authentication-basic container-p-y">
+                  
           <div class="content-wrapper mt-5">
                <!-- Content -->     
    
