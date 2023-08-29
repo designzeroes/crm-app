@@ -138,7 +138,12 @@
     <div class="container">
       <h1 class="display-4">Find the Perfect Freelancer</h1>
       <p class="lead">Get your projects done by expert freelancers from around the world.</p>
+      <p class="lead">World's largest freelance marketplace</p>
+      <p class="lead">Any job you can possibly think of</p>
+      <p class="lead">Save up to 90% & get quotes for free</p>
+      <p class="lead">Pay only when you're 100% happy</p>
       <a href="#" class="btn btn-primary btn-lg">Browse Projects</a>
+      <button class="btn btn-outline-primary btn-transparent">Earn Money</a>
     </div>
   </section>
 
