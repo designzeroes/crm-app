@@ -1,14 +1,37 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
-        </h2>
+  <h5 class="card-header">Profile Details</h5>
+<div class="card-body">
+    <div class="d-flex align-items-start align-items-sm-center gap-4">
+      <img
+        src="../assets/img/avatars/1.png"
+        alt="user-avatar"
+        class="d-block rounded"
+        height="100"
+        width="100"
+        id="uploadedAvatar"
+      />
+      <div class="button-wrapper">
+        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+          <span class="d-none d-sm-block">Upload new photo</span>
+          <i class="bx bx-upload d-block d-sm-none"></i>
+          <input
+            type="file"
+            id="upload"
+            class="account-file-input"
+            hidden
+            accept="image/png, image/jpeg"
+          />
+        </label>
+        <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+          <i class="bx bx-reset d-block d-sm-none"></i>
+          <span class="d-none d-sm-block">Reset</span>
+        </button>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
-
+        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+      </div>
+    </div>
+  <hr class="my-0" />
+  <div class="card-body">
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
@@ -16,16 +39,15 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
-
-        <div>
+      <div class="row">
+        <div class="mb-3 col-md-6">
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="form-control" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
-        <div>
+        <div class="mb-3 col-md-6">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="form-control" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -47,7 +69,7 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="mt-2">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
@@ -60,5 +82,8 @@
                 >{{ __('Saved.') }}</p>
             @endif
         </div>
+      </div>
     </form>
+  </div>
+</div>
 </section>
