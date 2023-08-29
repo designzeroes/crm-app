@@ -100,7 +100,7 @@
                 </div>
             @endif
             <!-- Navbar -->
-
+            </div>
             <!-- Content wrapper -->
             <div class="container-xxl">
                 <div class="authentication-wrapper authentication-basic container-p-y">
