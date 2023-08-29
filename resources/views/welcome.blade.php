@@ -129,7 +129,7 @@
 
 
   <!-- Hero Section -->
-  <section class="jumbotron text-center text-light bg-img">
+  <section class="jumbotron  text-light bg-img">
     <div class="container">
       <h1 class="display-4 text-light">Find the Perfect Freelancer</h1>
       <p class="lead">Get your projects done by expert freelancers from around the world.</p>
@@ -151,19 +151,31 @@
         <div class="card mb-4">
           <img src="category-image.jpg" class="card-img-top" alt="Category Image">
           <div class="card-body">
-            <h5 class="card-title">Category Name</h5>
+            <h5 class="card-title">Category 1</h5>
             <p class="card-text">Brief description of the category.</p>
             <a href="#" class="btn btn-primary">View Projects</a>
           </div>
         </div>
       </div>
-      <!-- End of category block -->
+      <!-- 2nd category block -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="category-image.jpg" class="card-img-top" alt="Category Image">
+          <div class="card-body">
+            <h5 class="card-title">Category 2</h5>
+            <p class="card-text">Brief description of the category.</p>
+            <a href="#" class="btn btn-primary">View Projects</a>
+          </div>
+        </div>
+      </div>
+
     </div>
+
   </section>
 
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2023 Freelancer Clone. All rights reserved.</p>
+  <footer class="bg-white text-dark  py-3">
+    <p>&copy; 2023 crm dz All rights reserved.</p>
   </footer>
 
   <!-- Bootstrap JS and Popper.js -->
