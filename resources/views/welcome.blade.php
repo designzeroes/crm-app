@@ -193,34 +193,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-            <!-- Content wrapper
-            <div class="container-xxl">
-                <div class="authentication-wrapper authentication-basic container-p-y">
-                    <div class="content-wrapper mt-5">
-                        <!-- Content -->
-                        <!-- <div>
-
-
-                        </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- Content -->
-                        <!-- Footer -->
-                        <!-- <footer class="content-footer footer bg-footer-theme"></footer> -->
-                        <!-- / Footer -->
-                        <!-- <div class="content-backdrop fade"></div>
-                    </div> -->
-                    <!-- Content wrapper -->
-                </div>
-            </div>
-            <!-- / Layout page -->
-        </div>
-        <!-- Overlay -->
-        <!-- <div class="layout-overlay layout-menu-toggle"></div>
-    </div> -->
-    <!-- / Layout wrapper -->
-
     <!-- Core JS -->
     @include('includes.controlpanel.scripts') 
 
