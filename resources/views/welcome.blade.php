@@ -139,7 +139,7 @@
       <p class="lead">Any job you can possibly think of</p>
       <p class="lead">Save up to 90% & get quotes for free</p>
       <p class="lead">Pay only when you're 100% happy</p>
-      <a href="#" class="btn btn-outline-primary">Browse Projects</a>
+      <a href="#" class="btn btn-primary">Browse Projects</a>
       <button class="btn btn-outline-primary btn-transparent">Earn Money</a>
     </div>
   </section>
