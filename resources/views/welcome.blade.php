@@ -93,9 +93,9 @@
                 <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
             </a>
             <a class="nav-link" href="#">How It Works</a>
-
+            <a href="{{ route('jobs') }}" class="btn ">Brows Jobs</a>
         </div>
-        <a href="{{ route('jobs') }}" class="btn ">Brows Jobs</a>
+        
         <!-- Navigation elements on the right -->
         <div class="app-brand justify-content-end">
             @if (Route::has('login'))
