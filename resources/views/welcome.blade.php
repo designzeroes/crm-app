@@ -85,7 +85,7 @@
                                 </span>
                                 <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
                             </a>
-                            </div>
+                  
             @if (Route::has('login'))
                 <div class="header-controls sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10 right">
                     @auth
