@@ -143,7 +143,14 @@
       <button class="btn btn-outline-primary btn-transparent">Earn Money</a>
     </div>
   </section>
+<section>
 
+<div class"d-flex">
+    Users 
+    <a href="">google</a>
+</div>
+</section>
+<hr>
   <!-- Categories Section -->
   <section class="container mt-5">
     <h2 class="text-center mb-4">Popular Categories</h2>
@@ -215,7 +222,7 @@
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
-    @include('includes.controlpanel.scripts') -->
+    @include('includes.controlpanel.scripts') 
 
 </body>
 </html>
