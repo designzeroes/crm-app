@@ -12,10 +12,13 @@
 .right{
     float:right;
 }
+.bg-img{
 
+    background-image: url('{{ asset('images/background.jpg') }}');
+}
 </style>
 </head>
-<body class="dot-pattern-bg">
+<body class="">
 
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -109,11 +112,11 @@
         </div>
     </div>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Freelancer Clone</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-img">
+    <!-- <a class="navbar-brand" href="#">Freelancer Clone</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
@@ -125,12 +128,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">How It Works</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Log In</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign Up</a>
-        </li>
+        
       </ul>
     </div>
   </nav>
