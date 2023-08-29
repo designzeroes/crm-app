@@ -8,7 +8,7 @@ Route::get('/w', function () {
     return view('welcome');
 });
 Route::get('jobs', function () {
-    return view('welcome');
+    return view('welcome')->name('jobs');;
 });
 Route::get('/dashboard', function () {
     return view('pages.controlpanel.dashboard');
