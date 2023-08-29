@@ -11,7 +11,7 @@
    @include('includes.controlpanel.head')
   </head>
 
-  <body>
+  <body class="bg-dots">
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar ">
       <div class="layout-container">
@@ -46,11 +46,12 @@
                <!-- Content -->     
                <div class="card">
                         <div class="card-body">
-                            <!-- Logo -->
+                            
+                            <h3>Jobs</h3>
                             <div class="app-brand justify-content-center">
                             
    <table>
-   <h3>Jobs</h3> 
+    
    <tr>
         <th>position</th>
         <th>experience</th>
