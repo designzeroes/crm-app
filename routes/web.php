@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/w', function () {
     return view('welcome');
 });
-
+Route::get('jobs', function () {
+    return view('welcome');
+});
 Route::get('/dashboard', function () {
     return view('pages.controlpanel.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
