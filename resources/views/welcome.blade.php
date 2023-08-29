@@ -111,7 +111,7 @@
             @endif
         </div>
     </div>
-</nav><nav class="navbar navbar-expand-lg navbar-gray" style="padding-top: 0; padding-bottom: 0;">
+</nav><nav class="navbar navbar-expand-lg " style="padding-top: 0; padding-bottom: 0; background-collor:gray;">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto" style="font-size: 14px;">
             <li class="nav-item active">
@@ -129,9 +129,9 @@
 
 
   <!-- Hero Section -->
-  <section class="jumbotron text-center text-white bg-img">
+  <section class="jumbotron text-center text-light bg-img">
     <div class="container">
-      <h1 class="display-4">Find the Perfect Freelancer</h1>
+      <h1 class="display-4 text-light">Find the Perfect Freelancer</h1>
       <p class="lead">Get your projects done by expert freelancers from around the world.</p>
       <p class="lead">World's largest freelance marketplace</p>
       <p class="lead">Any job you can possibly think of</p>
