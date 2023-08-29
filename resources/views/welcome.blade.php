@@ -44,7 +44,11 @@
                   
           <div class="content-wrapper mt-5">
                <!-- Content -->     
-   
+               <div class="card">
+                        <div class="card-body">
+                            <!-- Logo -->
+                            <div class="app-brand justify-content-center">
+                            
    <table>
    <h3>Jobs</h3> 
    <tr>
