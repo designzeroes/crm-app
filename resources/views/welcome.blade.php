@@ -26,7 +26,7 @@
         <div class="layout-page">
             <!-- Navbar -->
             <!-- Logo -->
-            <div class="app-brand justify-content-center">
+            <div class="app-brand justify-content-left">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
                                 <svg
