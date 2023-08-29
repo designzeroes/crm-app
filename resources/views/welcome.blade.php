@@ -39,17 +39,19 @@
                <!-- Navbar -->
 
              <!-- Content wrapper -->
-          <div class="content-wrapper">
+          <div class="content-wrapper mt-5">
                <!-- Content -->     
-   <h2>Jobs</h2>
+   
    <table>
-    <tr>
+   <h3>Jobs</h3> 
+   <tr>
         <th>position</th>
         <th>experience</th>
     </tr>
     <tbody>
         <tr>
-
+<td>laravel dvlpr</td>
+<td>3 year</td>
         </tr>
     </tbody>
    </table>
