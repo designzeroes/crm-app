@@ -92,6 +92,8 @@
                 </span>
                 <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
             </a>
+            <a class="nav-link" href="#">How It Works</a>
+
         </div>
         <a href="{{ route('jobs') }}" class="btn ">Brows Jobs</a>
         <!-- Navigation elements on the right -->
