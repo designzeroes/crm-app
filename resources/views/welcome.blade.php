@@ -8,17 +8,7 @@
             <div class="col-sm-7">
               <div class="card-body">
                 <h5 class="card-title text-primary">
-                        @php
-                        $userRoles = Auth::user()->getRoleNames();
-                    @endphp
-                    
-                    @if ($userRoles->contains('super-admin'))
-                        Super Admin Dashboard
-                    @elseif ($userRoles->contains('company'))
-                        Company Dashboard
-                    @elseif ($userRoles->contains('employee'))
-                        Employee Dashboard
-                    @endif ! 🎉
+                     🎉
                 </h5>
                 <p class="mb-4">
                   You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
