@@ -28,12 +28,12 @@
             @if (Route::has('login'))
                 <div class="header-controls sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10 right">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="btn btn-primary right">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-secondary">Log in</a>
+                        <a href="{{ route('login') }}" class="btn btn-secondary right">Log in</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-info ml-2">Register</a>
+                            <a href="{{ route('register') }}" class="btn btn-info ml-2 right">Register</a>
                         @endif
                     @endauth
                 </div>
