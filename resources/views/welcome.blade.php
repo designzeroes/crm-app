@@ -7,7 +7,7 @@
     background-image: radial-gradient(circle, #000 5%, transparent 5%),
                       radial-gradient(circle, #000 5%, transparent 5%);
     background-size: 30px 30px;
-    background-position: 0 0, 15px 15px;
+    background-position: 0 0, 9px 9px;
 }
 
 </style>
