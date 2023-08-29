@@ -112,7 +112,7 @@
         </div>
     </div>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-light bg-img">
+<nav class="navbar navbar-expand-lg navbar-light ">
     <!-- <a class="navbar-brand" href="#">Freelancer Clone</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -134,7 +134,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="jumbotron text-center">
+  <section class="jumbotron text-center bg-img">
     <div class="container">
       <h1 class="display-4">Find the Perfect Freelancer</h1>
       <p class="lead">Get your projects done by expert freelancers from around the world.</p>
