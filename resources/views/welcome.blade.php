@@ -113,7 +113,7 @@
             @endif
         </div>
     </div>
-</nav><nav class="navbar navbar-expand-lg bg-secondary " style="padding-top: 0; padding-bottom: 0; background-collor:gray;">
+</nav><nav class="navbar navbar-expand-lg bg-secondary " style="padding-top: 0; padding-bottom: 0; ">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto" style="font-size: 14px;">
             <li class="nav-item active">
@@ -131,15 +131,15 @@
 
 
   <!-- Hero Section -->
-  <section class="jumbotron  text-light bg-img">
+  <section class="jumbotron  text-white bg-img">
     <div class="container">
-      <h1 class="display-4 text-light">Find the Perfect Freelancer</h1>
-      <p class="lead">Get your projects done by expert freelancers from around the world.</p>
-      <p class="lead">World's largest freelance marketplace</p>
+      <h1 class="display-4 text-white">Find the Perfect Resource</h1>
+      <p class="lead">Get your work done by expert from market.</p>
+      <p class="lead">World's best crm </p>
       <p class="lead">Any job you can possibly think of</p>
       <p class="lead">Save up to 90% & get quotes for free</p>
       <p class="lead">Pay only when you're 100% happy</p>
-      <a href="#" class="btn btn-primary btn-lg">Browse Projects</a>
+      <a href="#" class="btn btn-outline-primary">Browse Projects</a>
       <button class="btn btn-outline-primary btn-transparent">Earn Money</a>
     </div>
   </section>
