@@ -147,7 +147,9 @@
 
 <div class"d-flex">
     Users 
-    <a href="">google</a>
+    <a href="https://www.microsoft.com" target="_blank">
+                <img src="{{ asset('images/brand1.webp') }}" alt="Microsoft Logo" class="img-fluid">
+            </a>
 </div>
 </section>
 <hr>
