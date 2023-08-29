@@ -111,27 +111,22 @@
             @endif
         </div>
     </div>
-</nav>
-<nav class="navbar navbar-expand-lg navbar-light h-2 ">
-    <!-- <a class="navbar-brand" href="#">Freelancer Clone</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-    <div class="collapse navbar-collapse " id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Browse Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Post a Project</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">How It Works</a>
-        </li>
-        
-      </ul>
+</nav><nav class="navbar navbar-expand-lg navbar-light" style="padding-top: 0; padding-bottom: 0;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto" style="font-size: 14px;">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Browse Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Post a Project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">How It Works</a>
+            </li>
+        </ul>
     </div>
-  </nav>
+</nav>
+
 
   <!-- Hero Section -->
   <section class="jumbotron text-center text-white bg-img">
