@@ -111,7 +111,7 @@
             @endif
         </div>
     </div>
-</nav><nav class="navbar navbar-expand-lg navbar-light" style="padding-top: 0; padding-bottom: 0;">
+</nav><nav class="navbar navbar-expand-lg navbar-gray" style="padding-top: 0; padding-bottom: 0;">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto" style="font-size: 14px;">
             <li class="nav-item active">
