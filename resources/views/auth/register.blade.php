@@ -104,6 +104,7 @@
                           <div class="mb-3">
                             <label for="email" class="form-label">{{ __('Email')}}</label>
                             <input type="email" class="form-control"  id="email" name="email" placeholder="Enter your email" :value="old('email')" required autocomplete="username" />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                           </div>
                           <div class="mb-3">
                             <label for="role" class="form-label">{{ __('Role')}}</label>
@@ -112,7 +113,7 @@
                                 <option value="company">Company</option>
                                 <option value="employee">Employee</option>
                             </x-select-input>
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            
                           </div>
 
                           <div class="mb-3 form-password-toggle">

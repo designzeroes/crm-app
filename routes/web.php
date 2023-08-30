@@ -2,11 +2,17 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
 
-
-Route::get('/w', function () {
+Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['auth', 'role:company'])->group(function () {
+    Route::resource('job', JobController::class);
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('pages.controlpanel.dashboard');
