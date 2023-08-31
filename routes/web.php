@@ -7,6 +7,9 @@ use App\Http\Controllers\JobController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('jobs', function () {
+    return view('jobs');
+})->name('jobs');
 
 Route::middleware(['auth', 'role:organization'])->group(function () {
     Route::resource('job', JobController::class);
