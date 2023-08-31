@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
-        'company_id',
+        'organization_id',
         'job_title',
         'description',
         'creator',
@@ -28,5 +28,10 @@ class Job extends Model
         'career_page_url',
         'is_pinned_in_career_page',
     ];
-    
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
 }

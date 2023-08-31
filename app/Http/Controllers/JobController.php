@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -28,6 +29,12 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Get the authenticated user
+        $user = auth()->user();
+        // Retrieve the organization associated with the user
+        $organization = $user->organization;
+
         $rules = [
             'job_title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -47,9 +54,8 @@ class JobController extends Controller
     
                 // Validate the request data
         $validatedData = $request->validate($rules);
-
-        // Add the company_id to the validated data
-        $validatedData['company_id'] = $request->input('company_id'); // You need to replace 'company_id' with the actual input field name
+        $validatedData['organization_id'] = $organization->id;
+        $validatedData['creator'] = $user->id;
 
         // Create the job using the validated data
         Job::create($validatedData);

@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'role:company'])->group(function () {
+Route::middleware(['auth', 'role:organization'])->group(function () {
     Route::resource('job', JobController::class);
 });
 

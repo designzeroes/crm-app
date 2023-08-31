@@ -78,7 +78,7 @@
               </li>
   
               <!-- Layouts -->
-              @role('company')
+              @role('organization')
               <li class="menu-item">
                 <a href="{{ route('job.store') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-layout"></i>

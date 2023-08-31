@@ -83,8 +83,8 @@
                           </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Adventure starts here 🚀</h4>
-                        <p class="mb-4">Make your app management easy and fun!</p>
+                        <h4 class="mb-2">Organization starts here 🚀</h4>
+                        <p class="mb-4">You Can Register as Organization</p>
           
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -96,7 +96,30 @@
                               id="username"
                               name="name"
                               :value="old('name')"
-                              placeholder="Enter your username"
+                              placeholder="Enter your Name"
+                              required autofocus autocomplete="name"
+                            />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                          </div>
+                          <div class="mb-3">
+                            <label for="username" class="form-label">{{ __('Organization')}}</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="username"
+                              name="organization_name"
+                              placeholder="Enter your Organization Name"
+                              required autofocus
+                            />
+                          </div>
+                                                    <div class="mb-3">
+                            <label for="username" class="form-label">{{ __('Website')}}</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="username"
+                              name="website"
+                              placeholder="Enter your Website URL"
                               required autofocus autocomplete="name"
                             />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -106,7 +129,7 @@
                             <input type="email" class="form-control"  id="email" name="email" placeholder="Enter your email" :value="old('email')" required autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                           </div>
-                          <div class="mb-3">
+                          {{-- <div class="mb-3">
                             <label for="role" class="form-label">{{ __('Role')}}</label>
                             <x-select-input id="role" class="form-control" name="role" :value="old('role')" required autocomplete="role">
                                 <option value="" disabled selected>Select a role</option>
@@ -114,7 +137,7 @@
                                 <option value="employee">Employee</option>
                             </x-select-input>
                             
-                          </div>
+                          </div> --}}
 
                           <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>

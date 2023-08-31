@@ -102,6 +102,21 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
         });
 
+        // Create organization table
+        Schema::create('organizations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('organization_name')->nullable();
+            $table->string('description')->nullable();
+            $table->string('logo')->nullable();
+            $table->unsignedBigInteger('address_id')->nullable();
+            $table->string('website')->nullable();
+            $table->boolean('is_public')->nullable();
+            $table->boolean('is_visible')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
+        });
+
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id')->nullable();
@@ -160,19 +175,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
         });
 
-        // Create organization table
-        Schema::create('organization', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable(); 
-            $table->string('description')->nullable();
-            $table->string('logo')->nullable();
-            $table->unsignedBigInteger('address_id')->nullable();
-            $table->string('website')->nullable();
-            $table->boolean('is_public')->nullable();
-            $table->boolean('is_visible')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
-        });
+
 
         Schema::create('products', function (Blueprint $table) {
             $table->id();

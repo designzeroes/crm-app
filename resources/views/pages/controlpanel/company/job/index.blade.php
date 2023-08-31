@@ -15,7 +15,7 @@
             <thead>
               <tr>
                 <th>Project Title</th>
-                <th>Creator</th>
+                <th>Budget</th>
                 <th>Bid Closing</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -25,7 +25,7 @@
              @foreach( $jobs as $job)
               <tr>
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$job->job_title}}</strong></td>
-                <td>{{$job->creator}}</td>
+                <td>${{$job->budget}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     {{$job->bid_close}}
