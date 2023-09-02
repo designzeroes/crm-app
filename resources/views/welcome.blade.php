@@ -3,6 +3,9 @@
 <head>
     @include('includes.controlpanel.head')
 <style>
+    .bg{
+        background-color:#697a8d;
+    }
     .dot-pattern-bg {
     background-image: radial-gradient(circle, #000 5%, transparent 5%),
                       radial-gradient(circle, #000 5%, transparent 5%);
@@ -18,7 +21,7 @@
 }
 </style>
 </head>
-<body class="">
+<body class="bg">
 
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -148,7 +151,7 @@
 <div class"d-flex">
     Users 
     <a href="https://www.microsoft.com" target="_blank">
-                <img src="{{ asset('images/brand1.webp') }}" alt="Microsoft Logo" class="img-fluid">
+                <img src="{{ asset('images/brand1.webp') }}" alt="Microsoft Logo" class="app-brand">
             </a>
 </div>
 </section>
