@@ -4,7 +4,7 @@
     @include('includes.controlpanel.head')
 <style>
     .bg{
-        background-color:cyan;
+        background-color:lightcyan;
     }
     .dot-pattern-bg {
     background-image: radial-gradient(circle, #000 5%, transparent 5%),
