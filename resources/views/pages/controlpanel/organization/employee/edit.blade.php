@@ -57,7 +57,7 @@
                 <div class="col-sm-2 offset-sm-1"> <!-- Adjusted column classes -->
                   <label class="col-form-label" for="basic-default-company">employee Type</label>
                 </div>
-                <div class="col-sm-3"> <!-- Adjusted column classes... -->
+                <div class="col-sm-3"> <!-- Adjusted column classes -->
                   <select name="employee_type" class="form-select" id="basic-default-company">
                     <option value="Remote">Remote</option>
                     <option value="On-site">On-site</option>
