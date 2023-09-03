@@ -38,6 +38,12 @@
                 </div>
               </div>
               <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  name="email" id="basic-default-name" />
+                </div>
+              </div>
+              <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-company">Address</label>
                 <div class="col-sm-10">
                   <input
@@ -78,9 +84,21 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="Last_degree"
+                    name="latest_degree"
                     id="basic-default-company"
                     value="this is test"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Phone Number</label>
+                <div class="col-sm-10">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="phone_number"
+                    id="basic-default-company"
+                    value="09873887637"
                   />
                 </div>
               </div>
@@ -90,7 +108,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="last_university"
+                    name="latest_university"
                     id="basic-default-company"
                     value="this is test"
                   />
@@ -104,7 +122,7 @@
                     class="form-control"
                     name="current_organization"
                     id="basic-default-company"
-                    value="8743"
+                    value="design zeros"
                   />
                 </div>
               </div>
@@ -117,7 +135,7 @@
                           name="current_department"
                           class="form-control"
                           id="current-department"
-                          value="2023-05-03"
+                          value="web devloper"
                       />
                   </div>
                 </div>
@@ -131,10 +149,36 @@
                           name="current_position"
                           class="form-control"
                           id="current-position"
-                          value="2023-05-03"
+                          value="junier devloper"
                       />
                   </div>
                 </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="password">Password</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      required autocomplete="new-password" />
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="password_confirmation">{{__('Confirm Password')}}</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="password"
+                      id="password_confirmation"
+                      class="form-control"
+                      name="password_confirmation"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      required autocomplete="new-password" />
+                  </div>
+                </div>
+                
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label" for="basic-default-message">Description</label>
                   <div class="col-sm-10">

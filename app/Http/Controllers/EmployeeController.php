@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 
 class EmployeeController extends Controller
 {
@@ -12,8 +16,11 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all();
-
-        return view('pages.controlpanel.organization.employee.index', ['employees' => $employees]);
+        $users = User::all();
+        return view('pages.controlpanel.organization.employee.index', [
+            'employees' => $employees,
+            'users' => $users,
+        ]);
     }
 
 
@@ -27,10 +34,22 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $creator = auth()->user();
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ])->assignrole('employee');
 
         $rules = [
-            'name' => 'nullable|string|max:255',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'resume' => 'nullable|mimes:pdf|max:2048', 
             'phone_number' => 'nullable|string|max:255',
@@ -45,10 +64,12 @@ class EmployeeController extends Controller
             'current_position' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:500',
         ];
-    
+
+       
 
                 // Validate the request data
         $validatedData = $request->validate($rules);
+        $validatedData['creator_id'] = $creator->id;
         $validatedData['user_id'] = $user->id;
         // Create the Employee using the validated data
         Employee::create($validatedData);
@@ -56,6 +77,8 @@ class EmployeeController extends Controller
     
         // You can redirect or do something else after the Employee is created
         return redirect()->route('employee.index');
+
+        
 
     }
 
@@ -72,9 +95,12 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        $Employee = Employee::findOrFail($id);
-
-        return view('pages.controlpanel.organization.employee.edit', ['employee' => $Employee]);
+        $employee = Employee::findOrFail($id);
+        $user = User::findOrFail($id);
+        return view('pages.controlpanel.organization.employee.edit', [
+            'employee' => $employee,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -82,7 +108,33 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rules =  [
+
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+        
+        ]);
+
+        $user = User::findOrFail($id); 
+
+        // Update the user's attributes
+        $user->name = $request->name;
+        $user->email = $request->email;
+        
+        // Optionally, you can update the password if needed
+        if (!empty($request->password)) {
+            $request->validate([
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            
+            ]);
+            $user->password = Hash::make($request->password);
+        }
+        
+        $user->save();
+        
+
+        $rules = [
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'resume' => 'nullable|mimes:pdf|max:2048', 
             'phone_number' => 'nullable|string|max:255',
@@ -97,19 +149,22 @@ class EmployeeController extends Controller
             'current_position' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:500',
         ];
-    
-    
-      // Validate the request data
-      $validatedData = $request->validate($rules);
 
-      // Retrieve the Employee based on the provided $id
-      $Employee = Employee::findOrFail($id);
-  
-      // Update the Employee using the validated data
-      $Employee->update($validatedData);
-  
-      // You can redirect or do something else after the Employee is updated
-      return redirect()->route('employee.index');
+       
+
+            // Validate the request data
+            $employee = Employee::findOrFail($id); // Replace $employeeId with the Employee's ID
+
+            // Validate the request data
+            $validatedData = $request->validate($rules);
+            
+            // Update the Employee record using the validated data
+            $employee->update($validatedData);
+            
+            // Redirect or perform other actions after the Employee is updated
+            return redirect()->route('employee.index');
+
+        
   
     }
 

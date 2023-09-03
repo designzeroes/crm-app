@@ -14,8 +14,8 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Address</th>
-                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>User id</th>
                 <th>Gender</th>
                 <th>Actions</th>
@@ -23,9 +23,12 @@
             </thead>
             <tbody class="table-border-bottom-0">
              @foreach( $employees as $employee)
+             @php
+             $user = $users->where('id', $employee->user_id)->first();
+         @endphp
               <tr>
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$employee->address}}</strong></td>
-                <td>{{$employee->id}}</td>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$user->name}}</strong></td>
+                <td>{{$user->email}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     {{$employee->user_id}}
@@ -38,10 +41,10 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="{{ route('employee.edit', ['employee' => $employee->id]) }}"
+                      <a class="dropdown-item" href="{{ route('employee.edit', ['employee' => $employee->user_id]) }}"
                         ><i class="bx bx-edit-alt me-1"></i> Edit</a
                       >
-                      <form method="POST" action="{{ route('employee.destroy', ['employee' => $employee->id]) }}" class="delete-form">
+                      <form method="POST" action="{{ route('employee.destroy', ['employee' => $employee->user_id]) }}" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="dropdown-item">
