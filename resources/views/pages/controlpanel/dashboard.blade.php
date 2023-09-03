@@ -14,8 +14,8 @@
                     
                     @if ($userRoles->contains('super-admin'))
                         Super Admin Dashboard
-                    @elseif ($userRoles->contains('company'))
-                        Company Dashboard
+                    @elseif ($userRoles->contains('organization'))
+                        Organization Dashboard
                     @elseif ($userRoles->contains('employee'))
                         Employee Dashboard
                     @endif ! 🎉

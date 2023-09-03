@@ -10,7 +10,7 @@ class Job extends Model
     use HasFactory;
     
     protected $fillable = [
-        'organization_id',
+        'user_id',
         'job_title',
         'description',
         'creator',
@@ -31,7 +31,7 @@ class Job extends Model
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class, 'organization_id');
+        return $this->belongsTo(Organization::class);
     }
 
 }

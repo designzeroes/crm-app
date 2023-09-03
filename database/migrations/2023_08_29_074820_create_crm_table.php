@@ -57,11 +57,10 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
         });
 
-        Schema::create('candidates', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('picture')->nullable();
-            $table->string('email')->nullable();
             $table->string('resume')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('gender')->nullable();
@@ -119,10 +118,9 @@ return new class extends Migration
 
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('job_title')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('creator')->nullable();
             $table->string('address')->nullable();
             $table->integer('zipcode')->nullable();
             $table->string('status')->default('Active');

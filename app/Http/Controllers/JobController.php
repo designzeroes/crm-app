@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
-use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -14,14 +13,14 @@ class JobController extends Controller
     {
         $jobs = Job::all();
 
-        return view('pages.controlpanel.company.job.index', ['jobs' => $jobs]);
+        return view('pages.controlpanel.organization.job.index', ['jobs' => $jobs]);
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('pages.controlpanel.company.job.create');
+        return view('pages.controlpanel.organization.job.create');
     }
 
     /**
@@ -32,8 +31,6 @@ class JobController extends Controller
 
         // Get the authenticated user
         $user = auth()->user();
-        // Retrieve the organization associated with the user
-        $organization = $user->organization;
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
@@ -54,8 +51,7 @@ class JobController extends Controller
     
                 // Validate the request data
         $validatedData = $request->validate($rules);
-        $validatedData['organization_id'] = $organization->id;
-        $validatedData['creator'] = $user->id;
+        $validatedData['user_id'] = $user->id;
 
         // Create the job using the validated data
         Job::create($validatedData);
@@ -81,7 +77,7 @@ class JobController extends Controller
     {
         $job = Job::findOrFail($id);
 
-        return view('pages.controlpanel.company.job.edit', ['job' => $job]);
+        return view('pages.controlpanel.organization.job.edit', ['job' => $job]);
     }
 
     /**

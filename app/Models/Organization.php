@@ -20,10 +20,6 @@ class Organization extends Model
         'is_visible',
     ];
 
-        public function jobs()
-    {
-        return $this->hasMany(Job::class, 'organization_id');
-    }
 
         public function user()
     {

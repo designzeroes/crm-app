@@ -3,10 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('jobs', function () {
     return view('jobs');
 })->name('jobs');
@@ -15,6 +17,9 @@ Route::middleware(['auth', 'role:organization'])->group(function () {
     Route::resource('job', JobController::class);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('employee', EmployeeController::class);
+});
 
 
 Route::get('/dashboard', function () {
