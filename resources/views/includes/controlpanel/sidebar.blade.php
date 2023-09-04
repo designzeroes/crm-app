@@ -86,16 +86,9 @@
                 </a>
               </li>
               @endrole
-              
               <li class="menu-item {{ request()->is('employee*') ? 'active' : '' }}">
-                @role('organization')
+                @role(['organization','super-admin'])
                 <a href="{{ route('employee.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Employees</div>
-                </a>
-                @endrole
-                @role('super-admin')
-                <a href="{{ route('admin-employee.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                   <div data-i18n="Authentications">Employees</div>
                 </a>

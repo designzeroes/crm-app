@@ -14,9 +14,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
+        $creator = auth()->user();
+        $employees = Employee::where('creator_id', $creator->id)->get();
         $users = User::all();
-        return view('pages.controlpanel.organization.employee.index', [
+        return view('pages.controlpanel.employee.index', [
             'employees' => $employees,
             'users' => $users,
         ]);
@@ -25,7 +26,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('pages.controlpanel.organization.employee.create');
+        return view('pages.controlpanel.employee.create');
     }
 
     /**
@@ -94,9 +95,10 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        $employee = Employee::findOrFail($id);
+  
+        $employee = Employee::where('user_id', $id)->firstOrFail();
         $user = User::findOrFail($id);
-        return view('pages.controlpanel.organization.employee.edit', [
+        return view('pages.controlpanel.employee.edit', [
             'employee' => $employee,
             'user' => $user,
         ]);
@@ -108,7 +110,7 @@ class EmployeeController extends Controller
     public function update(Request $request, string $id)
     {
 
-
+        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
@@ -125,8 +127,8 @@ class EmployeeController extends Controller
         if (!empty($request->password)) {
             $request->validate([
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            
             ]);
+
             $user->password = Hash::make($request->password);
         }
         
@@ -149,20 +151,19 @@ class EmployeeController extends Controller
             'description' => 'nullable|string|max:500',
         ];
 
-       
 
             // Validate the request data
-            $employee = Employee::findOrFail($id); // Replace $employeeId with the Employee's ID
+            $employee = Employee::where('user_id', $id)->firstOrFail(); // Replace $employeeId with the Employee's ID
 
             // Validate the request data
             $validatedData = $request->validate($rules);
             
             // Update the Employee record using the validated data
             $employee->update($validatedData);
-            
+           
             // Redirect or perform other actions after the Employee is updated
-            return redirect()->route('employee.index');
-
+                 return redirect()->route('employee.index');
+              
         
   
     }
@@ -173,10 +174,10 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
             // Retrieve the Employee based on the provided $id
-    $Employee = Employee::findOrFail($id);
-
+    $user = User::findOrFail($id);
+    Employee::where('user_id', $id)->delete();
     // Delete the Employee
-    $Employee->delete();
+    $user->deleteWithRolesAndPermissions();
 
     // You can redirect or do something else after the Employee is deleted
     return redirect()->route('employee.index');

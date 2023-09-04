@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\EmployeeController;
+use App\Models\Employee;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,8 +19,13 @@ Route::middleware(['auth', 'role:organization'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('employee', EmployeeController::class);
+    Route::middleware(['role:organization|super-admin'])->group(function () {
+        Route::resource('employee', EmployeeController::class);
+    });
 });
+
+
+
 
 
 Route::get('/dashboard', function () {

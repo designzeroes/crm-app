@@ -22,6 +22,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_id',
+        'creator_id',
+        'picture',
+        'resume',
+        'phone_number',
+        'gender',
+        'birth_date',
+        'address',
+        'zipcode',
+        'latest_degree',
+        'latest_university',
+        'current_organization',
+        'current_department',
+        'current_position',
+        'description',
     ];
 
     /**
@@ -51,7 +66,14 @@ class User extends Authenticatable
 
 public function employee()
 {
-    return $this->hasMany(Employee::class);
+    return $this->hasMany(Employee::class, 'user_id');
+}
+
+public function deleteWithRolesAndPermissions()
+{
+    $this->roles()->detach(); // Detach roles
+    $this->permissions()->detach(); // Detach permissions
+    $this->delete(); // Delete the user
 }
 
 

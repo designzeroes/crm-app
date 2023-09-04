@@ -25,7 +25,7 @@
              @foreach( $employees as $employee)
              @php
              $user = $users->where('id', $employee->user_id)->first();
-         @endphp
+             @endphp
               <tr>
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$user->name}}</strong></td>
                 <td>{{$user->email}}</td>
