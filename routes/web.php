@@ -4,9 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\EmployeeController;
-use App\Models\Employee;
 
-Route::get('/', function () {
+Route::get('/w', function () {
     return view('welcome');
 });
 
