@@ -13,12 +13,12 @@ Route::get('jobs', function () {
     return view('jobs');
 })->name('jobs');
 
-Route::get('job',[JobController::class, 'index'])->name('job');
+Route::get('job',[JobController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'role:organization'])->group(function () {
-    Route::resource('job', JobController::class)->name('job');
+    Route::resource('job', JobController::class);
+});
 
-};
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|super-admin'])->group(function () {
         Route::resource('employee', EmployeeController::class);
