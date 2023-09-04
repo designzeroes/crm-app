@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class EmployeeController extends Controller
+class AdminEmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $employees = Employee::all();
-        $users = User::all();
-        return view('pages.controlpanel.organization.employee.index', [
+        $creator = auth()->user();
+
+        $employees = Employee::where('creator_id', $creator->id)->get();
+        $users = User::where('id', $creator->id)->get();
+        return view('pages.controlpanel.super-admin.employee.index', [
             'employees' => $employees,
             'users' => $users,
         ]);
@@ -25,7 +27,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('pages.controlpanel.organization.employee.create');
+        return view('pages.controlpanel.super-admin.employee.create');
     }
 
     /**
@@ -58,7 +60,7 @@ class EmployeeController extends Controller
             'zipcode' => 'nullable|string|max:10',
             'latest_degree' => 'nullable|string|max:255',
             'latest_university' => 'nullable|string|max:255',
-            'current_organization' => 'nullable|string|max:255',
+            'current_super-admin' => 'nullable|string|max:255',
             'current_department' => 'nullable|string|max:255',
             'current_position' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:500',
@@ -96,7 +98,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         $user = User::findOrFail($id);
-        return view('pages.controlpanel.organization.employee.edit', [
+        return view('pages.controlpanel.super-admin.employee.edit', [
             'employee' => $employee,
             'user' => $user,
         ]);
@@ -143,7 +145,7 @@ class EmployeeController extends Controller
             'zipcode' => 'nullable|string|max:10',
             'latest_degree' => 'nullable|string|max:255',
             'latest_university' => 'nullable|string|max:255',
-            'current_organization' => 'nullable|string|max:255',
+            'current_super-admin' => 'nullable|string|max:255',
             'current_department' => 'nullable|string|max:255',
             'current_position' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:500',

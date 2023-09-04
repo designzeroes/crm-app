@@ -2,8 +2,17 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Job/</span> Create Job</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Employee/</span> Create Employee</h4>
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
       <!-- Basic Layout -->
@@ -14,12 +23,24 @@
             <small class="text-muted float-end">Fill all the fields</small>
           </div>
           <div class="card-body">
-            <form method="post" action="{{route('job.store')}}">
+            <form method="post" action="{{route('employee.store')}}">
               @csrf
               <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-name">Job Title</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" value="this is test" name="job_title" id="basic-default-name" />
+                  <input type="text" class="form-control" value="this is test" name="name" id="basic-default-name" />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Gender</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" value="Male" name="gender" id="basic-default-name" />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  name="email" id="basic-default-name" />
                 </div>
               </div>
               <div class="row mb-3">
@@ -40,95 +61,124 @@
                   <input
                     type="number"
                     value="98766"
+                    name="zipcode"
                     class="form-control"
                     id="basic-default-company"
                   />
                 </div>
-                
-                <div class="col-sm-2 offset-sm-1"> <!-- Adjusted column classes -->
-                  <label class="col-form-label" for="basic-default-company">Job Type</label>
-                </div>
-                <div class="col-sm-3"> <!-- Adjusted column classes -->
-                  <select name="job_type" class="form-select" id="basic-default-company">
-                    <option value="Remote">Remote</option>
-                    <option value="On-site">On-site</option>
-                    <option value="Hybrid">Hybrid</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Skill</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="skill"
-                    id="basic-default-company"
-                    value="this is test"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Experience</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="experience"
-                    id="basic-default-company"
-                    value="this is test"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Education</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="education"
-                    id="basic-default-company"
-                    value="this is test"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Budget</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="budget"
-                    id="basic-default-company"
-                    value="8743"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Bid Closing</label>
+
+                <label class="col-sm-2 col-form-label" for="basic-default-company">- Date of Birth</label>
                 <div class="col-sm-4">
                   <input
                     type="date"
-                    name="bid_close"
                     class="form-control"
+                    name="birth_date"
                     id="basic-default-company"
-                    value="2023-05-03"
-                  />
-                </div>
-                
-                <label class="col-sm-2 col-form-label pe-2" for="basic-default-company">Deadline</label>
-                <div class="col-sm-4">
-                  <input
-                    type="date"
-                    name="deadline"
-                    class="form-control"
-                    id="basic-default-company"
-                    value="2023-05-03"
+                    value="05-08-23"
                   />
                 </div>
               </div>
-                       
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Last Degree</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="latest_degree"
+                    id="basic-default-company"
+                    value="this is test"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Phone Number</label>
+                <div class="col-sm-10">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="phone_number"
+                    id="basic-default-company"
+                    value="09873887637"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Last University</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="latest_university"
+                    id="basic-default-company"
+                    value="this is test"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Current Organization</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="current_organization"
+                    id="basic-default-company"
+                    value="design zeros"
+                  />
+                </div>
+              </div>
+                <!-- Current Department -->
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="current-department">Current Department</label>
+                  <div class="col-sm-10">
+                      <input
+                          type="text"
+                          name="current_department"
+                          class="form-control"
+                          id="current-department"
+                          value="web devloper"
+                      />
+                  </div>
+                </div>
+
+                <!-- Current Position -->
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="current-position">Current Position</label>
+                  <div class="col-sm-10">
+                      <input
+                          type="text"
+                          name="current_position"
+                          class="form-control"
+                          id="current-position"
+                          value="junier devloper"
+                      />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="password">Password</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      required autocomplete="new-password" />
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="password_confirmation">{{__('Confirm Password')}}</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="password"
+                      id="password_confirmation"
+                      class="form-control"
+                      name="password_confirmation"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      required autocomplete="new-password" />
+                  </div>
+                </div>
+                
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label" for="basic-default-message">Description</label>
                   <div class="col-sm-10">

@@ -70,7 +70,7 @@
   
             <ul class="menu-inner py-1">
               <!-- Dashboard -->
-              <li class="menu-item active">
+              <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
                 <a href="{{route('dashboard')}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Dashboard</div>
@@ -79,7 +79,7 @@
   
               <!-- Layouts -->
               @role('organization')
-              <li class="menu-item">
+              <li class="menu-item {{ request()->is('job*') ? 'active' : '' }}">
                 <a href="{{ route('job.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-layout"></i>
                   <div data-i18n="Layouts">Job</div>
@@ -87,11 +87,19 @@
               </li>
               @endrole
               
-              <li class="menu-item">
+              <li class="menu-item {{ request()->is('employee*') ? 'active' : '' }}">
+                @role('organization')
                 <a href="{{ route('employee.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                   <div data-i18n="Authentications">Employees</div>
                 </a>
+                @endrole
+                @role('super-admin')
+                <a href="{{ route('admin-employee.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                  <div data-i18n="Authentications">Employees</div>
+                </a>
+                @endrole
                {{--  <ul class="menu-sub">
                   <li class="menu-item">
                     <a href="auth-login-basic.html" class="menu-link" target="_blank">
