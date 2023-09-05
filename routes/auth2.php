@@ -11,6 +11,7 @@ use App\Http\Controllers\CandidateAuth\RegisteredUserController;
 use App\Http\Controllers\CandidateAuth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::middleware('guest')->group(function () {
     Route::get('uregister', [RegisteredUserController::class, 'create'])
                 ->name('register');
