@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\CandidateAuth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ])->assignrole('organization');
+        ])->assignrole('candidate');
 
         Organization::create([
             'user_id' => $user->id, 

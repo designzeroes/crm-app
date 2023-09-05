@@ -86,7 +86,7 @@
                         <h4 class="mb-2">Organization starts here 🚀</h4>
                         <p class="mb-4">You Can Register as Organization</p>
           
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('uregister') }}">
                             @csrf
                           <div class="mb-3">
                             <label for="username" class="form-label">{{ __('Name')}}</label>
@@ -186,7 +186,7 @@
           
                         <p class="text-center">
                           <span>Already have an account?</span>
-                          <a href="{{route('login')}}">
+                          <a href="{{route('ulogin')}}">
                             <span>Sign in instead</span>
                           </a>
                         </p>
