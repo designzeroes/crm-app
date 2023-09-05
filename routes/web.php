@@ -13,7 +13,6 @@ Route::get('jobs', function () {
     return view('jobs');
 })->name('jobs');
 
-Route::get('job',[JobController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'role:organization'])->group(function () {
     Route::resource('job', JobController::class);

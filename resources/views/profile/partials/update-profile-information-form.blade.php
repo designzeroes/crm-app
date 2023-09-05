@@ -50,6 +50,7 @@
               <x-text-input id="email" name="email" type="email" class="form-control" :value="old('email', $user->email)" required autocomplete="username" />
               <x-input-error class="mt-2" :messages="$errors->get('email')" />
           </div>
+          @role('employee')
             <div class="mb-3 col-md-6">
               <x-input-label for="Phone" :value="__('Phone Number')" />
               <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $employee->phone_number)" required autocomplete="phone_number" />
@@ -107,6 +108,7 @@
                 >{{old('current_position', $employee->description)}}</textarea>
               
             </div>
+            @endrole
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee;
+use App\Models\Organization;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,11 +17,20 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+            $profile= '';
+        if ($request->user()->hasRole('employee') === true) {
+            $profile = Employee::where('user_id', $request->user()->id)->firstOrFail();
+
+        } elseif ($request->user()->hasRole('organization')) {
+            $profile = Organization::where('user_id', $request->user()->id)->firstOrFail();
+
+        }
         
-        $employee = Employee::where('user_id', $request->user()->id)->firstOrFail();
+
+
         return view('profile.edit', [
             'user' => $request->user(),
-            'employee' => $employee,
+             'profile' => $profile,
         ]);
 
         
