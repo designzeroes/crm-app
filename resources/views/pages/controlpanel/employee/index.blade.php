@@ -17,7 +17,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>User id</th>
-                <th>Gender</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -34,7 +33,6 @@
                     {{$employee->user_id}}
                   </ul>
                 </td>
-                <td><span class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">{{$employee->gender}}</span></td>
                 <td>
                   <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

@@ -49,26 +49,6 @@ class EmployeeController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('employee');
 
-        $rules = [
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
-            'resume' => 'nullable|mimes:pdf|max:2048', 
-            'phone_number' => 'nullable|string|max:255',
-            'gender' => 'nullable|in:Male,Female,Other',
-            'birth_date' => 'nullable|date',
-            'address' => 'nullable|string|max:255',
-            'zipcode' => 'nullable|string|max:10',
-            'latest_degree' => 'nullable|string|max:255',
-            'latest_university' => 'nullable|string|max:255',
-            'current_organization' => 'nullable|string|max:255',
-            'current_department' => 'nullable|string|max:255',
-            'current_position' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:500',
-        ];
-
-       
-
-                // Validate the request data
-        $validatedData = $request->validate($rules);
         $validatedData['creator_id'] = $creator->id;
         $validatedData['user_id'] = $user->id;
         // Create the Employee using the validated data

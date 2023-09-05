@@ -109,7 +109,7 @@ return new class extends Migration
             $table->string('organization_name')->nullable();
             $table->string('description')->nullable();
             $table->string('logo')->nullable();
-            $table->unsignedBigInteger('address_id')->nullable();
+            $table->string('address')->nullable();
             $table->string('website')->nullable();
             $table->boolean('is_public')->nullable();
             $table->boolean('is_visible')->nullable();

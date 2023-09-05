@@ -41,7 +41,7 @@
         @method('patch')
       <div class="row">
           <div class="mb-3 col-md-6">
-              <x-input-label for="name" :value="__('Name')" />
+              <x-input-label for="name" :value="__('User Name')" />
               <x-text-input id="name" name="name" type="text" class="form-control" :value="old('name', $user->name)" required autofocus autocomplete="name" />
               <x-input-error class="mt-2" :messages="$errors->get('name')" />
           </div>
@@ -50,51 +50,62 @@
               <x-text-input id="email" name="email" type="email" class="form-control" :value="old('email', $user->email)" required autocomplete="username" />
               <x-input-error class="mt-2" :messages="$errors->get('email')" />
           </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" required autocomplete="address" />
+        </div>
+          @role('organization')
+          <div class="mb-3 col-md-6">
+            <x-input-label for="organization_name" :value="__('Organization Name')" />
+            <x-text-input id="organization_name" name="organization_name" type="text" class="form-control" :value="old('organization_name', $profile->organization_name)" required autocomplete="organization_name" />
+          </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="website" :value="__('Website')" />
+            <x-text-input id="website" name="website" type="text" class="form-control" :value="old('website', $profile->website)" required autocomplete="website" />
+          </div>
+          @endrole
           @role('employee')
             <div class="mb-3 col-md-6">
               <x-input-label for="Phone" :value="__('Phone Number')" />
-              <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $employee->phone_number)" required autocomplete="phone_number" />
+              <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $profile->phone_number)" required autocomplete="phone_number" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="gender" :value="__('Gender')" />
             <select id="gender" name="gender" class="form-control" required autocomplete="gender">
                 <option value="" disabled selected>Select Gender</option>
-                <option value="male" @if(old('gender', $employee->gender) === 'male') selected @endif>Male</option>
-                <option value="female" @if(old('gender', $employee->gender) === 'female') selected @endif>Female</option>
-                <option value="other" @if(old('gender', $employee->gender) === 'other') selected @endif>Other</option>
+                <option value="male" @if(old('gender', $profile->gender) === 'male') selected @endif>Male</option>
+                <option value="female" @if(old('gender', $profile->gender) === 'female') selected @endif>Female</option>
+                <option value="other" @if(old('gender', $profile->gender) === 'other') selected @endif>Other</option>
             </select>
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="birth_date" :value="__('Birth Date')" />
-              <x-text-input id="birth_date" name="birth_date" type="date" class="form-control" :value="old('birth_date', $employee->birth_date)" required autocomplete="birth_date" />
-          </div>
-            <div class="mb-3 col-md-6">
-              <x-input-label for="email" :value="__('Address')" />
-              <x-text-input id="email" name="address" type="text" class="form-control" :value="old('address', $employee->address)" required autocomplete="address" />
+              <x-text-input id="birth_date" name="birth_date" type="date" class="form-control" :value="old('birth_date', $profile->birth_date)" required autocomplete="birth_date" />
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="zipcode" :value="__('Zipcode')" />
-              <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $employee->zipcode)" required autocomplete="zipcode" />
+              <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $profile->zipcode)" required autocomplete="zipcode" />
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="latest_degree" :value="__('Latest Degree')" />
-              <x-text-input id="latest_degree" name="latest_degree" type="text" class="form-control" :value="old('latest_degree', $employee->latest_degree)" required autocomplete="latest_degree" />
+              <x-text-input id="latest_degree" name="latest_degree" type="text" class="form-control" :value="old('latest_degree', $profile->latest_degree)" required autocomplete="latest_degree" />
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="latest_university" :value="__('Latest University')" />
-              <x-text-input id="latest_university" name="latest_university" type="text" class="form-control" :value="old('latest_university', $employee->latest_university)" required autocomplete="latest_university" />
+              <x-text-input id="latest_university" name="latest_university" type="text" class="form-control" :value="old('latest_university', $profile->latest_university)" required autocomplete="latest_university" />
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_organization" :value="__('Current Organization')" />
-              <x-text-input id="current_organization" name="current_organization" type="text" class="form-control" :value="old('current_organization', $employee->current_organization)" required autocomplete="current_organization" />            </div>
+              <x-text-input id="current_organization" name="current_organization" type="text" class="form-control" :value="old('current_organization', $profile->current_organization)" required autocomplete="current_organization" />            </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_department" :value="__('Current Department')" />
-              <x-text-input id="current_department" name="current_department" type="text" class="form-control" :value="old('current_department', $employee->current_department)" required autocomplete="current_department" />
+              <x-text-input id="current_department" name="current_department" type="text" class="form-control" :value="old('current_department', $profile->current_department)" required autocomplete="current_department" />
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_position" :value="__('Current Position')" />
-              <x-text-input id="current_position" name="current_position" type="text" class="form-control" :value="old('current_position', $employee->current_position)" required autocomplete="current_position" />
+              <x-text-input id="current_position" name="current_position" type="text" class="form-control" :value="old('current_position', $profile->current_position)" required autocomplete="current_position" />
             </div>
+            @endrole
             <div class="mb-3 col-md-12">
               <x-input-label for="description" :value="__('Description')" />
               
@@ -105,10 +116,9 @@
                   placeholder="Tell us about the project!"
                   aria-label="Tell us about the project!"
                   aria-describedby="basic-icon-default-message2"
-                >{{old('current_position', $employee->description)}}</textarea>
+                >{{old('current_position', $profile->description)}}</textarea>
               
             </div>
-            @endrole
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

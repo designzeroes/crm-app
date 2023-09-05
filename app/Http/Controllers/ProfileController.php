@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
             $profile= '';
-        if ($request->user()->hasRole('employee') === true) {
+        if ($request->user()->hasRole('employee')) {
             $profile = Employee::where('user_id', $request->user()->id)->firstOrFail();
 
         } elseif ($request->user()->hasRole('organization')) {
@@ -42,6 +42,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -53,10 +54,12 @@ class ProfileController extends Controller
         $rules = [
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'resume' => 'nullable|mimes:pdf|max:2048', 
+            'organization_name' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:255',
             'gender' => 'nullable|in:Male,Female,Other',
             'birth_date' => 'nullable|date',
-            'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:10',
             'latest_degree' => 'nullable|string|max:255',
             'latest_university' => 'nullable|string|max:255',
@@ -66,15 +69,21 @@ class ProfileController extends Controller
             'description' => 'nullable|string|max:500',
         ];
 
-
-            // Validate the request data
-            $employee = Employee::where('user_id', $request->user()->id)->firstOrFail(); // Replace $employeeId with the Employee's ID
-
-            // Validate the request data
+        if ($request->user()->hasRole('employee')) {
+            $profile = Employee::where('user_id', $request->user()->id)->firstOrFail();
             $validatedData = $request->validate($rules);
-            
-            // Update the Employee record using the validated data
-            $employee->update($validatedData);
+            $profile->update($validatedData);
+
+        } elseif ($request->user()->hasRole('organization')) {
+            $profile = Organization::where('user_id', $request->user()->id)->firstOrFail();
+            $validatedData = $request->validate($rules);
+
+            $profile->update($validatedData);
+
+        }
+
+
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

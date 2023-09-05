@@ -14,7 +14,7 @@ class Organization extends Model
         'organization_name',
         'description',
         'logo',
-        'address_id',
+        'address',
         'website',
         'is_public',
         'is_visible',
