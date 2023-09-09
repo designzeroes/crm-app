@@ -64,7 +64,13 @@
             <x-text-input id="website" name="website" type="text" class="form-control" :value="old('website', $profile->website)" required autocomplete="website" />
           </div>
           @endrole
-          @role('employee')
+          @role('candidate')
+          <div class="mb-3 col-md-6">
+            <x-input-label for="skill" :value="__('Skill')" />
+            <x-text-input id="skill" name="skill" type="text" class="form-control" :value="old('skill', $profile->skill)" required autocomplete="skill" />
+          </div>
+          @endrole
+          @role(['employee','candidate'])
             <div class="mb-3 col-md-6">
               <x-input-label for="Phone" :value="__('Phone Number')" />
               <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $profile->phone_number)" required autocomplete="phone_number" />

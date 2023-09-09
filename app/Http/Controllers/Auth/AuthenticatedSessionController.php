@@ -20,6 +20,11 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function create_candidate(): View
+    {
+        return view('auth.candidate.login');
+    }
+
     /**
      * Handle an incoming authentication request.
      */
@@ -28,8 +33,41 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+            // Check if the authenticated user has the 'candidate' role
+    if ( $request->user()->hasRole('candidate')) {
+        // Log the user out
+        Auth::logout();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Redirect them back to the login page with an error message
+        return redirect()->route('user-login')->with('error', 'You are not allowed to log in here.');
+    }else{
+    
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        
+    }
+
+    public function store_candidate(LoginRequest $request): RedirectResponse
+    {
+
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        if ($request->user()->hasRole('candidate')) {
+
+            return redirect()->intended(RouteServiceProvider::HOME);
+
+        }else{
+
+                    // Log the user out
+                    Auth::logout();
+    
+                    // Redirect them back to the login page with an error message
+                    return redirect()->route('user-login')->with('error', 'You are not allowed to log in here.');
+                
+            }
     }
 
     /**

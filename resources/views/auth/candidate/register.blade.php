@@ -83,8 +83,8 @@
                           </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Organization starts here 🚀</h4>
-                        <p class="mb-4">You Can Register as Organization</p>
+                        <h4 class="mb-2">Work starts here 🚀</h4>
+                        <p class="mb-4">You Can Register as User</p>
           
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -101,33 +101,15 @@
                             />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                           </div>
-                          <div class="mb-3">
-                            <label for="username" class="form-label">{{ __('Organization')}}</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="username"
-                              name="organization_name"
-                              placeholder="Enter your Organization Name"
-                              required autofocus
-                            />
-                          </div>
-                                                    <div class="mb-3">
-                            <label for="username" class="form-label">{{ __('Website')}}</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="username"
-                              name="website"
-                              placeholder="Enter your Website URL"
-                              required autofocus autocomplete="name"
-                            />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                          </div>
+
                           <div class="mb-3">
                             <label for="email" class="form-label">{{ __('Email')}}</label>
-                            <input type="email" class="form-control"  id="email" name="email" placeholder="Enter your email" :value="old('email')" required autocomplete="username" />
+                            <input type="email" class="form-control"  id="email" name="email" placeholder="Enter your email" :value="old('email')" required autocomplete="email" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                          </div>
+                          <div class="mb-3">
+                            <label for="skill" class="form-label">{{ __('Skill')}}</label>
+                            <input type="text" class="form-control"  id="skill" name="skill" placeholder="Web Devloper" :value="old('skill')" required autocomplete="skill" />
                           </div>
 
                           <div class="mb-3 form-password-toggle">
@@ -170,7 +152,7 @@
                             </div>
                           </div>
                           <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100"  type="submit">{{ __('Sign up') }}</button>
+                            <button class="btn btn-primary d-grid w-100" name="candidate" type="submit">{{ __('Sign up') }}</button>
                         </div>
                         </form>
           

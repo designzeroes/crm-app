@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Organization;
+use App\Models\Candidate;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,6 +25,9 @@ class ProfileController extends Controller
 
         } elseif ($request->user()->hasRole('organization')) {
             $profile = Organization::where('user_id', $request->user()->id)->firstOrFail();
+
+        } elseif ($request->user()->hasRole('candidate')) {
+            $profile = Candidate::where('user_id', $request->user()->id)->firstOrFail();
 
         }
         

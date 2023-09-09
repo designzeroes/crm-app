@@ -142,8 +142,22 @@
       <p class="lead">Any job you can possibly think of</p>
       <p class="lead">Save up to 90% & get quotes for free</p>
       <p class="lead">Pay only when you're 100% happy</p>
-      <a href="#" class="btn btn-primary">Browse Projects</a>
-      <button class="btn btn-outline-primary btn-transparent">Earn Money</a>
+              <!-- Navigation elements on the right -->
+              <div class="app-brand justify-content-end">
+                @if (Route::has('login'))
+                    <div class="header-controls sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        @else
+                            <a href="{{ route('user-login') }}" class="btn btn-secondary">User Login</a>
+    
+                            @if (Route::has('register'))
+                                <a href="{{ route('user-register') }}" class="btn btn-info ml-2">User Register</a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
+            </div>
     </div>
   </section>
 <section>

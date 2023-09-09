@@ -84,15 +84,15 @@
                             </div>
                             <!-- /Logo -->
                             <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-                            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                            <p class="mb-4">Please sign-in to your account user and start the adventure</p>
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
                                    <!-- Session Status -->
-                                   @if(session('error'))
-                                   <div class="alert alert-danger">
-                                       {{ session('error') }}
-                                   </div>
-                                   @endif
                                <x-auth-session-status class="mb-4" :status="session('status')" />
-                               <form method="POST" action="{{ route('login') }}">
+                               <form method="POST" action="{{ route('user-login') }}">
                                 @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{ __('Email')}}"</label>
@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Log in') }}</button>
+                                <button class="btn btn-primary d-grid w-100" name="candidate" type="submit">{{ __('Log in') }}</button>
                             </div>
                             </form>
             

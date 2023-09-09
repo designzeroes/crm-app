@@ -18,6 +18,8 @@
                         Organization Dashboard
                     @elseif ($userRoles->contains('employee'))
                         Employee Dashboard
+                    @elseif ($userRoles->contains('candidate'))
+                        User Dashboard
                     @endif ! 🎉
                 </h5>
                 <p class="mb-4">

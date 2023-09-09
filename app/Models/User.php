@@ -51,7 +51,12 @@ class User extends Authenticatable
 
 public function employee()
 {
-    return $this->hasMany(Employee::class, 'user_id');
+return $this->hasMany(Employee::class, 'user_id');
+}
+
+public function candidate()
+{
+    return $this->hasMany(Candidate::class, 'user_id');
 }
 
 public function deleteWithRolesAndPermissions()

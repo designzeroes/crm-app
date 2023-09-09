@@ -78,6 +78,26 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
         });
         
+        Schema::create('candidates', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('picture')->nullable();
+            $table->string('resume')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('birth_date')->nullable();
+            $table->string('address')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('latest_degree')->nullable();
+            $table->string('skill')->nullable();
+            $table->string('latest_university')->nullable();
+            $table->string('current_organization')->nullable();
+            $table->string('current_department')->nullable();
+            $table->string('current_position')->nullable();
+            $table->string('description')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->onUpdate('current_timestamp');
+        });
 
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
@@ -208,6 +228,7 @@ return new class extends Migration
         Schema::dropIfExists('addresses');
         Schema::dropIfExists('application_form');
         Schema::dropIfExists('attachment');
+        Schema::dropIfExists('employees');
         Schema::dropIfExists('candidates');
         Schema::dropIfExists('contacts');
         Schema::dropIfExists('matchstage');
