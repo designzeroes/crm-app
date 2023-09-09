@@ -120,6 +120,7 @@ return new class extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('organization_id')->nullable();
             $table->string('job_title')->nullable();
             $table->text('description')->nullable();
             $table->string('address')->nullable();

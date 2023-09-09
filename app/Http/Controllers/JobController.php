@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
+use App\Models\Employee;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -9,18 +11,28 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::all();
 
-        return view('pages.controlpanel.organization.job.index', ['jobs' => $jobs]);
+        if ($request->user()->hasRole('employee')) {
+            $org = Employee::where('user_id', auth()->user()->id)->first();
+            $jobs = Job::where('organization_id', $org->creator_id)->get();
+        } elseif ($request->user()->hasRole('organization')) {
+            $org = Organization::where('user_id', auth()->user()->id)->first();
+            $jobs = Job::where('organization_id', $org->user_id)->get();
+        }
+
+
+        
+        return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('pages.controlpanel.organization.job.create');
+
+        return view('pages.controlpanel.job.create');
     }
 
     /**
@@ -29,8 +41,15 @@ class JobController extends Controller
     public function store(Request $request)
     {
 
-        // Get the authenticated user
-        $user = auth()->user();
+        if ($request->user()->hasRole('employee')) {
+            $org = Employee::where('user_id', auth()->user()->id)->first();
+          $creator =  $org->creator_id;
+        } elseif ($request->user()->hasRole('organization')) {
+            $org = Organization::where('user_id', auth()->user()->id)->first();
+            $creator =  $org;
+        }
+        
+
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
@@ -51,7 +70,8 @@ class JobController extends Controller
     
                 // Validate the request data
         $validatedData = $request->validate($rules);
-        $validatedData['user_id'] = $user->id;
+        $validatedData['organization_id'] = $creator ;
+        $validatedData['user_id'] = auth()->user()->id;
 
         // Create the job using the validated data
         Job::create($validatedData);
@@ -77,7 +97,7 @@ class JobController extends Controller
     {
         $job = Job::findOrFail($id);
 
-        return view('pages.controlpanel.organization.job.edit', ['job' => $job]);
+        return view('pages.controlpanel.job.edit', ['job' => $job]);
     }
 
     /**

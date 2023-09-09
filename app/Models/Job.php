@@ -11,6 +11,7 @@ class Job extends Model
     
     protected $fillable = [
         'user_id',
+        'organization_id',
         'job_title',
         'description',
         'creator',
@@ -32,6 +33,11 @@ class Job extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'user_id');
     }
 
 }

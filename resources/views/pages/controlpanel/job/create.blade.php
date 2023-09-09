@@ -123,7 +123,7 @@
                     name="bid_close"
                     class="form-control"
                     id="basic-default-company"
-                    value="2023-05-03"
+                    value="2023-03-09"
                   />
                 </div>
                 
@@ -134,7 +134,7 @@
                     name="deadline"
                     class="form-control"
                     id="basic-default-company"
-                    value="2023-05-03"
+                    value="2023-03-09"
                   />
                 </div>
               </div>

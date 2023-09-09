@@ -78,7 +78,7 @@
               </li>
   
               <!-- Layouts -->
-              @role('organization')
+              @role(['organization','employee'])
               <li class="menu-item {{ request()->is('job*') ? 'active' : '' }}">
                 <a href="{{ route('job.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-layout"></i>

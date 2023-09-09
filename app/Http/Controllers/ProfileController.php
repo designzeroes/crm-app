@@ -17,6 +17,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+
             $profile= '';
         if ($request->user()->hasRole('employee')) {
             $profile = Employee::where('user_id', $request->user()->id)->firstOrFail();
