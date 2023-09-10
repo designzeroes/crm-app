@@ -15,7 +15,7 @@ class JobFrontController extends Controller
     ->select('jobs.*', 'employees.*', 'organizations.*')
     ->get();
 
-dd($jobs);
+
    return view('pages.Front.job.index', ['jobs' => $jobs]);
  }   
 }
