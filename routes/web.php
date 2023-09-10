@@ -6,7 +6,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\EmployeeController;
 
-Route::get('w', function () {
+Route::get('/w', function () {
     return view('welcome');
 });
 
