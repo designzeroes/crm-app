@@ -3,19 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('jobs', function () {
-    return view('jobs');
-})->name('jobs');
-
+Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|employee'])->group(function () {
+
         Route::resource('job', JobController::class);
     });
 });

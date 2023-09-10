@@ -46,10 +46,9 @@ class JobController extends Controller
           $creator =  $org->creator_id;
         } elseif ($request->user()->hasRole('organization')) {
             $org = Organization::where('user_id', auth()->user()->id)->first();
-            $creator =  $org;
+            $creator =  $org->user_id;
         }
         
-
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
