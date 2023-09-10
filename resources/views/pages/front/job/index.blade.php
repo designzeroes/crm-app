@@ -90,7 +90,7 @@
                 <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
             </a>
         </div>
-        <a href="{{ route('jobs') }}" class="btn ">Brows Jobs</a>
+        <a href="{{ route('frontjoblist') }}" class="btn ">Brows Jobs</a>
         <!-- Navigation elements on the right -->
         <div class="app-brand justify-content-end">
             @if (Route::has('login'))
@@ -110,7 +110,7 @@
     </div>
 </nav>
 
-@if (Route::has('jobs'))
+@if (Route::has('frontjoblist'))
             <!-- Content wrapper -->
                 <div class="authentication-wrapper authentication-basic container-p-y">
                     <div class="content-wrapper mt-5">
