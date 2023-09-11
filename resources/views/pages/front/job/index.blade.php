@@ -117,20 +117,23 @@
                         <!-- Content -->
                         <div class="container mt-4">
                             <div class="row">
-                                <div class="col-md-8 mx-auto">
+                                @foreach ($jobs as $job)
+                                <div class="col-md-8">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Job Title</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">Company Name</h6>
-                                            <p class="card-text">Location: City, State</p>
-                                            <p class="card-text">Salary: $50,000 - $60,000 per year</p>
-                                            <p class="card-text">Posted: January 15, 2023</p>
-                                            <a href="#" class="btn btn-primary">Apply Now</a>
+                                            <h5 class="card-title">Job Title: {{ $job->job_title }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Organization Name: {{ $job->organization_name }}</h6>
+                                            <p class="card-text">Website: {{ $job->website }}</p>
+                                            <p class="card-text">Skill Required: {{ $job->skill}}</p>
+                                            <p class="card-text">Posted: {{ $job->created_at->format('F d, Y') }}</p>
+                                            <a href="" class="btn btn-primary">Apply Now</a>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
+                        
                         <!-- Content -->
                         <!-- Footer -->
                         <footer class="content-footer footer bg-footer-theme"></footer>

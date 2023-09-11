@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
+use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class JobFrontController extends Controller
 {
  public function FrontJobList(){
 
-    $jobs = DB::table('jobs')
-    ->join('employees', 'jobs.user_id', '=', 'employees.user_id')
-    ->join('organizations', 'jobs.user_id', '=', 'organizations.user_id')
-    ->select('jobs.*', 'employees.*', 'organizations.*')
-    ->get();
 
+  $jobs = Job::join('organizations', 'jobs.organization_id', '=', 'organizations.user_id')
+  ->select('jobs.*','organizations.*')
+  ->whereRaw('jobs.organization_id = organizations.user_id')
+  ->get();
 
+  
+  
    return view('pages.Front.job.index', ['jobs' => $jobs]);
  }   
 }

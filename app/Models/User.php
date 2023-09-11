@@ -59,6 +59,8 @@ public function candidate()
     return $this->hasMany(Candidate::class, 'user_id');
 }
 
+
+
 public function deleteWithRolesAndPermissions()
 {
     $this->roles()->detach(); // Detach roles
