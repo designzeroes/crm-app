@@ -57,7 +57,7 @@ class AuthenticatedSessionController extends Controller
 
         if ($request->user()->hasRole('candidate')) {
 
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->route('frontjoblist');
 
         }else{
 

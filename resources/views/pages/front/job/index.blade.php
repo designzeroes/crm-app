@@ -91,6 +91,7 @@
             </a>
         </div>
         <a href="{{ route('frontjoblist') }}" class="btn ">Brows Jobs</a>
+        <a href="{{ route('frontjoblist') }}" class="btn ">Brows Jobs</a>
         <!-- Navigation elements on the right -->
         <div class="app-brand justify-content-end">
             @if (Route::has('login'))
@@ -111,12 +112,15 @@
 </nav>
 
 @if (Route::has('frontjoblist'))
+@if (Route::has('frontjoblist'))
             <!-- Content wrapper -->
                 <div class="authentication-wrapper authentication-basic container-p-y">
                     <div class="content-wrapper mt-5">
                         <!-- Content -->
                         <div class="container mt-4">
                             <div class="row">
+                                @foreach ($jobs as $job)
+                                <div class="col-md-8">
                                 @foreach ($jobs as $job)
                                 <div class="col-md-8">
                                     <div class="card">
@@ -126,13 +130,15 @@
                                             <p class="card-text">Website: {{ $job->website }}</p>
                                             <p class="card-text">Skill Required: {{ $job->skill}}</p>
                                             <p class="card-text">Posted: {{ $job->created_at->format('F d, Y') }}</p>
-                                            <a href="" class="btn btn-primary">Apply Now</a>
+                                            <a href="{{ route('apply', ['job_id' => $job->id]) }}"" class="btn btn-primary">Apply Now</a>
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
+                                @endforeach
                             </div>
                         </div>
+                        
                         
                         <!-- Content -->
                         <!-- Footer -->
