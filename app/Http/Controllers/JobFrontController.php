@@ -17,6 +17,6 @@ class JobFrontController extends Controller
 
   
   
-   return view('pages.Front.job.index', ['jobs' => $jobs]);
+   return view('pages.front.job.index', ['jobs' => $jobs]);
  }   
 }
