@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
+Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|employee'])->group(function () {

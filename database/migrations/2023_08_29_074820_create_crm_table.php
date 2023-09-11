@@ -38,6 +38,8 @@ return new class extends Migration
 
         Schema::create('application_form', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('job_id')->nullable();
             $table->string('label')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_required')->nullable();
