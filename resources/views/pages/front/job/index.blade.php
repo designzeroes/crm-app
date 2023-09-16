@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endforeacfa-flip-horizontal
+                                @endforeach
                             </div>
                         </div>
                         
