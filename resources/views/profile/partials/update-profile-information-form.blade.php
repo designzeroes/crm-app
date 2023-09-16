@@ -50,10 +50,6 @@
               <x-text-input id="email" name="email" type="email" class="form-control" :value="old('email', $user->email)" required autocomplete="username" />
               <x-input-error class="mt-2" :messages="$errors->get('email')" />
           </div>
-          <div class="mb-3 col-md-6">
-            <x-input-label for="address" :value="__('Address')" />
-            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" required autocomplete="address" />
-        </div>
           @role('organization')
           <div class="mb-3 col-md-6">
             <x-input-label for="organization_name" :value="__('Organization Name')" />
@@ -63,6 +59,23 @@
             <x-input-label for="website" :value="__('Website')" />
             <x-text-input id="website" name="website" type="text" class="form-control" :value="old('website', $profile->website)" required autocomplete="website" />
           </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" required autocomplete="address" />
+        </div>
+        <div class="mb-3 col-md-12">
+          <x-input-label for="description" :value="__('Description')" />
+          
+            <textarea
+              id="description"
+              class="form-control"
+              name="description"
+              placeholder="Tell us about the project!"
+              aria-label="Tell us about the project!"
+              aria-describedby="basic-icon-default-message2"
+            >{{old('current_position', $profile->description)}}</textarea>
+          
+        </div>
           @endrole
           @role('candidate')
           <div class="mb-3 col-md-6">
@@ -75,6 +88,10 @@
               <x-input-label for="Phone" :value="__('Phone Number')" />
               <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $profile->phone_number)" required autocomplete="phone_number" />
           </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" required autocomplete="address" />
+        </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="gender" :value="__('Gender')" />
             <select id="gender" name="gender" class="form-control" required autocomplete="gender">
@@ -111,7 +128,6 @@
               <x-input-label for="current_position" :value="__('Current Position')" />
               <x-text-input id="current_position" name="current_position" type="text" class="form-control" :value="old('current_position', $profile->current_position)" required autocomplete="current_position" />
             </div>
-            @endrole
             <div class="mb-3 col-md-12">
               <x-input-label for="description" :value="__('Description')" />
               
@@ -125,6 +141,8 @@
                 >{{old('current_position', $profile->description)}}</textarea>
               
             </div>
+            @endrole
+
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

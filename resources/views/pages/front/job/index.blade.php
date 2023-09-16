@@ -96,7 +96,11 @@
             @if (Route::has('login'))
                 <div class="header-controls sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
+                    @role('candidate')
+                    <a href="{{ route('view-applied') }}" class="btn btn-primary">Applied </a>
+                    @else
                         <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        @endrole
                     @else
                         <a href="{{ route('login') }}" class="btn btn-secondary">Log in</a>
 
