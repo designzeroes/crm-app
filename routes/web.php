@@ -6,26 +6,23 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\EmployeeController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');
+Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('view-applied');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|employee'])->group(function () {
-
         Route::resource('job', JobController::class);
     });
-});
-
-Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|super-admin'])->group(function () {
         Route::resource('employee', EmployeeController::class);
     });
 });
-
 
 
 

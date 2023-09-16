@@ -96,7 +96,11 @@
             @if (Route::has('login'))
                 <div class="header-controls sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                     @auth
+                    @role('candidate')
+                    <a href="{{ route('view-applied') }}" class="btn btn-primary">Applied </a>
+                    @else
                         <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        @endrole
                     @else
                         <a href="{{ route('login') }}" class="btn btn-secondary">Log in</a>
 
@@ -126,7 +130,7 @@
                                             <p class="card-text">Website: {{ $job->website }}</p>
                                             <p class="card-text">Skill Required: {{ $job->skill}}</p>
                                             <p class="card-text">Posted: {{ $job->created_at->format('F d, Y') }}</p>
-                                            <a href="{{ route('apply', ['job_id' => $job->id]) }}" class="btn btn-primary">Apply Now</a>
+                                            <a href="{{ route('apply', ['job_id' => $job->id]) }}"" class="btn btn-primary">Apply Now</a>
                                         </div>
                                     </div>
                                 </div>

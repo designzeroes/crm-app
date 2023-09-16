@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Application_form;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,10 +20,9 @@ class JobFrontController extends Controller
    return view('pages.Front.job.index', ['jobs' => $jobs]);
  }  
  
- public function apply(LoginRequest $request, $id){
+ public function apply($id){
 
-
-  if (!Auth::check() || !$request->user()->hasRole('candidate')) {
+  if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
     return redirect()->route('user-login');
 } else {
 
@@ -32,14 +30,17 @@ class JobFrontController extends Controller
     'user_id' => auth()->user()->id,
     'job_id' => $id,
 ]);
-
-      
     return redirect()->route('frontjoblist');
 }
 
+ }
 
-
-
+ public function view_applied(){
+  $user = auth()->user();
+  $jobIds = $user->application_form->pluck('job_id')->all();
+  dd($user);
   
+  $applied_jobs = Job::where('user_id', auth()->user()->id)->get();
+  return view('pages.front.applied_jobs',['applied_jobs'=>$applied_jobs]);
  }
 }
