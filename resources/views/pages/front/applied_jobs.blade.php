@@ -1,8 +1,13 @@
-@extends('layouts.front')
+@extends('layouts.controlpanel')
 @section('content')
-  <!-- Hoverable Table rows -->
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+      <h4 class="fw-bold py-3 mb-0"><span class="text-muted fw-light">jobs /</span> Applied jobs List</h4>
+
+      <!-- Hoverable Table rows -->
       <div class="card">
-        <h5 class="card-header">Applied jobs list</h5>
+        <h5 class="card-header">applied_jobs list</h5>
         <div class="table-responsive text-nowrap">
           <table class="table table-hover">
             <thead>
@@ -25,8 +30,8 @@
                   </ul>
                 </td>
                 <td><span class="badge bg-label-primary me-1">{{$applied_job->status}}</span></td>
-                <td>
-                  {{-- <div class="dropdown">
+                {{-- <td>
+                  <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
@@ -43,8 +48,8 @@
                       </form>
                     
                     </div>
-                  </div> --}}
-                </td>
+                  </div>
+                </td> --}}
               </tr>
              @endforeach
             </tbody>
@@ -52,5 +57,8 @@
         </div>
       </div>
       <!--/ Hoverable Table rows -->
+    </div>
+  </div>
+  <!-- / Content -->
 
-      @stop
+@stop

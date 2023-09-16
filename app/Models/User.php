@@ -59,6 +59,11 @@ public function candidate()
     return $this->hasMany(Candidate::class, 'user_id');
 }
 
+public function application_form()
+{
+    return $this->hasMany(Application_form::class, 'user_id');
+}
+
 
 
 public function deleteWithRolesAndPermissions()

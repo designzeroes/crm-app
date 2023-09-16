@@ -36,11 +36,13 @@ class JobFrontController extends Controller
  }
 
  public function view_applied(){
-  $user = auth()->user();
-  $jobIds = $user->application_form->pluck('job_id')->all();
-  dd($user);
-  
-  $applied_jobs = Job::where('user_id', auth()->user()->id)->get();
+
+    // Get the authenticated user
+    $user = auth()->user();
+    $id = $user->application_form->pluck('job_id')->all();
+    
+    $applied_jobs = Job::whereIn('id',$id)->get();
+
   return view('pages.front.applied_jobs',['applied_jobs'=>$applied_jobs]);
  }
 }
