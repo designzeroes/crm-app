@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Employee;
+use App\Models\Application_form;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -16,15 +17,17 @@ class JobController extends Controller
 
         if ($request->user()->hasRole('employee')) {
             $org = Employee::where('user_id', auth()->user()->id)->first();
-            $jobs = Job::where('organization_id', $org->creator_id)->get();
+            $jobs = Job::where('organization_id', $org->creator_id)
+              ->withCount('application_form')
+             ->get();
         } elseif ($request->user()->hasRole('organization')) {
             $org = Organization::where('user_id', auth()->user()->id)->first();
-            $jobs = Job::where('organization_id', $org->user_id)->get();
+            $jobs = Job::where('organization_id', $org->user_id)
+              ->withCount('application_form')
+             ->get();
         }
 
-
-        
-        return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
+         return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
     }
     /**
      * Show the form for creating a new resource.

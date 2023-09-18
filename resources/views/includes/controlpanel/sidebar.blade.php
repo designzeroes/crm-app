@@ -101,10 +101,10 @@
                   <div data-i18n="Authentications">Applied Jobs</div>
                 </a>
               </li>
-              <li class="menu-item {{ request()->is('New Jobs*') ? 'active' : '' }}">
+              <li class="menu-item {{ request()->is('Browse Jobs*') ? 'active' : '' }}">
                 <a href="{{ route('frontjoblist') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">New Jobs</div>
+                  <div data-i18n="Authentications">Browse Jobs</div>
                 </a>
                 @endrole
               </li>

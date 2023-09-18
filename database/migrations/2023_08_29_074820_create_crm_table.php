@@ -41,6 +41,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('job_id')->nullable();
             $table->string('label')->nullable();
+            $table->string('status')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_required')->nullable();
             $table->string('display_type')->nullable();

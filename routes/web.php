@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobFrontController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployeeController;
 
 
@@ -11,8 +12,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
+Route::get('/view_candidates/{id}', [ApplicationController::class, 'view'])->name('view_candidates');
+Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
+
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');
+Route::get('/applied_edit/{id}', [JobFrontController::class, 'applied_edit'])->name('applied_edit');
+Route::delete('/applied_destroy/{id}', [JobFrontController::class, 'applied_distroy'])->name('applied_destroy');
 Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('view-applied');
 
 Route::middleware(['auth'])->group(function () {
