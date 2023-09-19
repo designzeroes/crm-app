@@ -30,4 +30,9 @@ class Organization extends Model
         return $this->hasMany(Job::class, 'organization_id');
     }
 
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'creator_id');
+    }
+
 }

@@ -57,10 +57,9 @@ class JobFrontController extends Controller
     
     $applied_jobs = Job::whereIn('jobs.id', $id)
     ->join('application_form', 'jobs.id', '=', 'application_form.job_id')
-    ->select('jobs.*', 'application_form.id as form_id')
+    ->select('jobs.*', 'application_form.id as form_id', 'application_form.status')
     ->where('application_form.user_id', auth()->user()->id)
     ->get();
-
 
 
   return view('pages.front.applied_jobs',['applied_jobs'=>$applied_jobs]);

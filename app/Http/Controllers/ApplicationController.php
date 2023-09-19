@@ -15,13 +15,14 @@ class ApplicationController extends Controller
     public function index($id)
     {
 
+        
 
             // Retrieve all Application_form records where job_id is in the $jobIds array
             $applications = Application_form::join('candidates', 'application_form.user_id', '=', 'candidates.user_id')
             ->join('users', 'candidates.user_id', '=', 'users.id')
             ->where('application_form.job_id', $id)
             ->get();
-    
+
 
         return view('pages.controlpanel.candidate.index', ['applications' => $applications]);
     }
@@ -34,16 +35,18 @@ class ApplicationController extends Controller
         //
     }
 
-    public function view(string $id)
+    public function view($id, $job_id)
     {
+    
+  
        $user = User::join('candidates', 'users.id','candidates.user_id')
-       ->join('application_form', 'users.id', 'application_form.user_id')
-       ->select('candidates.*','users.name', 'users.email', 'application_form.job_id')
+       ->select('candidates.*','users.name', 'users.email')
        ->where('users.id', $id)->first();
 
-       
 
-       return view('pages.controlpanel.candidate.view',['user'=>$user]);
+
+
+       return view('pages.controlpanel.candidate.view',['user'=>$user, 'job_id'=>$job_id]);
     }
 
     /**
@@ -59,7 +62,6 @@ class ApplicationController extends Controller
      */
     public function select(Request $request, string $id)
     {
-
     
         Application_form::where('job_id', $id)
         ->where('user_id', $request->user_id)

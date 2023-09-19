@@ -49,9 +49,9 @@ class User extends Authenticatable
     return $this->hasMany(Organization::class);
 }
 
-public function employee()
+public function employees()
 {
-return $this->hasMany(Employee::class, 'user_id');
+    return $this->hasMany(Employee::class, 'creator_id', 'user_id');
 }
 
 public function candidate()

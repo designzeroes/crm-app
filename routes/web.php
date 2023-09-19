@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployeeController;
@@ -13,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
-Route::get('/view_candidates/{id}', [ApplicationController::class, 'view'])->name('view_candidates');
+Route::get('/view_candidates/{id}/{job_id}', [ApplicationController::class, 'view'])->name('view_candidates');
 Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
@@ -29,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:organization|super-admin'])->group(function () {
         Route::resource('employee', EmployeeController::class);
     });
+    Route::middleware(['role:super-admin'])->group(function () {
+        Route::resource('organization', OrganizationController::class);
+    });
+
 });
 
 

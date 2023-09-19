@@ -167,13 +167,13 @@
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
-                    <form method="post" action="{{route('select_candidate',['id'=>$user->job_id])}}">
+                    <form method="post" action="{{route('select_candidate',['id'=>$job_id])}}">
                       @csrf
                       @method('PUT')
-                      {{-- <input type='text' name='user_id' value="{{$user->job_id}}">
-                      <input type='text' name='user_id' value="{{$user->user_id}}"> --}}
-                    <button type="submit" name='status' value="selected" class="btn btn-primary">Select</button>
-                    <button type="submit" name='status' value="rejected" class="btn btn-danger">Reject</button>
+                    
+                      <input type='hidden' name='user_id' value="{{$user->user_id}}">
+                    <button type="submit" name='status' value="Selected" class="btn btn-primary">Select</button>
+                    <button type="submit" name='status' value="Rejected" class="btn btn-danger">Reject</button>
                     </form>
                   </div>
                 </div>

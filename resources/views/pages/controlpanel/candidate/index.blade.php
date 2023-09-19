@@ -25,7 +25,10 @@
                 <td>{{$application->email}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                    {{$application->status}}
+                    <span class="badge {{ $application->status === 'Selected' ? 'bg-label-success' : ($application->status === 'Rejected' ? 'bg-label-danger' : 'bg-label-info') }}">
+                      {{ $application->status }}
+                  </span>
+                    
                   </ul>
                 </td>
                 <td>
@@ -34,7 +37,7 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                       <a class="dropdown-item" href="{{ route('view_candidates', ['id' => $application->user_id]) }}"
+                       <a class="dropdown-item" href="{{ route('view_candidates', ['id' => $application->user_id, 'job_id' => $application->job_id]) }}"
                         ><i class="bx bx-edit-alt me-1"></i> View</a> 
                        
                       <form method="POST" action="" class="delete-form">

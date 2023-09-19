@@ -94,6 +94,14 @@
                 </a>
                 @endrole
               </li>
+              <li class="menu-item {{ request()->is('organization*') ? 'active' : '' }}">
+                @role(['super-admin'])
+                <a href="{{ route('organization.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                  <div data-i18n="Authentications">Organizations</div>
+                </a>
+                @endrole
+              </li>
               <li class="menu-item {{ request()->is('view-applied*') ? 'active' : '' }}">
                 @role(['candidate'])
                 <a href="{{ route('view-applied') }}" class="menu-link">
