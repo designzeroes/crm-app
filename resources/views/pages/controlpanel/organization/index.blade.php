@@ -48,8 +48,8 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="{{ route('organization.edit', ['organization' => $organization->user_id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                      <a class="dropdown-item" href="{{ route('organization.show', ['organization' => $organization->user_id]) }}"
+                        ><i class="bx bx-edit-alt me-1"></i> View</a
                       >
                       <form method="POST" action="{{ route('organization.destroy', ['organization' => $organization->user_id]) }}" class="delete-form">
                         @csrf

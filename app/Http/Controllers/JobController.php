@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Employee;
-use App\Models\Application_form;
+use App\Models\User;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -89,7 +89,10 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $job = Job::where('jobs.id', $id)->first();
+
+        return view('pages.controlpanel.job.show', ['job'=>$job]);
     }
 
     /**

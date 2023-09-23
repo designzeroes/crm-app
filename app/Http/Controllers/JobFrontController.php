@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Application_form;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 
 class JobFrontController extends Controller
 {
- public function FrontJobList(){
+ public function FrontJobList(Request $request){
 
 
   $jobs = Job::join('organizations', 'jobs.organization_id', '=', 'organizations.user_id')
@@ -16,6 +17,10 @@ class JobFrontController extends Controller
   ->whereRaw('jobs.organization_id = organizations.user_id')
   ->get();
 
+  if (strpos($request->url(), '/api/') !== false) {
+
+    return response()->json(['jobs' => $jobs]);
+}
 
    return view('pages.Front.job.index', ['jobs' => $jobs]);
  }  

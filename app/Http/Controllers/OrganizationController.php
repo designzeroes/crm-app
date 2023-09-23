@@ -48,7 +48,12 @@ class OrganizationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $org = User::join('organizations', 'users.id', '=', 'organizations.user_id')
+        ->where('users.id', $id)
+        ->select('users.email', 'organizations.*')
+        ->first();
+
+        return view('pages.controlpanel.organization.show', ['org'=>$org]);
     }
 
     /**
