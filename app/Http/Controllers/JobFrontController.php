@@ -25,11 +25,11 @@ class JobFrontController extends Controller
    return view('pages.Front.job.index', ['jobs' => $jobs]);
  }  
  
- public function apply($id){
+ public function apply( $id){
 
     // Check if the user is not logged in or is not a candidate
     if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
-      return redirect()->route('user-login');
+      return view('pages.Front.guest-apply', ['id' => $id]);
   }
 
   // Check if the user has already applied for the job
@@ -45,12 +45,39 @@ class JobFrontController extends Controller
       Application_form::create([
           'user_id' => auth()->user()->id,
           'job_id' => $id,
+          'is_registred' => 1,
           'status' => 'In Process',
       ]);
 
       return redirect()->route('frontjoblist')->with('success', 'Application submitted successfully.');
 
   }
+
+ }
+
+ public function guest_apply(Request $request, $id){
+
+      // Validate the form input, including the file upload
+      $request->validate([
+        'name' => 'required|string|max:255',
+        'position' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'cv' => 'required|mimes:pdf|max:1024', 
+    ]);
+    
+    // Handle the file upload and store the CV in the 'public/cv' directory
+    $cvPath = $request->file('cv')->store('cv', 'public');
+
+    // Create a new JobApplication instance and save it to the database
+    Application_form::create([
+        'job_id' => $id,
+        'name' => $request->input('name'),
+        'position' => $request->input('position'),
+        'email' => $request->input('email'),
+      'is_registered' => 0,
+        'cv' => $cvPath, ]);
+
+    return redirect()->route('frontjoblist')->with('success', 'Application submitted successfully.');
 
  }
 

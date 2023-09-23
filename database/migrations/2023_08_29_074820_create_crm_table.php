@@ -40,7 +40,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('job_id')->nullable();
-            $table->string('label')->nullable();
+            $table->string('name')->nullable();
+            $table->string('position')->nullable();
+            $table->string('email')->nullable();
+            $table->string('cv')->nullable();
+            $table->boolean('is_registered')->nullable();
             $table->string('status')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_required')->nullable();
@@ -150,7 +154,7 @@ return new class extends Migration
             $table->integer('zipcode')->nullable();
             $table->string('status')->default('Active');
             $table->string('is_published')->nullable();
-            $table->boolean('is_remote')->nullable();
+            $table->string('is_remote')->nullable();
             $table->text('skill')->nullable();
             $table->text('experience')->nullable();
             $table->text('education')->nullable();
@@ -241,6 +245,7 @@ return new class extends Migration
         Schema::dropIfExists('notes');
         Schema::dropIfExists('products');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('custom_fields');
 
     }
 };

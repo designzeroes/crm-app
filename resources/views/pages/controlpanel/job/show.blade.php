@@ -47,11 +47,13 @@
                   <label class="col-form-label" for="basic-default-company">Job Type</label>
                 </div>
                 <div class="col-sm-3"> <!-- Adjusted column classes -->
-                  <select name="job_type" class="form-select" value="{{$job->job_type}}" id="basic-default-company">
-                    <option value="Remote">Remote</option>
-                    <option value="On-site">On-site</option>
-                    <option value="Hybrid">Hybrid</option>
-                  </select>
+                  <input
+                    type="number"
+                    value="{{$job->is_remote}}"
+                    class="form-control"
+                    id="basic-default-company"
+                    readonly
+                  />
                 </div>
               </div>
               

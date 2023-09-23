@@ -36,6 +36,7 @@ class JobController extends Controller
     {
 
         return view('pages.controlpanel.job.create');
+        
     }
 
     /**

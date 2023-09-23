@@ -24,7 +24,7 @@
             <tbody class="table-border-bottom-0">
              @foreach( $jobs as $job)
               <tr >
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$job->job_title}}</strong></td>
+                <td> <strong>{{$job->job_title}}</strong></td>
                 <td>${{$job->budget}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -39,10 +39,10 @@
                     </button>
                     <div class="dropdown-menu">
                       <a class="dropdown-item"  href="{{ route('job.show', ['job' => $job->id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> View</a
+                        ><i class="fa-regular fa-file-lines me-2"></i> View</a
                       >
                       <a class="dropdown-item"  href="{{ route('applier_candidates', ['id' => $job->id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Candidates</a
+                        ><i class="bx bx-user me-1"></i> Candidates</a
                       >
                       <a class="dropdown-item" href="{{ route('job.edit', ['job' => $job->id]) }}"
                         ><i class="bx bx-edit-alt me-1"></i> Edit</a

@@ -14,6 +14,11 @@ class Application_form extends Model
     protected $fillable = [
      'user_id',
      'job_id',
+     'name', 
+     'position',
+      'email',
+       'cv',
+       'is_registered',
     ];
 
     public function job()

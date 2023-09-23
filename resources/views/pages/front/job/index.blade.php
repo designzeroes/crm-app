@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    @include('includes.controlpanel.head')
-<style>
-    .dot-pattern-bg {
-    background-image: radial-gradient(circle, #000 5%, transparent 5%),
-                      radial-gradient(circle, #000 5%, transparent 5%);
-    background-size: 10px 10px;
-    background-position: 0 0, 9px 9px;
-}
-.right{
-    float:right;
-}
-
-</style>
-</head>
-<body class="dot-pattern-bg">
+@extends('layouts.guest')
+@section('content')
 
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -26,7 +10,7 @@
         <div class="layout-page">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
+       <div class="container">
         <!-- Logo on the left -->
         <div class="app-brand justify-content-left">
             <a href="index.html" class="app-brand-link gap-2">
@@ -168,5 +152,5 @@
     <!-- Core JS -->
     @include('includes.controlpanel.scripts')
     @endif
-</body>
-</html>
+
+    @stop
