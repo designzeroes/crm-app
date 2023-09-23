@@ -16,9 +16,9 @@ class Application_form extends Model
      'job_id',
      'name', 
      'position',
-      'email',
-       'cv',
-       'is_registered',
+     'email',
+     'cv',
+     'is_registered',
     ];
 
     public function job()
