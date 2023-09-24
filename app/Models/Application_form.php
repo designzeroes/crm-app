@@ -19,10 +19,16 @@ class Application_form extends Model
       'email',
        'cv',
        'is_registered',
+       'status',
     ];
 
     public function job()
 {
     return $this->belongsTo(Job::class, 'id');
+}
+
+public function candidate()
+{
+    return $this->belongsTo(Candidate::class, 'user_id');
 }
 }

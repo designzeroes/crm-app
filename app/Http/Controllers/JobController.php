@@ -25,8 +25,10 @@ class JobController extends Controller
             $jobs = Job::where('organization_id', $org->user_id)
               ->withCount('application_form')
              ->get();
+             
         }
 
+        
          return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
     }
     /**

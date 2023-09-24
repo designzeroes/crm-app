@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Collection;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Application_form;
@@ -16,15 +17,21 @@ class ApplicationController extends Controller
     {
 
         
+        $applications1 = Application_form::join('candidates', 'application_form.user_id', '=', 'candidates.user_id')
+        ->join('users', 'candidates.user_id', '=', 'users.id')
+        ->where('application_form.job_id', $id)
+        ->select('application_form.*', 'users.name', 'users.email')
+        ->get();
+    
 
-            // Retrieve all Application_form records where job_id is in the $jobIds array
-            $applications = Application_form::join('candidates', 'application_form.user_id', '=', 'candidates.user_id')
-            ->join('users', 'candidates.user_id', '=', 'users.id')
-            ->where('application_form.job_id', $id)
-            ->get();
+$applications2 = Application_form::where('user_id', NULL)->get();
 
+// Merge the two collections into a single array
+$mergedApplications = $applications1->concat($applications2);
+//dd($mergedApplications);
 
-        return view('pages.controlpanel.candidate.index', ['applications' => $applications]);
+return view('pages.controlpanel.candidate.index', ['applications' => $mergedApplications]);
+
     }
 
     /**
@@ -35,18 +42,38 @@ class ApplicationController extends Controller
         //
     }
 
-    public function view($id, $job_id)
+    public function view($form_id)
     {
+
+         // Run the first query when user_id is not NULL
+         $user = Application_form::join('candidates', 'application_form.user_id', '=', 'candidates.user_id')
+         ->join('users', 'candidates.user_id', '=', 'users.id')
+         ->where('application_form.id', $form_id)
+         ->select('application_form.*', 
+         'candidates.resume',
+         'candidates.phone_number',
+         'candidates.gender',
+         'candidates.birth_date',
+         'candidates.address',
+         'candidates.zipcode',
+         'candidates.latest_degree',
+         'candidates.latest_university',
+         'candidates.current_organization',
+         'candidates.current_department',
+         'candidates.current_position',
+         'candidates.description',
+         'candidates.skill',
+         'users.name',
+         'users.email',
+         )->first();
+
+        if (is_null($user)) {
+            $user = Application_form::where('application_form.id', $form_id)
+                ->first();
+        }
+        
     
-  
-       $user = User::join('candidates', 'users.id','candidates.user_id')
-       ->select('candidates.*','users.name', 'users.email')
-       ->where('users.id', $id)->first();
-
-
-
-
-       return view('pages.controlpanel.candidate.view',['user'=>$user, 'job_id'=>$job_id]);
+       return view('pages.controlpanel.candidate.view',['user'=>$user]);
     }
 
     /**
@@ -62,15 +89,14 @@ class ApplicationController extends Controller
      */
     public function select(Request $request, string $id)
     {
-    
-        Application_form::where('job_id', $id)
-        ->where('user_id', $request->user_id)
+             $job_id = $request->job_id;
+        Application_form::where('id', $id)
         ->update([
             'status' => $request->status,
         ]);
           
 
-        return redirect()->route('applier_candidates', ['id' => $id]);
+        return redirect()->route('applier_candidates', ['id' => $job_id]);
 
 
     }

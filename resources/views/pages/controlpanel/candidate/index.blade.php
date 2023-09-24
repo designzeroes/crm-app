@@ -37,7 +37,7 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                       <a class="dropdown-item" href="{{ route('view_candidates', ['id' => $application->user_id, 'job_id' => $application->job_id]) }}"
+                       <a class="dropdown-item" href="{{ route('view_candidates', [ 'form_id' => $application->id]) }}"
                         ><i class="bx bx-edit-alt me-1"></i> View</a> 
                        
                       <form method="POST" action="" class="delete-form">

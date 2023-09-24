@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
-Route::get('/view_candidates/{id}/{job_id}', [ApplicationController::class, 'view'])->name('view_candidates');
+Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
 Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');

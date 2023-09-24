@@ -29,6 +29,12 @@
                 </div>
               </div>
               <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" value="{{$user->email}}" id="basic-default-name" readonly/>
+                </div>
+              </div>
+              <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Phone Number</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" value="{{$user->phone_number}}" id="basic-default-name" readonly/>
@@ -167,11 +173,10 @@
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
-                    <form method="post" action="{{route('select_candidate',['id'=>$job_id])}}">
+                    <form method="post" action="{{route('select_candidate',['id'=>$user->id])}}">
                       @csrf
                       @method('PUT')
-                    
-                      <input type='hidden' name='user_id' value="{{$user->user_id}}">
+                      <input type='hidden' name="job_id" value="{{$user->job_id}}">
                     <button type="submit" name='status' value="Selected" class="btn btn-primary">Select</button>
                     <button type="submit" name='status' value="Rejected" class="btn btn-danger">Reject</button>
                     </form>
