@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application_form;
 use App\Models\Employee;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
@@ -61,7 +63,12 @@ class OrganizationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $org = User::join('organizations', 'users.id', '=', 'organizations.user_id')
+        ->where('users.id', $id)
+        ->select('users.email', 'organizations.*')
+        ->first();
+
+        return view('pages.controlpanel.organization.edit', ['org'=>$org]);
     }
 
     /**
@@ -69,7 +76,24 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'email' => 'required|email',
+            'organization_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'website' => 'nullable|max:255',
+        ]);
+        
+        User::where('id',$id)->update(['email'=> $request->email]);
+        Organization::where('user_id',$id)->update([
+            'organization_name'=> $request->organization_name,
+            'address' =>$request->address,
+            'description'=> $request->description,
+            'website'=> $request->website,
+        ]);
+
+      return redirect()->route('organization.index');
     }
 
     /**
@@ -77,6 +101,25 @@ class OrganizationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+    $user = User::find($id);
+
+    if (!$user) {
+        return redirect()->route('your.error.route');
+    }
+
+    Organization::where('user_id', $id)->delete();
+    Employee::where('creator_id', $id)->delete();
+    $jobs = Job::where('organization_id', $id)->get();
+
+    foreach ($jobs as $job) {
+        Application_form::where('job_id', $job->id)->delete();
+    }
+
+    $jobs->each->delete();
+    $user->delete();
+
+    return redirect()->route('organization.index');
+    
     }
 }

@@ -51,6 +51,9 @@
                       <a class="dropdown-item" href="{{ route('organization.show', ['organization' => $organization->user_id]) }}"
                         ><i class="bx bx-edit-alt me-1"></i> View</a
                       >
+                      <a class="dropdown-item" href="{{ route('organization.edit', ['organization' => $organization->user_id]) }}"
+                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                      >
                       <form method="POST" action="{{ route('organization.destroy', ['organization' => $organization->user_id]) }}" class="delete-form">
                         @csrf
                         @method('DELETE')

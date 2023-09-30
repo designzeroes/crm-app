@@ -46,7 +46,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         if ($request->user()->hasRole('employee')) {
             $org = Employee::where('user_id', auth()->user()->id)->first();
           $creator =  $org->creator_id;
@@ -73,6 +73,7 @@ class JobController extends Controller
             'is_pinned_in_career_page' => 'nullable|boolean',
         ];
     
+
                 // Validate the request data
         $validatedData = $request->validate($rules);
         $validatedData['organization_id'] = $creator ;
@@ -113,13 +114,14 @@ class JobController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $rules = [
             'job_title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
             'status' => 'in:Active,Inactive',
-            'is_remote' => 'nullable|boolean',
+            'is_remote' => 'nullable|string|max:20',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
             'education' => 'nullable|string',
@@ -130,16 +132,11 @@ class JobController extends Controller
             'is_pinned_in_career_page' => 'nullable|boolean',
         ];
     
-      // Validate the request data
       $validatedData = $request->validate($rules);
+      
+      Job::findOrFail($id)->update($validatedData);
 
-      // Retrieve the job based on the provided $id
-      $job = Job::findOrFail($id);
-  
-      // Update the job using the validated data
-      $job->update($validatedData);
-  
-      // You can redirect or do something else after the job is updated
+      
       return redirect()->route('job.index');
   
     }

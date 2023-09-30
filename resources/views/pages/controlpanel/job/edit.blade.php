@@ -39,7 +39,7 @@
                     name="address"
                     class="form-control"
                     id="basic-default-company"
-                    value="this is test"
+                    value="{{$job->address}}"
                   />
                 </div>
               </div>
@@ -48,23 +48,23 @@
                 <div class="col-sm-4">
                   <input
                     type="number"
-                    value="98766"
+                    value="{{$job->zipcode}}"
                     class="form-control"
                     id="basic-default-company"
                   />
                 </div>
                 
-                <div class="col-sm-2 offset-sm-1"> <!-- Adjusted column classes -->
+                <div class="col-sm-2 offset-sm-1">
                   <label class="col-form-label" for="basic-default-company">Job Type</label>
-                </div>
-                <div class="col-sm-3"> <!-- Adjusted column classes -->
-                  <select name="job_type" class="form-select" id="basic-default-company">
-                    <option value="Remote">Remote</option>
-                    <option value="On-site">On-site</option>
-                    <option value="Hybrid">Hybrid</option>
-                  </select>
-                </div>
               </div>
+              <div class="col-sm-3">
+                  <select name="is_remote" class="form-select" id="basic-default-company">
+                      <option value="Remote" {{ $job->is_remote === 'Remote' ? 'selected' : '' }}>Remote</option>
+                      <option value="On-site" {{ $job->is_remote === 'On-site' ? 'selected' : '' }}>On-site</option>
+                      <option value="Hybrid" {{ $job->is_remote === 'Hybrid' ? 'selected' : '' }}>Hybrid</option>
+                  </select>
+              </div>
+              
               
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-company">Required Skill</label>
@@ -74,7 +74,7 @@
                     class="form-control"
                     name="skill"
                     id="basic-default-company"
-                    value="this is test"
+                    value="{{$job->skill}}"
                   />
                 </div>
               </div>
@@ -86,7 +86,7 @@
                     class="form-control"
                     name="experience"
                     id="basic-default-company"
-                    value="this is test"
+                    value=" {{$job->experience}}"
                   />
                 </div>
               </div>
@@ -98,7 +98,7 @@
                     class="form-control"
                     name="education"
                     id="basic-default-company"
-                    value="this is test"
+                    value="{{$job->zipcode}}"
                   />
                 </div>
               </div>
@@ -110,7 +110,7 @@
                     class="form-control"
                     name="budget"
                     id="basic-default-company"
-                    value="8743"
+                    value="{{$job->budget}}"
                   />
                 </div>
               </div>
@@ -122,7 +122,7 @@
                     name="bid_close"
                     class="form-control"
                     id="basic-default-company"
-                    value="2023-05-03"
+                    value="{{$job->bid_close}}"
                   />
                 </div>
                 
@@ -133,7 +133,7 @@
                     name="deadline"
                     class="form-control"
                     id="basic-default-company"
-                    value="2023-05-03"
+                    value="{{$job->deadline}}"
                   />
                 </div>
               </div>
@@ -148,12 +148,12 @@
                       placeholder="Tell us about the project!"
                       aria-label="Tell us about the project!"
                       aria-describedby="basic-icon-default-message2"
-                    >This is test</textarea>
+                    >{{$job->description}}</textarea>
                   </div>
                 </div>
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                   </div>
                 </div>
             </form>
