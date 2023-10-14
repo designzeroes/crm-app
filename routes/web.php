@@ -9,7 +9,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployeeController;
 
 
-Route::get('/w', function () {
+Route::get('/', function () {
     return view('pages.guest.index');
 });
 
