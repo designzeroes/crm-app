@@ -22,14 +22,14 @@ class JobFrontController extends Controller
     return response()->json(['jobs' => $jobs]);
 }
 
-   return view('pages.Front.job.index', ['jobs' => $jobs]);
+   return view('pages.guest.jobs_list', ['jobs' => $jobs]);
  }  
  
  public function apply( $id){
 
     // Check if the user is not logged in or is not a candidate
     if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
-      return view('pages.Front.guest-apply', ['id' => $id]);
+      return view('pages.guest.guest-apply', ['id' => $id]);
   }
 
   // Check if the user has already applied for the job
@@ -94,7 +94,7 @@ class JobFrontController extends Controller
     ->get();
 
 
-  return view('pages.front.applied_jobs',['applied_jobs'=>$applied_jobs]);
+  return view('pages.guest.applied_jobs',['applied_jobs'=>$applied_jobs]);
  }
 
  public function applied_distroy($id){

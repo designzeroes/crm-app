@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
         Auth::logout();
 
         // Redirect them back to the login page with an error message
-        return redirect()->route('user-login')->with('error', 'You are not allowed to log in here.');
+        return redirect()->route('login')->with('error', 'You are not allowed to log in here.');
     }else{
     
             return redirect()->intended(RouteServiceProvider::HOME);
@@ -75,12 +75,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        if (Auth::user()->hasRole('candidate')) {
+            Auth::guard('web')->logout();
+    
+            $request->session()->invalidate();
+    
+            $request->session()->regenerateToken();
+    
+            return redirect()->route('user-login'); 
+        } else {
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+            Auth::guard('web')->logout();
+    
+            $request->session()->invalidate();
+    
+            $request->session()->regenerateToken();
+    
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 }

@@ -10,7 +10,7 @@ use App\Http\Controllers\EmployeeController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.guest.index');
 });
 
 Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
