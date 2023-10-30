@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -49,6 +50,9 @@ class EmployeeController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('employee');
 
+
+         $user->givePermissionTo(Permission::all());
+        
         $validatedData['creator_id'] = $creator->id;
         $validatedData['user_id'] = $user->id;
         // Create the Employee using the validated data

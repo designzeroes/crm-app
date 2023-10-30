@@ -82,6 +82,14 @@
             <x-input-label for="skill" :value="__('Skill')" />
             <x-text-input id="skill" name="skill" type="text" class="form-control" :value="old('skill', $profile->skill)" required autocomplete="skill" />
           </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="experience" :value="__('Experience in Years')" />
+            <x-text-input id="experience" name="experience" type="text" class="form-control" :value="old('experience', $profile->experience)" required autocomplete="experience" />
+          </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="profession" :value="__('Profession')" />
+            <x-text-input id="profession" name="profession" type="text" class="form-control" :value="old('profession', $profile->profession)" required autocomplete="profession" />
+          </div>
           @endrole
           @role(['employee','candidate'])
             <div class="mb-3 col-md-6">
@@ -110,23 +118,28 @@
               <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $profile->zipcode)" required autocomplete="zipcode" />
           </div>
             <div class="mb-3 col-md-6">
-              <x-input-label for="latest_degree" :value="__('Latest Degree')" />
-              <x-text-input id="latest_degree" name="latest_degree" type="text" class="form-control" :value="old('latest_degree', $profile->latest_degree)" required autocomplete="latest_degree" />
+              <x-input-label for="degree_id" :value="__('Latest Degree')" />
+              <select name="degree_id" id="degree_id" class="form-select">
+                <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
+                @foreach($degrees as $degree)
+                    <option value="{{$degree->id }}">{{ $degree->degree_title }}</option>
+                @endforeach
+              </select>
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="latest_university" :value="__('Latest University')" />
-              <x-text-input id="latest_university" name="latest_university" type="text" class="form-control" :value="old('latest_university', $profile->latest_university)" required autocomplete="latest_university" />
+              <x-text-input id="latest_university" name="latest_university" type="text" class="form-control" :value="old('latest_university', $profile->latest_university)" autocomplete="latest_university" />
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_organization" :value="__('Current Organization')" />
-              <x-text-input id="current_organization" name="current_organization" type="text" class="form-control" :value="old('current_organization', $profile->current_organization)" required autocomplete="current_organization" />            </div>
+              <x-text-input id="current_organization" name="current_organization" type="text" class="form-control" :value="old('current_organization', $profile->current_organization)" autocomplete="current_organization" />            </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_department" :value="__('Current Department')" />
-              <x-text-input id="current_department" name="current_department" type="text" class="form-control" :value="old('current_department', $profile->current_department)" required autocomplete="current_department" />
+              <x-text-input id="current_department" name="current_department" type="text" class="form-control" :value="old('current_department', $profile->current_department)" autocomplete="current_department" />
             </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="current_position" :value="__('Current Position')" />
-              <x-text-input id="current_position" name="current_position" type="text" class="form-control" :value="old('current_position', $profile->current_position)" required autocomplete="current_position" />
+              <x-text-input id="current_position" name="current_position" type="text" class="form-control" :value="old('current_position', $profile->current_position)" autocomplete="current_position" />
             </div>
             <div class="mb-3 col-md-12">
               <x-input-label for="description" :value="__('Description')" />

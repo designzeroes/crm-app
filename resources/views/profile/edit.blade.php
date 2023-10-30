@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends(auth()->check() && auth()->user()->hasAnyRole('super-admin', 'organization', 'employee') ? 'layouts.controlpanel' : 'layouts.guest')
 @section('content')
   <div class="container flex-grow-1 container-p-y">
         <div class="row">

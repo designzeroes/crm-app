@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -71,6 +72,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('organization');
 
+        $user->givePermissionTo(Permission::all());
         Organization::create([
             'user_id' => $user->id, 
             'organization_name' => $request->organization_name,

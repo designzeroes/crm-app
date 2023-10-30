@@ -28,7 +28,7 @@
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Job Title</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" value="this is test" name="job_title" id="basic-default-name" />
+                  <input type="text" class="form-control" value="Learning Menagment System (LMS)" name="job_title" id="basic-default-name" />
                 </div>
               </div>
               <div class="row mb-3">
@@ -39,8 +39,28 @@
                     name="address"
                     class="form-control"
                     id="basic-default-company"
-                    value="this is test"
+                    value="TRC Enterprice,Avanue Road, 3rd Block, Lahore"
                   />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Job category</label>
+                <div class="col-sm-4">
+                  <select name="category_id" id="category" class="form-select">
+                    <option disabled selected> -- Select an option -- </option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->cat_name }}</option>
+                    @endforeach
+                </select>
+                </div>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Education</label>
+                <div class="col-sm-4">
+                  <select name="degree_id" id="category" class="form-select">
+                    <option disabled selected> -- Select an option -- </option>
+                    @foreach($degrees as $degree)
+                        <option value="{{ $degree->id }}">{{ $degree->degree_title }}</option>
+                    @endforeach
+                </select>
                 </div>
               </div>
               <div class="row mb-3">
@@ -55,11 +75,12 @@
                   />
                 </div>
                 
-                <div class="col-sm-2 offset-sm-1"> <!-- Adjusted column classes -->
+                <div class="col-sm-2"> <!-- Adjusted column classes -->
                   <label class="col-form-label" for="basic-default-company">Job Type</label>
                 </div>
-                <div class="col-sm-3"> <!-- Adjusted column classes -->
+                <div class="col-sm-4"> <!-- Adjusted column classes -->
                   <select name="job_type" class="form-select" id="basic-default-company">
+                    <option disabled selected> -- Select an option -- </option>
                     <option value="Remote">Remote</option>
                     <option value="On-site">On-site</option>
                     <option value="Hybrid">Hybrid</option>
@@ -75,37 +96,23 @@
                     class="form-control"
                     name="skill"
                     id="basic-default-company"
-                    value="this is test"
+                    value="HTML, CSS, JS, Vue, Laravel, Php"
                   />
                 </div>
               </div>
               <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Experience</label>
-                <div class="col-sm-10">
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Experience Years</label>
+                <div class="col-sm-4">
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     name="experience"
                     id="basic-default-company"
-                    value="this is test"
+                    value="5"
                   />
                 </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Education</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="education"
-                    id="basic-default-company"
-                    value="this is test"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-company">Budget</label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                   <input
                     type="text"
                     class="form-control"
@@ -149,7 +156,7 @@
                       placeholder="Tell us about the project!"
                       aria-label="Tell us about the project!"
                       aria-describedby="basic-icon-default-message2"
-                    >This is test</textarea>
+                    >The Learning System Application is For a University.</textarea>
                   </div>
                 </div>
                 <div class="row justify-content-end">

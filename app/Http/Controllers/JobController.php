@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
+use App\Models\Degree;
 use App\Models\Employee;
-use App\Models\User;
+use App\Models\Categories;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
+
 
         if ($request->user()->hasRole('employee')) {
             $org = Employee::where('user_id', auth()->user()->id)->first();
@@ -37,7 +39,11 @@ class JobController extends Controller
     public function create()
     {
 
-        return view('pages.controlpanel.job.create');
+    
+        $this->hasPermission('job-create');
+        $categories = Categories::all();
+        $degrees = Degree::all();
+        return view('pages.controlpanel.job.create',['categories'=>$categories, 'degrees' => $degrees]);
         
     }
 
@@ -58,6 +64,7 @@ class JobController extends Controller
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
+            'category_id' => 'required',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
@@ -65,7 +72,7 @@ class JobController extends Controller
             'is_remote' => 'nullable|boolean',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
-            'education' => 'nullable|string',
+            'degree_id' => 'nullable|string',
             'budget' => 'nullable|string',
             'bid_close' => 'nullable|date',
             'deadline' => 'nullable|date',
@@ -82,41 +89,52 @@ class JobController extends Controller
         // Create the job using the validated data
         Job::create($validatedData);
 
-    
-        // You can redirect or do something else after the job is created
-        return redirect()->route('job.index');
+        $categories = Categories::all();
+
+        return redirect()->route('job.index',['categories'=>$categories]);
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
 
-        $job = Job::where('jobs.id', $id)->first();
+        $this->hasPermission('job-view');
 
-        return view('pages.controlpanel.job.show', ['job'=>$job]);
+        $job = Job::where('jobs.id', $id)->first();
+        $degrees = Degree::all();
+        return view('pages.controlpanel.job.show', ['job'=>$job,'degrees'=> $degrees]);
+
+   
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $job = Job::findOrFail($id);
+        $this->hasPermission('job-edit');
+        $job = Job::find($id);
+        $category = Categories::where('id', $job->category_id)->first();
+        $categories = Categories::where('id', '!=', $job->category_id)->get();
+        $degree = Degree::where('id', $job->degree_id)->first();
+        $degrees = Degree::where('id', '!=', $job->degree_id)->get();
 
-        return view('pages.controlpanel.job.edit', ['job' => $job]);
+
+        return view('pages.controlpanel.job.edit', [
+            'job' => $job,
+            'cat'=> $category,
+            'categories'=> $categories,
+            'degree' => $degree,
+            'degrees' => $degrees
+        ]);
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
+            'category_id' => 'nullable',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
@@ -124,7 +142,7 @@ class JobController extends Controller
             'is_remote' => 'nullable|string|max:20',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
-            'education' => 'nullable|string',
+            'degree_id' => 'nullable',
             'budget' => 'nullable|string',
             'bid_close' => 'nullable|date',
             'deadline' => 'nullable|date',
@@ -146,6 +164,7 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->hasPermission('job-delete');
             // Retrieve the job based on the provided $id
     $job = Job::findOrFail($id);
 
@@ -155,4 +174,13 @@ class JobController extends Controller
     // You can redirect or do something else after the job is deleted
     return redirect()->route('job.index');
     }
+
+    private function hasPermission($permissionName)
+    {
+        if (!auth()->user()->hasPermissionTo($permissionName)) {
+            abort(403);
+        }
+    }
+
+
 }

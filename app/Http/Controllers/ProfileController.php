@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Organization;
 use App\Models\Candidate;
+use App\Models\Degree;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,7 +29,10 @@ class ProfileController extends Controller
 
         } elseif ($request->user()->hasRole('candidate')) {
             $profile = Candidate::where('user_id', $request->user()->id)->firstOrFail();
-
+            $degree = Degree::where('id', $profile->degree_id)->first();
+            $degrees = Degree::where('id', '!=', $profile->degree_id)->get();
+    
+    
         }
         
 
@@ -36,6 +40,8 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
              'profile' => $profile,
+             'degree' => $degree,
+             'degrees' => $degrees,
         ]);
 
         
@@ -66,7 +72,7 @@ class ProfileController extends Controller
             'gender' => 'nullable|in:Male,Female,Other',
             'birth_date' => 'nullable|date',
             'zipcode' => 'nullable|string|max:10',
-            'latest_degree' => 'nullable|string|max:255',
+            'degree_id' => 'nullable',
             'latest_university' => 'nullable|string|max:255',
             'current_organization' => 'nullable|string|max:255',
             'current_department' => 'nullable|string|max:255',

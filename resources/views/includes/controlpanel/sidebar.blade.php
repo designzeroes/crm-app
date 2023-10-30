@@ -102,20 +102,40 @@
                 </a>
                 @endrole
               </li>
-              <li class="menu-item {{ request()->is('view-applied*') ? 'active' : '' }}">
-                @role(['candidate'])
-                <a href="{{ route('view-applied') }}" class="menu-link">
+              <li class="menu-item {{ request()->is('categories*') ? 'active' : '' }}">
+                @role(['super-admin'])
+                <a href="{{ route('categories.index') }}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Applied Jobs</div>
-                </a>
-              </li>
-              <li class="menu-item {{ request()->is('Browse Jobs*') ? 'active' : '' }}">
-                <a href="{{ route('frontjoblist') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Browse Jobs</div>
+                  <div data-i18n="Authentications">Categories</div>
                 </a>
                 @endrole
               </li>
+              @role(['organization','super-admin'])
+              <li class="menu-item {{ request()->is('invite*') ? 'active' : '' }}">
+                <a href="{{route('invite_create')}}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                  <div data-i18n="Authentications">Invite</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                  <i class="menu-icon tf-icons bx bx-detail"></i>
+                  <div data-i18n="Form Elements">Permission</div>
+                </a>
+                <ul class="menu-sub">
+                  <li class="menu-item {{ request()->is('user-select*') ? 'active' : '' }}">
+                    <a href="{{route('user-select')}}" class="menu-link">
+                      <div data-i18n="Basic Inputs">User Permission</div>
+                    </a>
+                  </li>
+                  <li class="menu-item {{ request()->is('role-select*') ? 'active' : '' }}">
+                    <a href="{{route('role-select')}}" class="menu-link">
+                      <div data-i18n="Input groups">Role permission</div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              @endrole
             </ul>
           </aside>
           <!-- / Menu -->

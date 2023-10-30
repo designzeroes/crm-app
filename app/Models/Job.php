@@ -12,6 +12,7 @@ class Job extends Model
     protected $fillable = [
         'user_id',
         'organization_id',
+        'category_id',
         'job_title',
         'description',
         'creator',
@@ -22,7 +23,7 @@ class Job extends Model
         'is_remote',
         'skill',
         'experience',
-        'education',
+        'degree_id',
         'budget',
         'bid_close',
         'deadline',
@@ -50,5 +51,14 @@ class Job extends Model
     return $this->hasMany(Application_form::class, 'job_id');
 }
 
+public function categories()
+{
+    return $this->belongsTo(Categories::class, 'cat_id');
+}
+
+public function degree()
+{
+    return $this->belongsTo(Degree::class, 'degree_id');
+}
 
 }

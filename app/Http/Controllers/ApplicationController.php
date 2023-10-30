@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Collection;
 use App\Models\User;
-use App\Models\Employee;
+use App\Models\Job;
 use App\Models\Application_form;
-use App\Models\Organization;
+use App\Models\Degree;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -15,22 +15,32 @@ class ApplicationController extends Controller
      */
     public function index($id)
     {
-
-        
+      $job =  Job::where('id',$id)->first();
+      
         $applications1 = Application_form::join('candidates', 'application_form.user_id', '=', 'candidates.user_id')
         ->join('users', 'candidates.user_id', '=', 'users.id')
         ->where('application_form.job_id', $id)
-        ->select('application_form.*', 'users.name', 'users.email')
+        ->select('application_form.*', 'users.name', 'users.email', 'candidates.skill','candidates.experience','candidates.degree_id','candidates.experience','candidates.profession')
         ->get();
-    
+        
+        foreach ($applications1 as $application) {
 
-$applications2 = Application_form::where('user_id', NULL)->get();
+            $skillScore =$this->stringmatch($job->skill, $application->skill);
+            $educationScore =($application->degree_id == $job->degree_id) ? 3 : 0;
+            $experienceScore =($job->experience > 0) ? ($application->experience / $job->experience) * 5 : 0;
 
-// Merge the two collections into a single array
-$mergedApplications = $applications1->concat($applications2);
-//dd($mergedApplications);
+            echo  $application->percentage_match = $skillScore + $educationScore + $experienceScore;
+            
+            echo "<br>";
 
-return view('pages.controlpanel.candidate.index', ['applications' => $mergedApplications]);
+        }
+        
+
+        $applications2 = Application_form::where('user_id', NULL)->get();
+        $mergedApplications = $applications1->concat($applications2);
+      
+
+     //   return view('pages.controlpanel.candidate.index', ['applications' => $mergedApplications]);
 
     }
 
@@ -106,5 +116,29 @@ return view('pages.controlpanel.candidate.index', ['applications' => $mergedAppl
     {
         //
     }
+
+    private function stringmatch($jobData, $candidateData)
+    {
+    // Extract words from job and candidate data
+    preg_match_all('/\b\w+\b/', strtolower($jobData), $jobWords);
+    preg_match_all('/\b\w+\b/', strtolower($candidateData), $candidateWords);
+
+    // Flatten the arrays of words
+    $jobWords = $jobWords[0];
+    $candidateWords = $candidateWords[0];
+
+    // Count the number of matching words
+    $matchingWordsCount = count(array_intersect($jobWords, $candidateWords));
+
+    // Count the total number of words
+    $totalWordsCount = count($jobWords);
+
+    // Calculate the percentage of matching words
+    $percentageMatch = ($totalWordsCount > 0) ? ($matchingWordsCount / $totalWordsCount) * 10 : 0;
+
+    return $percentageMatch;
+    }
+
+
 
 }

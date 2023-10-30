@@ -2,9 +2,9 @@
 @section('content')
 <!-- Content -->
 
- <div class="container ">
+    <div class="container ">
         <!-- Register -->
-        <div class="card mt-4 w-75 mx-auto ">
+        <div class="card mt-3 w-75 mx-auto ">
             <div class="card-body">
                 <h4 class="mb-2">Register Here </h4>
                 <p class="mb-4">Registering on the portal would  increase 70-80%  more chance to get hired quickly.  </p>
@@ -24,6 +24,7 @@
                         id="name"
                         name="name"
                         placeholder="Enter your name"
+                        value="{{Old('name')}}"
                         required 
                         />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -36,6 +37,7 @@
                         id="email"
                         name="email"
                         placeholder="Enter your Email"
+                        value="{{Old('email')}}"
                         required 
                         />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -48,6 +50,7 @@
                         id="position"
                         name="position"
                         placeholder="Enter your Position"
+                        value="{{Old('position')}}"
                         required 
                         />
                         <x-input-error :messages="$errors->get('position')" class="mt-2" />
@@ -60,10 +63,20 @@
                             id="cv"
                             name="cv"
                             accept=".pdf"
-                            required
                         />
                         <x-input-error :messages="$errors->get('cv')" class="mt-2" />
                     </div>
+                        @if (!empty($cv))
+                            <div class="mb-3">
+                                <label for="use_existing_cv" class="form-label">{{ __('Use Old CV')}}</label>
+                                <input
+                                    type="checkbox"
+                                    id="use_existing_cv"
+                                    name="use_old_cv"
+                                    value="{{$cv}}"
+                                />
+                            </div>
+                         @endif                
                     <div class="mb-3">
                         <button class="btn-theme btn-two d-grid w-100" type="submit">{{ __('Submit') }}</button>
                     </div>
@@ -83,7 +96,7 @@
             </div>
         </div>
         <!-- /Register -->
-</div>
+    </div>
 
 <!-- / Content -->
 

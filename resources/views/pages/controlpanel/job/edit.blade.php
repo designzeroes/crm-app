@@ -44,28 +44,45 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Zip Code</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Job category</label>
                 <div class="col-sm-4">
-                  <input
-                    type="number"
-                    value="{{$job->zipcode}}"
-                    class="form-control"
-                    id="basic-default-company"
-                  />
-                </div>
-                
-                <div class="col-sm-2 offset-sm-1">
-                  <label class="col-form-label" for="basic-default-company">Job Type</label>
-              </div>
-              <div class="col-sm-3">
-                  <select name="is_remote" class="form-select" id="basic-default-company">
-                      <option value="Remote" {{ $job->is_remote === 'Remote' ? 'selected' : '' }}>Remote</option>
-                      <option value="On-site" {{ $job->is_remote === 'On-site' ? 'selected' : '' }}>On-site</option>
-                      <option value="Hybrid" {{ $job->is_remote === 'Hybrid' ? 'selected' : '' }}>Hybrid</option>
+                  <select name="category_id" id="category" class="form-select">
+                    <option value="{{ $cat->id}}">{{ $cat->cat_name }}</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->cat_name }}</option>
+                    @endforeach
                   </select>
+                </div>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Education Required</label>
+                <div class="col-sm-4">
+                  <select name="degree_id" id="category" class="form-select">
+                    <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
+                    @foreach($degrees as $degree)
+                        <option value="{{$degree->id }}">{{ $degree->degree_title }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label" for="basic-default-zipcode">Zip Code</label>
+                  <div class="col-sm-4">
+                      <input
+                          type="number"
+                          value="{{ $job->zipcode }}"
+                          class="form-control"
+                          id="basic-default-zipcode"
+                      />
+                  </div>
               
-              
+                  <label class="col-sm-2" for="basic-default-job-type">Job Type</label>
+                  <div class="col-sm-4">
+                      <select name="is_remote" class="form-select" id="basic-default-job-type">
+                          <option value="Remote" {{ $job->is_remote === 'Remote' ? 'selected' : '' }}>Remote</option>
+                          <option value="On-site" {{ $job->is_remote === 'On-site' ? 'selected' : '' }}>On-site</option>
+                          <option value="Hybrid" {{ $job->is_remote === 'Hybrid' ? 'selected' : '' }}>Hybrid</option>
+                      </select>
+                  </div>
+              </div>
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-company">Required Skill</label>
                 <div class="col-sm-10">
@@ -79,7 +96,7 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Experience</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Experience years</label>
                 <div class="col-sm-10">
                   <input
                     type="text"
@@ -87,18 +104,6 @@
                     name="experience"
                     id="basic-default-company"
                     value=" {{$job->experience}}"
-                  />
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Required Education</label>
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="education"
-                    id="basic-default-company"
-                    value="{{$job->zipcode}}"
                   />
                 </div>
               </div>

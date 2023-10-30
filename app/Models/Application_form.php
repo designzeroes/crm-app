@@ -15,6 +15,7 @@ class Application_form extends Model
      'user_id',
      'job_id',
      'name', 
+     'user_ip',
      'position',
       'email',
        'cv',

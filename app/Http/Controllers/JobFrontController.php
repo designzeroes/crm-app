@@ -25,11 +25,18 @@ class JobFrontController extends Controller
    return view('pages.guest.jobs_list', ['jobs' => $jobs]);
  }  
  
- public function apply( $id){
+ public function apply(Request $request, $id){
 
     // Check if the user is not logged in or is not a candidate
     if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
-      return view('pages.guest.guest-apply', ['id' => $id]);
+      $existing = Application_form::where('user_ip', $request->ip())->first();
+
+      if (!empty($existing->user_ip)) {
+        return view('pages.guest.guest-apply', ['id' => $id, 'cv' => $existing->cv]);
+    } else {
+        // Handle the case where no matching record is found
+        return view('pages.guest.guest-apply', ['id' => $id]);
+    }
   }
 
   // Check if the user has already applied for the job
@@ -62,20 +69,34 @@ class JobFrontController extends Controller
         'name' => 'required|string|max:255',
         'position' => 'required|string|max:255',
         'email' => 'required|email|max:255',
-        'cv' => 'required|mimes:pdf|max:1024', 
+        'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
     ]);
     
-    // Handle the file upload and store the CV in the 'public/cv' directory
-    $cvPath = $request->file('cv')->store('cv', 'public');
+       // Check if the same email and job_id combination already exists
+       $existingApplication = Application_form::where('job_id', $id)
+       ->where('email', $request->input('email'))
+       ->first();
 
-    // Create a new JobApplication instance and save it to the database
+   if ($existingApplication) {
+       // You can customize the error message based on your requirements
+       return redirect()->back()->with('error', 'You have already applied for this job with the same email.');
+   }
+   
+    if (!$request->input('use_old_cv')) {
+      $cvPath = $request->file('cv')->store('cv', 'public');
+    }else{
+      $cvPath = $request->input('use_old_cv');
+    }
+  
     Application_form::create([
         'job_id' => $id,
         'name' => $request->input('name'),
         'position' => $request->input('position'),
         'email' => $request->input('email'),
-      'is_registered' => 0,
-        'cv' => $cvPath, ]);
+        'is_registered' => 0,
+        'cv' => $cvPath,
+        'user_ip' => $request->ip(),
+       ]);
 
     return redirect()->route('frontjoblist')->with('success', 'Application submitted successfully.');
 

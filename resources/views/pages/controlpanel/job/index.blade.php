@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h4 class="fw-bold py-3 mb-0"><span class="text-muted fw-light">Jobs /</span> Created Jobs List</h4>
-     <a href="{{route('job.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>
+    @can('job-create') <a href="{{route('job.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>@endcan
     </div>
   
       <!-- Hoverable Table rows -->
@@ -38,23 +38,28 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
+                      @can('job-view')
                       <a class="dropdown-item"  href="{{ route('job.show', ['job' => $job->id]) }}"
                         ><i class="fa-regular fa-file-lines me-2"></i> View</a
                       >
+                      @endcan
                       <a class="dropdown-item"  href="{{ route('applier_candidates', ['id' => $job->id]) }}"
                         ><i class="bx bx-user me-1"></i> Candidates</a
                       >
-                      <a class="dropdown-item" href="{{ route('job.edit', ['job' => $job->id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                      >
-                      <form method="POST" action="{{ route('job.destroy', ['job' => $job->id]) }}" class="delete-form">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="dropdown-item">
-                            <i class="bx bx-trash me-1"></i> Delete
-                        </button>
-                      </form>
-                    
+                      @can('job-edit')
+                      <a class="dropdown-item" href="{{ route('job.edit', ['job' => $job->id]) }}">
+                          <i class="bx bx-edit-alt me-1"></i> Edit
+                      </a>
+                      @endcan
+                      @can('job-delete')
+                          <form method="POST" action="{{ route('job.destroy', ['job' => $job->id]) }}" class="delete-form">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="dropdown-item">
+                                  <i class="bx bx-trash me-1"></i> Delete
+                              </button>
+                          </form>
+                      @endcan
                     </div>
                   </div>
                 </td>
