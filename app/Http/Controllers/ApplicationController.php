@@ -5,7 +5,6 @@ use Illuminate\Support\Collection;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\Application_form;
-use App\Models\Degree;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -28,19 +27,16 @@ class ApplicationController extends Controller
             $skillScore =$this->stringmatch($job->skill, $application->skill);
             $educationScore =($application->degree_id == $job->degree_id) ? 3 : 0;
             $experienceScore =($job->experience > 0) ? ($application->experience / $job->experience) * 5 : 0;
-
-            echo  $application->percentage_match = $skillScore + $educationScore + $experienceScore;
-            
-            echo "<br>";
-
+            $application->match_score = $skillScore + $educationScore + $experienceScore;
+            $application->match_score = number_format($application->match_score, 2);
         }
         
+            $sortedApplications = $applications1->sortByDesc('match_score');
 
-        $applications2 = Application_form::where('user_id', NULL)->get();
-        $mergedApplications = $applications1->concat($applications2);
-      
+            $applications2 = Application_form::where('user_id', NULL)->get();
+            $mergedApplications = $sortedApplications->concat($applications2);
 
-     //   return view('pages.controlpanel.candidate.index', ['applications' => $mergedApplications]);
+            return view('pages.controlpanel.candidate.index', ['applications' => $mergedApplications]);
 
     }
 

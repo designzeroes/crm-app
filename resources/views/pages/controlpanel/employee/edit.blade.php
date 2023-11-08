@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Employee/</span> Update Employee</h4>
+  <x-page-title menu='Employee' page='Edit'/>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

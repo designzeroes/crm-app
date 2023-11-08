@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->boolean('is_required')->nullable();
             $table->string('display_type')->nullable();
-            $table->string('type')->nullable();
+            $table->string('description')->nullable();
             $table->string('user_ip')->nullable();
             $table->string('field_category')->nullable();
             $table->timestamp('created_at')->useCurrent();

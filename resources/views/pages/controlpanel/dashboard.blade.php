@@ -8,7 +8,7 @@
             <div class="col-sm-7">
               <div class="card-body">
                 <h5 class="card-title text-primary">
-                        @php
+                    @php
                         $userRoles = Auth::user()->getRoleNames();
                     @endphp
                     

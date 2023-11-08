@@ -72,8 +72,10 @@
               <!-- Dashboard -->
               <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
                 <a href="{{route('dashboard')}}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div data-i18n="Analytics">Dashboard</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-dashboard"></i></span>
+                    <span class="col-8">Dashboard</span>
+                  </div>  
                 </a>
               </li>
   
@@ -81,46 +83,58 @@
               @role(['organization','employee'])
               <li class="menu-item {{ request()->is('job*') ? 'active' : '' }}">
                 <a href="{{ route('job.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-layout"></i>
-                  <div data-i18n="Layouts">Job</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-file-invoice"></i></span>
+                    <span class="col-8">Job</span>
+                  </div> 
                 </a>
               </li>
               @endrole
               <li class="menu-item {{ request()->is('employee*') ? 'active' : '' }}">
                 @role(['organization','super-admin'])
                 <a href="{{ route('employee.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Employees</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-users"></i></span>
+                    <span class="col-8">Employee</span>
+                  </div> 
                 </a>
                 @endrole
               </li>
-              <li class="menu-item {{ request()->is('organization*') ? 'active' : '' }}">
-                @role(['super-admin'])
-                <a href="{{ route('organization.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Organizations</div>
-                </a>
-                @endrole
-              </li>
+              @role(['super-admin'])
+                <li class="menu-item {{ request()->is('organization*') ? 'active' : '' }}">
+                  <a href="{{ route('organization.index') }}" class="menu-link">
+                    <div class="row">
+                      <span class="col-2"><i class="fas fa-industry"></i></span>
+                      <span class="col-8">Organization</span>
+                    </div> 
+                  </a>
+                </li>
+              @endrole
               <li class="menu-item {{ request()->is('categories*') ? 'active' : '' }}">
                 @role(['super-admin'])
                 <a href="{{ route('categories.index') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Categories</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-stream"></i></span>
+                    <span class="col-8">Categories</span>
+                  </div> 
                 </a>
                 @endrole
               </li>
               @role(['organization','super-admin'])
               <li class="menu-item {{ request()->is('invite*') ? 'active' : '' }}">
                 <a href="{{route('invite_create')}}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                  <div data-i18n="Authentications">Invite</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-envelope-open"></i></span>
+                    <span class="col-8">Invite</span>
+                  </div> 
                 </a>
               </li>
               <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-detail"></i>
-                  <div data-i18n="Form Elements">Permission</div>
+                  <div class="row">
+                    <span class="col-2"><i class="fas fa-tasks"></i></span>
+                    <span class="col-8">Permission</span>
+                  </div> 
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item {{ request()->is('user-select*') ? 'active' : '' }}">

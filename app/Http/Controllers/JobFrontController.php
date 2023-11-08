@@ -24,20 +24,26 @@ class JobFrontController extends Controller
 
    return view('pages.guest.jobs_list', ['jobs' => $jobs]);
  }  
- 
- public function apply(Request $request, $id){
 
-    // Check if the user is not logged in or is not a candidate
+ public function apply(Request $request,$id){
+
+     $job = Job::where('id', $id)->first();
+
+         // Check if the user is not logged in or is not a candidate
     if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
       $existing = Application_form::where('user_ip', $request->ip())->first();
 
       if (!empty($existing->user_ip)) {
-        return view('pages.guest.guest-apply', ['id' => $id, 'cv' => $existing->cv]);
-    } else {
-        // Handle the case where no matching record is found
-        return view('pages.guest.guest-apply', ['id' => $id]);
+        return view('pages.guest.job_detail', ['cv' => $existing->cv, 'job' => $job]);
     }
+
+    
   }
+  return view('pages.guest.job_detail', ['job' => $job]);
+ }
+ public function user_apply(Request $request, $id){
+
+
 
   // Check if the user has already applied for the job
   $existingApplication = Application_form::where('user_id', auth()->user()->id)
@@ -53,6 +59,7 @@ class JobFrontController extends Controller
           'user_id' => auth()->user()->id,
           'job_id' => $id,
           'is_registred' => 1,
+          'description'=> $request->description,
           'status' => 'In Process',
       ]);
 
@@ -63,15 +70,15 @@ class JobFrontController extends Controller
  }
 
  public function guest_apply(Request $request, $id){
-
       // Validate the form input, including the file upload
       $request->validate([
         'name' => 'required|string|max:255',
         'position' => 'required|string|max:255',
         'email' => 'required|email|max:255',
+        'description' => 'required|max:1000',
         'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
     ]);
-    
+ 
        // Check if the same email and job_id combination already exists
        $existingApplication = Application_form::where('job_id', $id)
        ->where('email', $request->input('email'))
@@ -93,6 +100,7 @@ class JobFrontController extends Controller
         'name' => $request->input('name'),
         'position' => $request->input('position'),
         'email' => $request->input('email'),
+        'description' => $request->input('description'),
         'is_registered' => 0,
         'cv' => $cvPath,
         'user_ip' => $request->ip(),

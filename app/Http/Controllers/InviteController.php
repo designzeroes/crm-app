@@ -66,9 +66,9 @@ class InviteController extends Controller
      */
     public function accept_invitation($token)
     {
-      $user= Invitation::where('token',$token)->first();
+      //$user= Invitation::where('token',$token)->first();
 
-        return view('pages.controlpanel.invite.reg-invitation',['user'=>$user]);
+        return view('pages.controlpanel.invite.reg-invitation');
        
     }
 

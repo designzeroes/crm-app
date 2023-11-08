@@ -24,25 +24,32 @@ class ProfileController extends Controller
         if ($request->user()->hasRole('employee')) {
             $profile = Employee::where('user_id', $request->user()->id)->firstOrFail();
 
+            return view('profile.edit', [
+                'user' => $request->user(),
+                 'profile' => $profile,
+            ]);
         } elseif ($request->user()->hasRole('organization')) {
             $profile = Organization::where('user_id', $request->user()->id)->firstOrFail();
-
+            return view('profile.edit', [
+                'user' => $request->user(),
+                 'profile' => $profile,
+            ]);
         } elseif ($request->user()->hasRole('candidate')) {
             $profile = Candidate::where('user_id', $request->user()->id)->firstOrFail();
             $degree = Degree::where('id', $profile->degree_id)->first();
             $degrees = Degree::where('id', '!=', $profile->degree_id)->get();
-    
+            return view('profile.edit', [
+                'user' => $request->user(),
+                 'profile' => $profile,
+                 'degree' => $degree,
+                 'degrees' => $degrees,
+            ]);
     
         }
         
 
 
-        return view('profile.edit', [
-            'user' => $request->user(),
-             'profile' => $profile,
-             'degree' => $degree,
-             'degrees' => $degrees,
-        ]);
+
 
         
 

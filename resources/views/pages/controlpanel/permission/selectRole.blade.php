@@ -2,48 +2,42 @@
 
 @section('content')
     <div class="container mt-4">
-        <h2>Manage Permissions</h2>
+        <x-page-title menu='Permission' page='Select'/>
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-        <form method="POST" action="{{ route('role-permission') }}">
-            @csrf
-            
-            <div class="form-group col-5">
-                <label for="role_id">Select Role:</label>
-                <select class="form-select" name="role_id" id="role_id">
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endforeach
-                </select>
+
+            <!-- Basic Layout & Basic with Icons -->
+    <div class="row">
+        <!-- Basic Layout -->
+        <div class="col-md-6 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Permission Form</h5>
+                    <small class="text-muted float-end">Select role to set permission</small>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('role-permission') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="role_id">Select Role:</label>
+                            <select class="form-select" name="role_id" id="role_id">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="row justify-content-end mt-3">
+                            <div class="col">
+                              <button type="submit" class="btn btn-primary">Check Permissions</button>
+                            </div>
+                          </div>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">check Permissions</button>
-        </form>
+          </div>
+        </div>
+      </div>
 
-
-{{-- 
-        <h3 class="mt-4">Users and Permissions:</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Removed Permissions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>
-                            @foreach ($user->permissions as $permission)
-                                {{ $permission->name }}
-                                <br>
-                            @endforeach
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div> --}}
 @endsection

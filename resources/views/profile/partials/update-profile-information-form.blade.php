@@ -90,6 +90,15 @@
             <x-input-label for="profession" :value="__('Profession')" />
             <x-text-input id="profession" name="profession" type="text" class="form-control" :value="old('profession', $profile->profession)" required autocomplete="profession" />
           </div>
+          <div class="mb-3 col-md-6">
+            <x-input-label for="degree_id" :value="__('Latest Degree')" />
+            <select name="degree_id" id="degree_id" class="form-select">
+              <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
+              @foreach($degrees as $degree)
+                  <option value="{{$degree->id }}">{{ $degree->degree_title }}</option>
+              @endforeach
+            </select>
+          </div>
           @endrole
           @role(['employee','candidate'])
             <div class="mb-3 col-md-6">
@@ -117,15 +126,6 @@
               <x-input-label for="zipcode" :value="__('Zipcode')" />
               <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $profile->zipcode)" required autocomplete="zipcode" />
           </div>
-            <div class="mb-3 col-md-6">
-              <x-input-label for="degree_id" :value="__('Latest Degree')" />
-              <select name="degree_id" id="degree_id" class="form-select">
-                <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
-                @foreach($degrees as $degree)
-                    <option value="{{$degree->id }}">{{ $degree->degree_title }}</option>
-                @endforeach
-              </select>
-            </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="latest_university" :value="__('Latest University')" />
               <x-text-input id="latest_university" name="latest_university" type="text" class="form-control" :value="old('latest_university', $profile->latest_university)" autocomplete="latest_university" />

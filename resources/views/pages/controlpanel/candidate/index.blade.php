@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-0"><span class="text-muted fw-light">Candidates /</span> Candidate List</h4>
+  <x-page-title menu='Candidate' page='index'/>
     
   
       <!-- Hoverable Table rows -->
@@ -14,6 +14,7 @@
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Match Score</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -21,8 +22,9 @@
             <tbody class="table-border-bottom-0">
              @foreach( $applications as $application)
               <tr>
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$application->name}}</strong></td>
+                <td><strong>{{$application->name}}</strong></td>
                 <td>{{$application->email}}</td>
+                <td>{{$application->match_score}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     <span class="badge {{ $application->status === 'Selected' ? 'bg-label-success' : ($application->status === 'Rejected' ? 'bg-label-danger' : 'bg-label-info') }}">

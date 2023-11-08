@@ -27,6 +27,7 @@ Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');
+Route::post('/user-apply/{job_id}', [JobFrontController::class, 'user_apply'])->name('user_apply');
 Route::post('/guest_apply/{job_id}', [JobFrontController::class, 'guest_apply'])->name('guest_apply');
 Route::get('/applied_edit/{id}', [JobFrontController::class, 'applied_edit'])->name('applied_edit');
 Route::delete('/applied_destroy/{id}', [JobFrontController::class, 'applied_distroy'])->name('applied_destroy');

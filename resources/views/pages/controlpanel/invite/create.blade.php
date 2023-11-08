@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Invite/</span> Send Invitation</h4>
+  <x-page-title menu='Invite' page='Create'/>
 
         @if ($errors->any())
             <div class="alert alert-danger">
