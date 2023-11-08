@@ -116,8 +116,6 @@ class JobController extends Controller
         $categories = Categories::where('id', '!=', $job->category_id)->get();
         $degree = Degree::where('id', $job->degree_id)->first();
         $degrees = Degree::where('id', '!=', $job->degree_id)->get();
-
-
         return view('pages.controlpanel.job.edit', [
             'job' => $job,
             'cat'=> $category,
