@@ -100,7 +100,7 @@
                     class="form-control"
                     name="experience"
                     id="basic-default-company"
-                    value="{{$user->latest_degree}}"
+                    value="{{$user->degree}}"
                     readonly
                   />
                 </div>

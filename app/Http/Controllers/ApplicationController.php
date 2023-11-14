@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Collection;
-use App\Models\User;
+use App\Models\Degree;
 use App\Models\Job;
 use App\Models\Application_form;
 use Illuminate\Http\Request;
@@ -62,7 +62,7 @@ class ApplicationController extends Controller
          'candidates.birth_date',
          'candidates.address',
          'candidates.zipcode',
-         'candidates.latest_degree',
+         'candidates.degree_id',
          'candidates.latest_university',
          'candidates.current_organization',
          'candidates.current_department',
@@ -73,6 +73,8 @@ class ApplicationController extends Controller
          'users.email',
          )->first();
 
+        $degree = Degree::where('id',$user->degree_id)->pluck('degree_title')->first();
+         $user->degree = $degree;
         if (is_null($user)) {
             $user = Application_form::where('application_form.id', $form_id)
                 ->first();

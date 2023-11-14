@@ -24,7 +24,11 @@
               <tr>
                 <td><strong>{{$application->name}}</strong></td>
                 <td>{{$application->email}}</td>
-                <td>{{$application->match_score}}</td>
+                <td title="{{ isset($application->match_score) ? "Match Score: $application->match_score" : 'Data not available for unregistred users' }}">
+                  {{ $application->match_score ?? 'N/A' }}
+              </td>
+              
+
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     <span class="badge {{ $application->status === 'Selected' ? 'bg-label-success' : ($application->status === 'Rejected' ? 'bg-label-danger' : 'bg-label-info') }}">

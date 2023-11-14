@@ -58,8 +58,8 @@ class JobFrontController extends Controller
       Application_form::create([
           'user_id' => auth()->user()->id,
           'job_id' => $id,
-          'is_registred' => 1,
           'description'=> $request->description,
+          'is_registered' => 1,
           'status' => 'In Process',
       ]);
 
@@ -101,6 +101,7 @@ class JobFrontController extends Controller
         'position' => $request->input('position'),
         'email' => $request->input('email'),
         'description' => $request->input('description'),
+        'status' => 'In Process',
         'is_registered' => 0,
         'cv' => $cvPath,
         'user_ip' => $request->ip(),
