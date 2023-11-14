@@ -34,12 +34,12 @@
                 </td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                    {{$counts[$index]}}
+                    <span class="badge bg-label-primary me-1"> {{$counts[$index]}} </span>
                   </ul>
                 </td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                    {{$jobcount[$index]}}
+                   <span class="badge bg-label-primary me-1">{{$jobcount[$index]}}</span>
                   </ul>
                 </td>
                 <td>
@@ -49,16 +49,22 @@
                     </button>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="{{ route('organization.show', ['organization' => $organization->user_id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> View</a
+                        ><i class="fas fa-file me-2"></i> View</a
+                      >
+                      <a class="dropdown-item" href="{{ route('org-employees', ['id' => $organization->user_id]) }}"
+                        ><i class="fas fa-user me-2"></i> Employee Index</a
+                      >
+                      <a class="dropdown-item" href="{{ route('org-jobs', ['id' => $organization->user_id]) }}"
+                        ><i class="fas fa-file-invoice me-2"></i> Job Index</a
                       >
                       <a class="dropdown-item" href="{{ route('organization.edit', ['organization' => $organization->user_id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                        ><i class="fas fa-edit me-2"></i> Edit</a
                       >
                       <form method="POST" action="{{ route('organization.destroy', ['organization' => $organization->user_id]) }}" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="dropdown-item">
-                            <i class="bx bx-trash me-1"></i> Delete
+                            <i class="fas fa-trash me-2"></i> Delete
                         </button>
                       </form>
                     

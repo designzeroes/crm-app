@@ -23,7 +23,11 @@
             <small class="text-muted float-end">Fill all the fields</small>
           </div>
           <div class="card-body">
+            @if(!empty($org_id))
+            <form method="post" action="{{route('org-job-store')}}">
+            @else
             <form method="post" action="{{route('job.store')}}">
+            @endif
               @csrf
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Job Title</label>
@@ -46,16 +50,16 @@
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-company">Job category</label>
                 <div class="col-sm-4">
-                  <select name="category_id" id="category" class="form-select">
+                  <select name="category_id" id="category"  class="form-select">
                     <option disabled selected> -- Select an option -- </option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->cat_name }}</option>
                     @endforeach
                 </select>
                 </div>
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Education</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Degree</label>
                 <div class="col-sm-4">
-                  <select name="degree_id" id="category" class="form-select">
+                  <select name="degree_id" id="degree" class="form-select">
                     <option disabled selected> -- Select an option -- </option>
                     @foreach($degrees as $degree)
                         <option value="{{ $degree->id }}">{{ $degree->degree_title }}</option>
@@ -76,10 +80,10 @@
                 </div>
                 
                 <div class="col-sm-2"> <!-- Adjusted column classes -->
-                  <label class="col-form-label" for="basic-default-company">Job Type</label>
+                  <label class="col-form-label" for="basic-default-company">Is Remote</label>
                 </div>
                 <div class="col-sm-4"> <!-- Adjusted column classes -->
-                  <select name="job_type" class="form-select" id="basic-default-company">
+                  <select name="is_remote" class="form-select" id="basic-default-company">
                     <option disabled selected> -- Select an option -- </option>
                     <option value="Remote">Remote</option>
                     <option value="On-site">On-site</option>
@@ -159,6 +163,9 @@
                     >The Learning System Application is For a University.</textarea>
                   </div>
                 </div>
+                @if(!empty($org_id))
+                <input type="hidden" name="creator" value="{{$org_id}}">
+                @endif
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Send</button>

@@ -4,8 +4,12 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <x-page-title menu='Job' page='Index'/>
-
-    @can('job-create') <a href="{{route('job.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>@endcan
+      @if(!empty($creator))
+      <a href="{{route('org-job-create', $creator)}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>
+      @else
+      @can('job-create') <a href="{{route('job.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>@endcan
+      @endif
+    
     </div>
   
       <!-- Hoverable Table rows -->
@@ -39,28 +43,44 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                      @can('job-view')
-                      <a class="dropdown-item"  href="{{ route('job.show', ['job' => $job->id]) }}"
-                        ><i class="fa-regular fa-file-lines me-2"></i> View</a
-                      >
-                      @endcan
                       <a class="dropdown-item"  href="{{ route('applier_candidates', ['id' => $job->id]) }}"
-                        ><i class="bx bx-user me-1"></i> Candidates</a
+                        ><i class="fas fa-user me-2"></i> Candidates</a
                       >
-                      @can('job-edit')
-                      <a class="dropdown-item" href="{{ route('job.edit', ['job' => $job->id]) }}">
-                          <i class="bx bx-edit-alt me-1"></i> Edit
+                      @if(!empty($creator))
+                        <a class="dropdown-item"  href="{{ route('job.show', ['job' => $job->id]) }}"
+                          ><i class="fas fa-file me-2"></i> View</a
+                        >
+                        <a class="dropdown-item" href="{{ route('org-job-edit', ['job_id' => $job->id, 'id'=> $job->organization_id]) }}">
+                          <i class="fas fa-edit me-2"></i> Edit
                       </a>
-                      @endcan
-                      @can('job-delete')
-                          <form method="POST" action="{{ route('job.destroy', ['job' => $job->id]) }}" class="delete-form">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="dropdown-item">
-                                  <i class="bx bx-trash me-1"></i> Delete
-                              </button>
-                          </form>
-                      @endcan
+                      <form method="POST" action="{{ route('org-job-destroy', ['job_id' => $job->id, 'id'=> $job->organization_id]) }}" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="dropdown-item">
+                            <i class="fas fa-trash me-2"></i> Delete
+                        </button>
+                      </form>
+                      @else
+                        @can('job-view')
+                          <a class="dropdown-item"  href="{{ route('job.show', ['job' => $job->id]) }}"
+                            ><i class="fas fa-file me-2"></i> View</a
+                          >
+                        @endcan
+                        @can('job-edit')
+                          <a class="dropdown-item" href="{{ route('job.edit', ['job' => $job->id]) }}">
+                              <i class="fas fa-edit me-2"></i> Edit
+                          </a>
+                        @endcan
+                        @can('job-delete')
+                            <form method="POST" action="{{ route('job.destroy', ['job' => $job->id]) }}" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-trash me-2"></i> Delete
+                                </button>
+                            </form>
+                        @endcan
+                      @endif
                     </div>
                   </div>
                 </td>

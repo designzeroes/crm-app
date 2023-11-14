@@ -24,7 +24,7 @@
               <tr>
                 <td><strong>{{$application->name}}</strong></td>
                 <td>{{$application->email}}</td>
-                <td title="{{ isset($application->match_score) ? "Match Score: $application->match_score" : 'Data not available for unregistred users' }}">
+                <td title="{{ isset($application->match_score) ? "Match Score: $application->match_score" : 'Data not Avalable Application submitted as unregistred user' }}">
                   {{ $application->match_score ?? 'N/A' }}
               </td>
               
@@ -44,13 +44,13 @@
                     </button>
                     <div class="dropdown-menu">
                        <a class="dropdown-item" href="{{ route('view_candidates', [ 'form_id' => $application->id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> View</a> 
+                        ><i class="fas fa-file me-2"></i> View</a> 
                        
                       <form method="POST" action="" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="dropdown-item">
-                            <i class="bx bx-trash me-1"></i> Delete
+                            <i class="fas fa-trash me-2"></i> Delete
                         </button>
                       </form>
                     

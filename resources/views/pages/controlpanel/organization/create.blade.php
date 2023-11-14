@@ -22,12 +22,12 @@
             <small class="text-muted float-end">Fill all the fields</small>
           </div>
           <div class="card-body">
-            <form method="post" action="{{route('employee.store')}}">
+            <form method="post" action="{{route('organization.store')}}">
               @csrf
               <div class="row mb-3">
-                <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-name">Orgnization Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" value="this is test" name="name" id="basic-default-name" />
+                  <input type="text" class="form-control" name="name" id="basic-default-name" />
                 </div>
               </div>
               <div class="row mb-3">

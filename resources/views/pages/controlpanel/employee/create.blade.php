@@ -23,18 +23,22 @@
             <small class="text-muted float-end">Fill all the fields</small>
           </div>
           <div class="card-body">
+            @if(!empty($org_id))
+            <form method="post" action="{{route('org-employee-store')}}">
+            @else
             <form method="post" action="{{route('employee.store')}}">
+            @endif
               @csrf
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" value="this is test" name="name" id="basic-default-name" />
+                  <input type="text" class="form-control" value="{{old('name')}}"  name="name" id="basic-default-name" />
                 </div>
               </div>
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Email</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control"  name="email" id="basic-default-name" />
+                  <input type="text" class="form-control" value="{{old('email')}}"    name="email" id="basic-default-name" />
                 </div>
               </div>
                 <div class="row mb-3">
@@ -62,7 +66,9 @@
                       required autocomplete="new-password" />
                   </div>
                 </div>
-                
+                @if(!empty($org_id))
+                <input type="hidden" name="creator" value="{{$org_id}}">
+                @endif
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Send</button>

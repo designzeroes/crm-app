@@ -50,7 +50,12 @@
         </div>
         <hr class="my-0" />
         <div class="card-body">
+          @if(!empty($org_id))
+          <form method="post" action="{{ route('org-employee-update', $user->id) }}">
+          @else
           <form method="post" action="{{ route('employee.update', ['employee' => $user->id]) }}">
+          @endif
+          
             @csrf
             @method('PUT')
             <div class="row">
@@ -147,6 +152,9 @@
               <input type="text" class="form-control" id="cpass" name="password_confirmation" placeholder="Conform Your Password"/>
             </div>
           </div>
+          @if(!empty($org_id))
+          <input type="hidden" name="creator" value="{{$org_id}}">
+          @endif
             <div class="mt-2">
               <button type="submit" class="btn btn-primary me-2">Save changes</button>
             </div>

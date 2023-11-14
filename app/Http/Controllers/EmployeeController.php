@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee;
-use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
 
 class EmployeeController extends Controller
 {
@@ -24,6 +24,18 @@ class EmployeeController extends Controller
         ]);
     }
 
+
+    public function indexForAdmin($id){
+
+        $employees = Employee::where('creator_id', $id)->get();
+        $users = User::all();
+        return view('pages.controlpanel.employee.index', [
+            'employees' => $employees,
+            'users' => $users,
+            'creator' => $id,
+        ]);
+        
+    }
 
     public function create()
     {
@@ -66,12 +78,62 @@ class EmployeeController extends Controller
 
     }
 
+    public function adminCreate($id)
+    {
+
+        return view('pages.controlpanel.employee.create',['org_id'=> $id]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function adminStore(Request $request)
+    {
+        
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ])->assignrole('employee');
+
+
+         $user->givePermissionTo(Permission::all());
+        
+        $validatedData['creator_id'] = $request->creator;
+        $validatedData['user_id'] = $user->id;
+        // Create the Employee using the validated data
+        Employee::create($validatedData);
+
+        if ($request->exists('creator')) {
+            return redirect()->route('org-employees',$request->creator);
+        } else {
+            return redirect()->route('employee.index');
+        }
+
+
+        
+
+    }
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $emp = User::join('employees', 'users.id', '=', 'employees.user_id')
+        ->where('users.id', $id)
+        ->select('users.email','users.name', 'employees.*')
+        ->first();
+
+        return view('pages.controlpanel.employee.show', ['emp'=>$emp]);
     }
 
     /**
@@ -85,6 +147,18 @@ class EmployeeController extends Controller
         return view('pages.controlpanel.employee.edit', [
             'employee' => $employee,
             'user' => $user,
+        ]);
+    }
+
+    public function adminEdit($emp_id, $id)
+    {
+  
+        $employee = Employee::where('user_id', $emp_id)->firstOrFail();
+        $user = User::findOrFail($emp_id);
+        return view('pages.controlpanel.employee.edit', [
+            'employee' => $employee,
+            'user' => $user,
+            'org_id' => $id,
         ]);
     }
 
@@ -146,8 +220,12 @@ class EmployeeController extends Controller
             $employee->update($validatedData);
            
             // Redirect or perform other actions after the Employee is updated
-                 return redirect()->route('employee.index');
-              
+                 
+                 if ($request->exists('creator')) {
+                    return redirect()->route('org-employees',$request->creator);
+                } else {
+                    return redirect()->route('employee.index');
+                }
         
   
     }
@@ -165,5 +243,18 @@ class EmployeeController extends Controller
 
     // You can redirect or do something else after the Employee is deleted
     return redirect()->route('employee.index');
+    }
+
+
+    public function adminDestroy($emp_id, $id)
+    {
+
+    $user = User::findOrFail($emp_id);
+    Employee::where('user_id', $emp_id)->delete();
+    // Delete the Employee
+    $user->deleteWithRolesAndPermissions();
+
+    // You can redirect or do something else after the Employee is deleted
+    return redirect()->route('org-employees', $id);
     }
 }

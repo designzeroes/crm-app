@@ -48,8 +48,23 @@ Route::middleware(['auth'])->group(function () {
         Route::PUT('role-permission-set/{id}', [PermissionController::class, 'rolePermissionSet'])->name('role-permission-set');
     });
     Route::middleware(['role:super-admin'])->group(function () {
+        Route::get('org-jobs/{id}', [JobController::class, 'indexForAdmin'])->name('org-jobs');
+        Route::get('org-job-create/{id}', [JobController::class, 'adminCreate'])->name('org-job-create');
+        Route::post('org-job-store', [JobController::class, 'adminStore'])->name('org-job-store');
+        Route::get('org-job-edit/{job_id}/{id}', [JobController::class, 'adminEdit'])->name('org-job-edit');
+        Route::PUT('org-job-update/{id}', [JobController::class, 'Update'])->name('org-job-update');
+        Route::delete('org-job-destroy/{job_id}/{id}', [JobController::class, 'adminDestroy'])->name('org-job-destroy');
+
+        Route::get('org-employees/{id}', [EmployeeController::class, 'indexForAdmin'])->name('org-employees');
+        Route::get('org-employee-create/{id}', [EmployeeController::class, 'adminCreate'])->name('org-employee-create');
+        Route::post('org-employee-store', [EmployeeController::class, 'adminStore'])->name('org-employee-store');
+        Route::get('org-employee-edit/{emp_id}/{id}', [EmployeeController::class, 'adminEdit'])->name('org-employee-edit');
+        Route::PUT('org-employee-update/{id}', [EmployeeController::class, 'Update'])->name('org-employee-update');
+        Route::delete('org-employee-destroy/{emp_id}/{id}', [EmployeeController::class, 'adminDestroy'])->name('org-employee-destroy');
+
         Route::resource('organization', OrganizationController::class);
         Route::resource('categories', CategoriesController::class);
+        Route::resource('job', JobController::class);
     });
 
 });

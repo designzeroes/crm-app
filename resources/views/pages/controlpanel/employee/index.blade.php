@@ -3,8 +3,14 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex justify-content-between align-items-center mb-4">
+      @if(!empty($creator))
+      <x-page-title menu='Organization Employee' page='index'/>
+      <a href="{{route('org-employee-create', $creator)}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>
+      @else
       <x-page-title menu='Employee' page='index'/>
-     <a href="{{route('employee.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>
+      <a href="{{route('employee.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>
+      @endif
+
     </div>
   
       <!-- Hoverable Table rows -->
@@ -30,7 +36,7 @@
                 <td>{{$user->email}}</td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                    {{$employee->user_id}}
+                    <span class="badge bg-label-primary me-1">{{$employee->user_id}}</span>
                   </ul>
                 </td>
                 <td>
@@ -39,17 +45,32 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="{{ route('employee.edit', ['employee' => $employee->user_id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                      >
-                      <form method="POST" action="{{ route('employee.destroy', ['employee' => $employee->user_id]) }}" class="delete-form">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="dropdown-item">
-                            <i class="bx bx-trash me-1"></i> Delete
-                        </button>
-                      </form>
-                    
+                      <a class="dropdown-item" href="{{ route('employee.show', ['employee' => $employee->user_id]) }}"
+                        ><i class="fas fa-file me-2"></i> View</a>
+                      
+                      @if(!empty($creator))
+                        <a class="dropdown-item" href="{{ route('org-employee-edit', ['emp_id' => $employee->user_id, 'id'=> $employee->creator_id]) }}"
+                          ><i class="fas fa-edit me-2"></i> Edit</a>
+                            
+                        <form method="POST" action="{{ route('org-employee-destroy', ['emp_id' => $employee->user_id, 'id'=> $employee->creator_id]) }}" class="delete-form">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="dropdown-item">
+                              <i class="fas fa-trash me-2"></i> Delete
+                          </button>
+                        </form>
+                      @else
+                        <a class="dropdown-item" href="{{ route('employee.edit', ['employee' => $employee->user_id]) }}"
+                          ><i class="fas fa-edit me-2"></i> Edit</a>
+                            
+                        <form method="POST" action="{{ route('employee.destroy', ['employee' => $employee->user_id]) }}" class="delete-form">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="dropdown-item">
+                              <i class="fas fa-trash me-2"></i> Delete
+                          </button>
+                        </form>
+                      @endif
                     </div>
                   </div>
                 </td>

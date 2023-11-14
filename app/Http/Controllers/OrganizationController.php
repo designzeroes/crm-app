@@ -8,6 +8,9 @@ use App\Models\Job;
 use App\Models\User;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
 
 class OrganizationController extends Controller
 {
@@ -34,7 +37,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.controlpanel.organization.create');
     }
 
     /**
@@ -42,7 +45,32 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ])->assignrole('organization');
+
+
+         $user->givePermissionTo(Permission::all());
+        
+        $validatedData['user_id'] = $user->id;
+        $validatedData['organization_name'] = $request->name;
+
+        // Create the Employee using the validated data
+        Organization::create($validatedData);
+
+    
+        // You can redirect or do something else after the Employee is created
+        return redirect()->route('organization.index');
     }
 
     /**

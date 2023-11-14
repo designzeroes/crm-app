@@ -29,13 +29,13 @@
                     </button>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="{{ route('categories.edit', ['category' => $cat->id]) }}"
-                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                        ><i class="fas fa-edit me-2"></i> Edit</a
                       >
                       <form method="POST" action="{{ route('categories.destroy', ['category' => $cat->id]) }}" >
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="dropdown-item">
-                            <i class="bx bx-trash me-1"></i> Delete
+                            <i class="fas fa-trash me-2"></i> Delete
                         </button>
                       </form>
                     

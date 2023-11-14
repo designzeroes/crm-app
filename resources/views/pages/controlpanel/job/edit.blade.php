@@ -22,7 +22,12 @@
             <small class="text-muted float-end">Fill all the fields</small>
           </div>
           <div class="card-body">
+            @if(!empty($org_id))
+            <form method="post" action="{{ route('org-job-update', $job->id) }}">
+            @else
             <form method="post" action="{{ route('job.update', ['job' => $job->id]) }}">
+            @endif
+            
                 @csrf
                 @method('PUT')
               <div class="row mb-3">
@@ -53,7 +58,7 @@
                     @endforeach
                   </select>
                 </div>
-                <label class="col-sm-2 col-form-label" for="basic-default-company">Education Required</label>
+                <label class="col-sm-2 col-form-label" for="basic-default-company">Degree</label>
                 <div class="col-sm-4">
                   <select name="degree_id" id="category" class="form-select">
                     <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
@@ -74,7 +79,7 @@
                       />
                   </div>
               
-                  <label class="col-sm-2" for="basic-default-job-type">Job Type</label>
+                  <label class="col-sm-2" for="basic-default-job-type">Is Remote</label>
                   <div class="col-sm-4">
                       <select name="is_remote" class="form-select" id="basic-default-job-type">
                           <option value="Remote" {{ $job->is_remote === 'Remote' ? 'selected' : '' }}>Remote</option>
@@ -156,6 +161,9 @@
                     >{{$job->description}}</textarea>
                   </div>
                 </div>
+                @if(!empty($org_id))
+                <input type="hidden" name="creator" value="{{$org_id}}">
+                @endif
                 <div class="row justify-content-end">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Update</button>

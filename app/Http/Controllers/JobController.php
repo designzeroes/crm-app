@@ -27,11 +27,21 @@ class JobController extends Controller
             $jobs = Job::where('organization_id', $org->user_id)
               ->withCount('application_form')
              ->get();
-             
         }
-
         
          return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
+    }
+
+    public function indexForAdmin($id){
+        $org = Organization::where('user_id', $id)->first();
+        $jobs = Job::where('organization_id', $org->user_id)
+          ->withCount('application_form')
+         ->get();
+
+
+    
+     return view('pages.controlpanel.job.index', ['jobs' => $jobs, 'creator' => $id]);
+
     }
     /**
      * Show the form for creating a new resource.
@@ -47,6 +57,51 @@ class JobController extends Controller
         
     }
 
+    public function adminCreate($id)
+    {
+
+        $categories = Categories::all();
+        $degrees = Degree::all();
+        return view('pages.controlpanel.job.create',['categories'=>$categories, 'degrees' => $degrees, 'org_id' => $id]);
+        
+    }
+    public function adminStore(Request $request)
+    {
+
+
+        $rules = [
+            'job_title' => 'nullable|string|max:255',
+            'category_id' => 'required',
+            'degree_id' => 'required',
+            'description' => 'nullable|string',
+            'address' => 'nullable|string|max:255',
+            'zipcode' => 'nullable|string|max:20',
+            'status' => 'in:Active,Inactive',
+            'is_remote' => 'required',
+            'skill' => 'nullable|string',
+            'experience' => 'nullable|string',
+            'degree_id' => 'nullable|string',
+            'budget' => 'nullable|string',
+            'bid_close' => 'nullable|date',
+            'deadline' => 'nullable|date',
+            'career_page_url' => 'nullable|url',
+            'is_pinned_in_career_page' => 'nullable|boolean',
+        ];
+    
+
+                // Validate the request data
+        $validatedData = $request->validate($rules);
+        $validatedData['organization_id'] = $request->creator;
+        $validatedData['user_id'] = $request->creator;
+
+        // Create the job using the validated data
+        Job::create($validatedData);
+
+        $categories = Categories::all();
+
+        return redirect()->route('org-jobs',['id'=> $request->creator]);
+
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -65,11 +120,12 @@ class JobController extends Controller
         $rules = [
             'job_title' => 'nullable|string|max:255',
             'category_id' => 'required',
+            'degree_id' => 'required',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
             'status' => 'in:Active,Inactive',
-            'is_remote' => 'nullable|boolean',
+            'is_remote' => 'required',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
             'degree_id' => 'nullable|string',
@@ -126,18 +182,38 @@ class JobController extends Controller
         
     }
 
+    public function adminEdit($job_id, $id)
+    {
+        
+        $job = Job::find($job_id);
+        $category = Categories::where('id', $job->category_id)->first();
+        $categories = Categories::where('id', '!=', $job->category_id)->get();
+        $degree = Degree::where('id', $job->degree_id)->first();
+        $degrees = Degree::where('id', '!=', $job->degree_id)->get();
+        return view('pages.controlpanel.job.edit', [
+            'job' => $job,
+            'cat'=> $category,
+            'categories'=> $categories,
+            'degree' => $degree,
+            'degrees' => $degrees,
+            'org_id' => $id
+        ]);
+        
+    }
 
     public function update(Request $request, string $id)
     {
 
+        
         $rules = [
             'job_title' => 'nullable|string|max:255',
             'category_id' => 'nullable',
+            'degree_id' => 'required',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
             'status' => 'in:Active,Inactive',
-            'is_remote' => 'nullable|string|max:20',
+            'is_remote' => 'required',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
             'degree_id' => 'nullable',
@@ -152,9 +228,12 @@ class JobController extends Controller
       
       Job::findOrFail($id)->update($validatedData);
 
-      
-      return redirect()->route('job.index');
-  
+      if ($request->exists('creator')) {
+        return redirect()->route('org-jobs',$request->creator);
+    } else {
+        return redirect()->route('job.index');
+    }
+    
     }
 
     /**
@@ -162,15 +241,23 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->hasPermission('job-delete');
-            // Retrieve the job based on the provided $id
+
+    $this->hasPermission('job-delete');
     $job = Job::findOrFail($id);
-
-    // Delete the job
     $job->delete();
-
-    // You can redirect or do something else after the job is deleted
+    
     return redirect()->route('job.index');
+
+    }
+
+    public function adminDestroy($job_id, $id)
+    {
+
+    $job = Job::findOrFail($job_id);
+    $job->delete();
+    
+    return redirect()->route('org-jobs',$id);
+
     }
 
     private function hasPermission($permissionName)
