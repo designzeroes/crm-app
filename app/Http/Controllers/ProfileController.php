@@ -5,6 +5,7 @@ use App\Models\Employee;
 use App\Models\Organization;
 use App\Models\Candidate;
 use App\Models\Degree;
+use App\Models\User;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,7 +46,12 @@ class ProfileController extends Controller
                  'degrees' => $degrees,
             ]);
     
+        }elseif ($request->user()->hasRole('super-admin')) {
+            return view('profile.edit', [
+                'user' => $request->user(),
+            ]);
         }
+
         
 
 
@@ -70,7 +76,6 @@ class ProfileController extends Controller
         $request->user()->save();
 
         $rules = [
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'resume' => 'nullable|mimes:pdf|max:2048', 
             'organization_name' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
@@ -98,14 +103,37 @@ class ProfileController extends Controller
 
             $profile->update($validatedData);
 
+        } elseif ($request->user()->hasRole('super-admin')) {
+            $profile = User::where('id', $request->user()->id)->firstOrFail();
+            $validatedData = $request->validate($rules);
+
+            $profile->update($validatedData);
+
         }
-
-
-
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+
+    public function upload(Request $request)
+    {
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:1000',
+        ]);
+    
+        $profile = User::where('id', $request->user()->id)->firstOrFail();
+    
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('uploads'), $imageName);
+
+        $profile->update([
+            'image' => $imageName,
+        ]);
+
+        return back()
+            ->with('success', 'Image uploaded successfully.');
+    }
     /**
      * Delete the user's account.
      */

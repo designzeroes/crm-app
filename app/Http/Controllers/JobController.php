@@ -16,7 +16,6 @@ class JobController extends Controller
     public function index(Request $request)
     {
 
-
         if ($request->user()->hasRole('employee')) {
             $org = Employee::where('user_id', auth()->user()->id)->first();
             $jobs = Job::where('organization_id', $org->creator_id)
@@ -48,7 +47,6 @@ class JobController extends Controller
      */
     public function create()
     {
-
     
         $this->hasPermission('job-create');
         $categories = Categories::all();
@@ -99,7 +97,8 @@ class JobController extends Controller
 
         $categories = Categories::all();
 
-        return redirect()->route('org-jobs',['id'=> $request->creator]);
+        return redirect()->route('org-jobs',['id'=> $request->creator])
+        ->with('success', 'Job Created successfully.');
 
     }
     /**
@@ -147,7 +146,8 @@ class JobController extends Controller
 
         $categories = Categories::all();
 
-        return redirect()->route('job.index',['categories'=>$categories]);
+        return redirect()->route('job.index',['categories'=>$categories])
+        ->with('success', 'Job created successfully.');
 
     }
 
@@ -229,9 +229,9 @@ class JobController extends Controller
       Job::findOrFail($id)->update($validatedData);
 
       if ($request->exists('creator')) {
-        return redirect()->route('org-jobs',$request->creator);
+        return redirect()->route('org-jobs',$request->creator)->with('success', 'Job uploaded successfully.');
     } else {
-        return redirect()->route('job.index');
+        return redirect()->route('job.index')->with('success', 'Job uploaded successfully.');
     }
     
     }
@@ -246,7 +246,7 @@ class JobController extends Controller
     $job = Job::findOrFail($id);
     $job->delete();
     
-    return redirect()->route('job.index');
+    return redirect()->route('job.index')->with('error', 'Job delete successfully.');
 
     }
 
@@ -256,7 +256,7 @@ class JobController extends Controller
     $job = Job::findOrFail($job_id);
     $job->delete();
     
-    return redirect()->route('org-jobs',$id);
+    return redirect()->route('org-jobs',$id)->with('error', 'Job deleted successfully.');
 
     }
 
