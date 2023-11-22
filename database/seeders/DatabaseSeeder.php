@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Degree;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Category::class);
         $this->call(Permissions::class);
         $this->call(Credentials::class);
+        $this->call(Degrees::class);
     }
 }

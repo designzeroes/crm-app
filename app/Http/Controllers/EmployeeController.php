@@ -72,7 +72,7 @@ class EmployeeController extends Controller
 
     
         // You can redirect or do something else after the Employee is created
-        return redirect()->route('employee.index');
+        return redirect()->route('employee.index')->with('success', 'Employee created successfully.');;
 
         
 
@@ -113,9 +113,9 @@ class EmployeeController extends Controller
         Employee::create($validatedData);
 
         if ($request->exists('creator')) {
-            return redirect()->route('org-employees',$request->creator);
+            return redirect()->route('org-employees',$request->creator)->with('success', 'Employee created successfully.');;
         } else {
-            return redirect()->route('employee.index');
+            return redirect()->route('employee.index')->with('success', 'Employee created successfully.');;
         }
 
 
@@ -222,9 +222,9 @@ class EmployeeController extends Controller
             // Redirect or perform other actions after the Employee is updated
                  
                  if ($request->exists('creator')) {
-                    return redirect()->route('org-employees',$request->creator);
+                    return redirect()->route('org-employees',$request->creator)->with('success', 'Employee updated successfully.');;
                 } else {
-                    return redirect()->route('employee.index');
+                    return redirect()->route('employee.index')->with('success', 'Employee updated successfully.');;
                 }
         
   
@@ -242,7 +242,7 @@ class EmployeeController extends Controller
     $user->deleteWithRolesAndPermissions();
 
     // You can redirect or do something else after the Employee is deleted
-    return redirect()->route('employee.index');
+    return redirect()->route('employee.index')->with('success', 'Employee deleted successfully.');;
     }
 
 
@@ -255,6 +255,6 @@ class EmployeeController extends Controller
     $user->deleteWithRolesAndPermissions();
 
     // You can redirect or do something else after the Employee is deleted
-    return redirect()->route('org-employees', $id);
+    return redirect()->route('org-employees', $id)->with('success', 'Employee deleted successfully.');;
     }
 }

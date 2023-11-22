@@ -8,11 +8,6 @@
               <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
             </div>
           </div>
-    {{-- <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button> --}}
-
         <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
             @csrf
             @method('delete')

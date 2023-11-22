@@ -9,6 +9,11 @@
   
       <!-- Hoverable Table rows -->
       <div class="card">
+        @if (session('success'))
+          <div class="alert alert-success">
+              {{ session('success') }}
+          </div>
+        @endif
         <h5 class="card-header">organizations list</h5>
         <div class="table-responsive text-nowrap">
           <table class="table table-hover">

@@ -2,26 +2,22 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
   <x-page-title menu='Organization' page='Edit'/>
-  @if ($errors->any())
-  <div class="alert alert-danger">
-      <ul>
-          @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-          @endforeach
-      </ul>
-  </div>
-@endif
 
-@if(session('success'))
-  <div class="alert alert-success">
-      {{ session('success') }}
-  </div>
-@endif
+
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
       <!-- Basic Layout -->
       <div class="col-xxl">
         <div class="card mb-4">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
           <div class="card-header d-flex align-items-center justify-content-between">
             <h5 class="mb-0">Edit Form</h5>
             <small class="text-muted float-end">Edit all the fields</small>

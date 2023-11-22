@@ -78,7 +78,6 @@ class JobController extends Controller
             'is_remote' => 'required',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
-            'degree_id' => 'nullable|string',
             'budget' => 'nullable|string',
             'bid_close' => 'nullable|date',
             'deadline' => 'nullable|date',
@@ -106,7 +105,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         if ($request->user()->hasRole('employee')) {
             $org = Employee::where('user_id', auth()->user()->id)->first();
           $creator =  $org->creator_id;
@@ -127,7 +126,6 @@ class JobController extends Controller
             'is_remote' => 'required',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
-            'degree_id' => 'nullable|string',
             'budget' => 'nullable|string',
             'bid_close' => 'nullable|date',
             'deadline' => 'nullable|date',
@@ -166,6 +164,7 @@ class JobController extends Controller
 
     public function edit(string $id)
     {
+        
         $this->hasPermission('job-edit');
         $job = Job::find($id);
         $category = Categories::where('id', $job->category_id)->first();
@@ -229,9 +228,9 @@ class JobController extends Controller
       Job::findOrFail($id)->update($validatedData);
 
       if ($request->exists('creator')) {
-        return redirect()->route('org-jobs',$request->creator)->with('success', 'Job uploaded successfully.');
+        return redirect()->route('org-jobs',$request->creator)->with('success', 'Job updated successfully.');
     } else {
-        return redirect()->route('job.index')->with('success', 'Job uploaded successfully.');
+        return redirect()->route('job.index')->with('success', 'Job updated successfully.');
     }
     
     }
@@ -246,7 +245,7 @@ class JobController extends Controller
     $job = Job::findOrFail($id);
     $job->delete();
     
-    return redirect()->route('job.index')->with('error', 'Job delete successfully.');
+    return redirect()->route('job.index')->with('success', 'Job deleted successfully.');
 
     }
 

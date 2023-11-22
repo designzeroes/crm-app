@@ -4,12 +4,10 @@
     <div class="container mt-4">
         <x-page-title menu='Permission' page='Edit'/>
 
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
- 
-
         <div class="card">
+            @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
             <div class="card-body">
                 <h4>User and Permissions</h4>
                 <form method="POST" action="{{ route('user-permission-set', ['id' => $user->id]) }}">

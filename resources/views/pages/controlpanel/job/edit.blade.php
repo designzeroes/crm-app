@@ -13,11 +13,6 @@
   </div>
 @endif
 
-@if(session('success'))
-  <div class="alert alert-success">
-      {{ session('success') }}
-  </div>
-@endif
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
       <!-- Basic Layout -->

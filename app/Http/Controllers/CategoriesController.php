@@ -39,7 +39,7 @@ class CategoriesController extends Controller
             'cat_name' => $request->cat_name,
         ]);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');;
     }
 
     /**
@@ -74,7 +74,7 @@ class CategoriesController extends Controller
             'cat_name' => $request->cat_name,
         ]);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');;
     }
 
     /**
@@ -84,6 +84,6 @@ class CategoriesController extends Controller
     {
         Categories::find($id)->delete();
         
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('error', 'Category deleted successfully.');;
     }
 }

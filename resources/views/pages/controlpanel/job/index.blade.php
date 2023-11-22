@@ -9,11 +9,15 @@
       @else
       @can('job-create') <a href="{{route('job.create')}}"> <button type="button" class="btn rounded-pill btn-primary">Create</button></a>@endcan
       @endif
-    
+
     </div>
-  
       <!-- Hoverable Table rows -->
       <div class="card">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
         <h5 class="card-header">jobs list</h5>
         <div class="table-responsive text-nowrap">
           <table class="table table-hover">
