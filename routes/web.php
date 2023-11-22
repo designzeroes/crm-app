@@ -8,6 +8,7 @@ use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\PermissionController;
 
@@ -16,6 +17,7 @@ Route::get('/', function () {
     return view('pages.guest.index');
 });
 
+Route::get('chat', [CvController::class, 'chatgpt'])->name('chat');
 
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');

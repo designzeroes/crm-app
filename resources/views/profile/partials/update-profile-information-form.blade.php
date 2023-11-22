@@ -89,6 +89,7 @@
           <div class="mb-3 col-md-6">
             <x-input-label for="experience" :value="__('Experience in Years')" />
             <x-text-input id="experience" name="experience" type="text" class="form-control" :value="old('experience', $profile->experience)" required autocomplete="experience" />
+            <x-input-error class="mt-2" :messages="$errors->get('experience')" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="profession" :value="__('Profession')" />
@@ -97,10 +98,17 @@
           <div class="mb-3 col-md-6">
             <x-input-label for="degree_id" :value="__('Latest Degree')" />
             <select name="degree_id" id="degree_id" class="form-select">
-              <option value="{{ $degree->id}}">{{ $degree->degree_title }}</option>
-              @foreach($degrees as $degree)
-                  <option value="{{$degree->id }}">{{ $degree->degree_title }}</option>
-              @endforeach
+                @if ($degree)
+                    <option value="{{ $degree->id }}" selected>{{ $degree->degree_title }}</option>
+                @else
+                    <option value="" selected disabled>Select Degree</option>
+                @endif
+        
+                @foreach($degrees as $availableDegree)
+                    @if (!$degree || $availableDegree->id !== $degree->id)
+                        <option value="{{ $availableDegree->id }}">{{ $availableDegree->degree_title }}</option>
+                    @endif
+                @endforeach
             </select>
           </div>
           @endrole
