@@ -63,6 +63,12 @@ class RegisteredUserController extends Controller
             'skill' => $request->skill,
         ]);
 
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect('/');
+
         }else{
     
 
@@ -79,11 +85,12 @@ class RegisteredUserController extends Controller
             'website' => $request->website,
         ]);
 
-         }
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+         }
+
     }
 }

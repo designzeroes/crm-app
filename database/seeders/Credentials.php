@@ -35,6 +35,8 @@ class Credentials extends Seeder
 
         $orgRole = Role::findByName('organization');
         $orgRole->givePermissionTo(['job-delete', 'job-edit', 'job-create', 'job-view']);
+        $empRole = Role::findByName('employee');
+        $empRole->givePermissionTo(['job-delete', 'job-edit', 'job-create', 'job-view']);
         
         Organization::create([
             'user_id' => $orgUser->id,
