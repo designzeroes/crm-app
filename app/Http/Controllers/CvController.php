@@ -8,7 +8,7 @@ class CvController extends Controller
     {
         $client = OpenAI::client('');
         $result = $client->chat()->create([
-            'model' => 'gpt-3.5-turbo-instruct',
+            'model' => 'gpt-3.5-turbo',
             'messages' => [
                 ['role' => 'user', 'content' => 'Hello!'],
             ],

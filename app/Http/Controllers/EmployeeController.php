@@ -62,8 +62,6 @@ class EmployeeController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('employee');
 
-
-         $user->givePermissionTo(Permission::all());
         
         $validatedData['creator_id'] = $creator->id;
         $validatedData['user_id'] = $user->id;
@@ -104,8 +102,6 @@ class EmployeeController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('employee');
 
-
-         $user->givePermissionTo(Permission::all());
         
         $validatedData['creator_id'] = $request->creator;
         $validatedData['user_id'] = $user->id;

@@ -21,7 +21,8 @@ class OrganizationController extends Controller
     {
         $orgsdata = User::join('organizations', 'users.id', 'organizations.user_id')
         ->get();
-
+        $empcount = []; 
+        $jobcount = [];
         foreach ($orgsdata as $org) {
 
             $empcount[] = Employee::where('creator_id', $org->user_id)->count();
@@ -59,8 +60,6 @@ class OrganizationController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('organization');
 
-
-         $user->givePermissionTo(Permission::all());
         
         $validatedData['user_id'] = $user->id;
         $validatedData['organization_name'] = $request->name;
@@ -70,7 +69,7 @@ class OrganizationController extends Controller
 
     
         // You can redirect or do something else after the Employee is created
-        return redirect()->route('organization.index');
+        return redirect()->route('organization.index')->with('success', 'Organization created successfully.');
     }
 
     /**
@@ -121,7 +120,7 @@ class OrganizationController extends Controller
             'website'=> $request->website,
         ]);
 
-      return redirect()->route('organization.index');
+      return redirect()->route('organization.index')->with('success', 'Organization updated successfully.');
     }
 
     /**
@@ -147,7 +146,7 @@ class OrganizationController extends Controller
     $jobs->each->delete();
     $user->delete();
 
-    return redirect()->route('organization.index');
+    return redirect()->route('organization.index')->with('success', 'Organization deleted successfully.');
     
     }
 }

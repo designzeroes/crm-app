@@ -9,6 +9,7 @@
   
       <!-- Hoverable Table rows -->
       <div class="card">
+
         @if (session('success'))
           <div class="alert alert-success">
               {{ session('success') }}
