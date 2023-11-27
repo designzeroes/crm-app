@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('chat', [CvController::class, 'chatgpt'])->name('chat');
-
+Route::get('extrect', [CvController::class, 'extrect'])->name('extrect');
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');
@@ -34,10 +34,6 @@ Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('
         Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
         Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
         
-        // Job Route Controller 
-        Route::middleware(['role:organization|employee'])->group(function () {
-            Route::resource('job', JobController::class);
-        });
         
         Route::middleware(['role:organization|super-admin'])->group(function () {
             //invitation Controller Routes
@@ -73,8 +69,14 @@ Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('
             //CRUD for organization, categories
             Route::resource('organization', OrganizationController::class);
             Route::resource('categories', CategoriesController::class);
+            Route::resource('job', JobController::class);
 
         });
+
+            // Job Route Controller 
+            Route::middleware(['role:organization|employee|super-admin'])->group(function () {
+                Route::resource('job', JobController::class);
+            });
     });
 
 

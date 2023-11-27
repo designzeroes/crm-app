@@ -45,7 +45,7 @@
         @method('patch')
       <div class="row">
           <div class="mb-3 col-md-6">
-              <x-input-label for="name" :value="__('User Name')" />
+              <x-input-label for="name" :value="__('Name')" />
               <x-text-input id="name" name="name" type="text" class="form-control" :value="old('name', $user->name)" required autofocus autocomplete="name" />
               <x-input-error class="mt-2" :messages="$errors->get('name')" />
           </div>
@@ -84,16 +84,16 @@
           @role('candidate')
           <div class="mb-3 col-md-6">
             <x-input-label for="skill" :value="__('Skill')" />
-            <x-text-input id="skill" name="skill" type="text" class="form-control" :value="old('skill', $profile->skill)" required autocomplete="skill" />
+            <x-text-input id="skill" name="skill" type="text" class="form-control" :value="old('skill', $profile->skill)" autocomplete="skill" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="experience" :value="__('Experience in Years')" />
-            <x-text-input id="experience" name="experience" type="text" class="form-control" :value="old('experience', $profile->experience)" required autocomplete="experience" />
+            <x-text-input id="experience" name="experience" type="text" class="form-control" :value="old('experience', $profile->experience)" autocomplete="experience" />
             <x-input-error class="mt-2" :messages="$errors->get('experience')" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="profession" :value="__('Profession')" />
-            <x-text-input id="profession" name="profession" type="text" class="form-control" :value="old('profession', $profile->profession)" required autocomplete="profession" />
+            <x-text-input id="profession" name="profession" type="text" class="form-control" :value="old('profession', $profile->profession)" autocomplete="profession" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="degree_id" :value="__('Latest Degree')" />
@@ -101,7 +101,7 @@
                 @if ($degree)
                     <option value="{{ $degree->id }}" selected>{{ $degree->degree_title }}</option>
                 @else
-                    <option value="" selected disabled>Select Degree</option>
+                    <option value="" selected disabled>-- Select Degree --</option>
                 @endif
         
                 @foreach($degrees as $availableDegree)
@@ -115,28 +115,28 @@
           @role(['employee','candidate'])
             <div class="mb-3 col-md-6">
               <x-input-label for="Phone" :value="__('Phone Number')" />
-              <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $profile->phone_number)" required autocomplete="phone_number" />
+              <x-text-input id="Phone" name="phone_number" type="number" class="form-control" :value="old('phone_number', $profile->phone_number)" autocomplete="phone_number" />
           </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="address" :value="__('Address')" />
-            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" required autocomplete="address" />
+            <x-text-input id="address" name="address" type="text" class="form-control" :value="old('address', $profile->address)" autocomplete="address" />
         </div>
           <div class="mb-3 col-md-6">
             <x-input-label for="gender" :value="__('Gender')" />
-            <select id="gender" name="gender" class="form-control" required autocomplete="gender">
-                <option value="" disabled selected>Select Gender</option>
-                <option value="male" @if(old('gender', $profile->gender) === 'male') selected @endif>Male</option>
-                <option value="female" @if(old('gender', $profile->gender) === 'female') selected @endif>Female</option>
-                <option value="other" @if(old('gender', $profile->gender) === 'other') selected @endif>Other</option>
+            <select id="gender" name="gender" class="form-control" autocomplete="gender">
+                <option value="" disabled selected>-- Select Gender --</option>
+                <option value="Male" @if(old('gender', $profile->gender) === 'Male') selected @endif>Male</option>
+                <option value="Female" @if(old('gender', $profile->gender) === 'Female') selected @endif>Female</option>
+                <option value="Other" @if(old('gender', $profile->gender) === 'Other') selected @endif>Other</option>
             </select>
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="birth_date" :value="__('Birth Date')" />
-              <x-text-input id="birth_date" name="birth_date" type="date" class="form-control" :value="old('birth_date', $profile->birth_date)" required autocomplete="birth_date" />
+              <x-text-input id="birth_date" name="birth_date" type="date" class="form-control" :value="old('birth_date', $profile->birth_date)" autocomplete="birth_date" />
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="zipcode" :value="__('Zipcode')" />
-              <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $profile->zipcode)" required autocomplete="zipcode" />
+              <x-text-input id="zipcode" name="zipcode" type="text" class="form-control" :value="old('zipcode', $profile->zipcode)" autocomplete="zipcode" />
           </div>
             <div class="mb-3 col-md-6">
               <x-input-label for="latest_university" :value="__('Latest University')" />

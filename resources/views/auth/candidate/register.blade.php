@@ -108,8 +108,8 @@
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                           </div>
                           <div class="mb-3">
-                            <label for="skill" class="form-label">{{ __('Skill')}}</label>
-                            <input type="text" class="form-control"  id="skill" name="skill" placeholder="Web Devloper" :value="old('skill')" required autocomplete="skill" />
+                            <label for="profession" class="form-label">{{ __('Profession')}}</label>
+                            <input type="text" class="form-control"  id="profession" name="profession" placeholder="Web Devloper" :value="old('profession')" required autocomplete="skill" />
                           </div>
 
                           <div class="mb-3 form-password-toggle">

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -78,13 +79,15 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ])->assignrole('organization');
 
-        $user->givePermissionTo(Permission::all());
+
         Organization::create([
             'user_id' => $user->id, 
             'organization_name' => $request->organization_name,
             'website' => $request->website,
         ]);
 
+        $orgRole = Role::findByName('organization');
+        $orgRole->givePermissionTo(['job-delete', 'job-edit', 'job-create', 'job-view']);
         event(new Registered($user));
 
         Auth::login($user);

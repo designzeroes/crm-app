@@ -154,7 +154,6 @@ class JobController extends Controller
     {
 
         $this->hasPermission('job-view');
-
         $job = Job::where('jobs.id', $id)->first();
         $degrees = Degree::all();
         return view('pages.controlpanel.job.show', ['job'=>$job,'degrees'=> $degrees]);
