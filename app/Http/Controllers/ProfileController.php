@@ -79,6 +79,9 @@ class ProfileController extends Controller
             'resume' => 'nullable|mimes:pdf|max:2048', 
             'organization_name' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:255',
+            'skill' => 'nullable|string|max:255',
+            'profession' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:255',
             'gender' => 'nullable|in:Male,Female,Other',
@@ -100,13 +103,17 @@ class ProfileController extends Controller
         } elseif ($request->user()->hasRole('organization')) {
             $profile = Organization::where('user_id', $request->user()->id)->firstOrFail();
             $validatedData = $request->validate($rules);
-
             $profile->update($validatedData);
 
         } elseif ($request->user()->hasRole('super-admin')) {
             $profile = User::where('id', $request->user()->id)->firstOrFail();
             $validatedData = $request->validate($rules);
+            $profile->update($validatedData);
 
+        }elseif ($request->user()->hasRole('candidate')) {
+            
+            $profile = Candidate::where('user_id', $request->user()->id)->firstOrFail();
+            $validatedData = $request->validate($rules);
             $profile->update($validatedData);
 
         }

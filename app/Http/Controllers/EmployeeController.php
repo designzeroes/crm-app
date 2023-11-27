@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
@@ -68,7 +69,6 @@ class EmployeeController extends Controller
         // Create the Employee using the validated data
         Employee::create($validatedData);
 
-    
         // You can redirect or do something else after the Employee is created
         return redirect()->route('employee.index')->with('success', 'Employee created successfully.');;
 

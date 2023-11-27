@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class OrganizationController extends Controller
 {
@@ -67,7 +68,6 @@ class OrganizationController extends Controller
         // Create the Employee using the validated data
         Organization::create($validatedData);
 
-    
         // You can redirect or do something else after the Employee is created
         return redirect()->route('organization.index')->with('success', 'Organization created successfully.');
     }

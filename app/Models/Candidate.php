@@ -13,6 +13,7 @@ class Candidate extends Model
         'user_id',
         'picture',
         'resume',
+        'profession',
         'phone_number',
         'gender',
         'birth_date',
