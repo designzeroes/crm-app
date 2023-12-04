@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Traits;
 use OpenAI;
 use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
@@ -7,13 +8,13 @@ use App\Models\Cv;
 use Illuminate\Support\Arr;
 
 
-class CvController extends Controller
-{
-    public function chatgpt()
+trait CvLabler {
+    
+    public function chatgpt($pdfFilePath)
     {
 
 
-    $pdfFilePath = 'C:/Users/Hi-Tech/Downloads/cv-template2.pdf';
+   // $pdfFilePath = 'C:/Users/Hi-Tech/Downloads/cv-template2.pdf';
     $parser = new Parser();
     $pdf = $parser->parseFile($pdfFilePath);
     $text = $pdf->getText();
@@ -83,45 +84,6 @@ class CvController extends Controller
 
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
+
+?>
