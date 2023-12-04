@@ -18,7 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('chat', [CvController::class, 'chatgpt'])->name('chat');
-Route::get('extrect', [CvController::class, 'extrect'])->name('extrect');
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');

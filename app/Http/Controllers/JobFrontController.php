@@ -5,10 +5,11 @@ use App\Models\Job;
 use App\Models\Application_form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Traits\CvLabler;
 
 class JobFrontController extends Controller
 {
+  use CvLabler;
  public function FrontJobList(Request $request){
 
 
@@ -17,6 +18,7 @@ class JobFrontController extends Controller
   ->whereRaw('jobs.organization_id = organizations.user_id')
   ->get();
 
+  
   if (strpos($request->url(), '/api/') !== false) {
 
     return response()->json(['jobs' => $jobs]);
@@ -70,6 +72,8 @@ class JobFrontController extends Controller
  }
 
  public function guest_apply(Request $request, $id){
+
+
       // Validate the form input, including the file upload
       $request->validate([
         'name' => 'required|string|max:255',
@@ -85,12 +89,14 @@ class JobFrontController extends Controller
        ->first();
 
    if ($existingApplication) {
-       // You can customize the error message based on your requirements
+
        return redirect()->back()->with('error', 'You have already applied for this job with the same email.');
    }
    
     if (!$request->input('use_old_cv')) {
+      $this->chatgpt($request->file('cv')->path());
       $cvPath = $request->file('cv')->store('cv', 'public');
+
     }else{
       $cvPath = $request->input('use_old_cv');
     }
