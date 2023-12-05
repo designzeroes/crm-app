@@ -20,9 +20,7 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Organization Name</th>
-                <th>Email</th>
-                <th>Website</th>
+                <th>Name</th>
                 <th>Employees</th>
                 <th>Jobs</th>
                 <th>Actions</th>
@@ -31,13 +29,7 @@
             <tbody class="table-border-bottom-0">
              @foreach( $organizations as $index=>$organization)
               <tr>
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{$organization->organization_name}}</strong></td>
-                <td>{{$organization->email}}</td>
-                <td>
-                  <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                    {{$organization->website}}
-                  </ul>
-                </td>
+                <td><strong>{{$organization->organization_name}}</strong></td>
                 <td>
                   <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                     <span class="badge bg-label-primary me-1"> {{$counts[$index]}} </span>
