@@ -6,7 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Categories;
 
-class category extends Seeder
+class Category extends Seeder
 {
     /**
      * Seed the application's database.
