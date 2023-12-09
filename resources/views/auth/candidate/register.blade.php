@@ -84,9 +84,9 @@
                         </div>
                         <!-- /Logo -->
                         <h4 class="mb-2">Work starts here 🚀</h4>
-                        <p class="mb-4">You Can Register as User</p>
+                        <p class="mb-4">You can register as user</p>
           
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
                           <div class="mb-3">
                             <label for="username" class="form-label">{{ __('Name')}}</label>
@@ -109,7 +109,13 @@
                           </div>
                           <div class="mb-3">
                             <label for="profession" class="form-label">{{ __('Profession')}}</label>
-                            <input type="text" class="form-control"  id="profession" name="profession" placeholder="Web Devloper" :value="old('profession')" required autocomplete="skill" />
+                            <input type="text" class="form-control"  id="profession" name="profession" placeholder="Web Devloper" :value="old('profession')" required autocomplete="profession" />
+                            <x-input-error :messages="$errors->get('profession')" class="mt-2" />
+                          </div>
+                          <div class="mb-3">
+                            <label for="pdf" class="form-label">{{ __('CV')}} <small class="text-muted">(Optional)</small></label>
+                            <input type="file" class="form-control"  id="pdf" name="cv" :value="old('cv')" required autocomplete="cv" />
+                            <x-input-error :messages="$errors->get('cv')" class="mt-2" />
                           </div>
 
                           <div class="mb-3 form-password-toggle">

@@ -10,6 +10,7 @@ class Cv extends Model
     use HasFactory;
     protected $table = 'cv';
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'phone',

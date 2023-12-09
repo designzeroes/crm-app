@@ -5,11 +5,12 @@ use App\Models\Job;
 use App\Models\Application_form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Traits\CvLabler;
+use App\Jobs\PdfLabeler;
+use App\Models\Candidate;
 
 class JobFrontController extends Controller
 {
-  use CvLabler;
+
  public function FrontJobList(Request $request){
 
 
@@ -39,13 +40,19 @@ class JobFrontController extends Controller
         return view('pages.guest.job_detail', ['cv' => $existing->cv, 'job' => $job]);
     }
 
-    
+  }else{
+
+    $existing = Candidate::where('user_id',Auth()->user()->id)->first();
+    return view('pages.guest.job_detail', ['cv' => $existing->cv,'job' => $job]);
   }
-  return view('pages.guest.job_detail', ['job' => $job]);
  }
+
  public function user_apply(Request $request, $id){
 
-
+  $request->validate([
+    'description' => 'required|max:1000',
+    'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf|max:1024',
+]);
 
   // Check if the user has already applied for the job
   $existingApplication = Application_form::where('user_id', auth()->user()->id)
@@ -56,12 +63,33 @@ class JobFrontController extends Controller
       // User has already applied, you can return an error message or redirect as needed
       return redirect()->back()->with('error', 'You have already applied for this job.');
   } else {
+
+    if (!$request->input('use_old_cv')) {
+
+
+      $cvFile = $request->file('cv');
+      $destinationPath = public_path('cv');
+      $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
+      $cvFile->move($destinationPath, $destinationFileName);
+      $pathname = $destinationPath.'\\'.$destinationFileName;
+      
+      PdfLabeler::dispatch($pathname, Auth()->user());
+      Candidate::where('user_id', Auth()->user()->id)
+      ->update([
+          'cv' => $pathname,
+      ]);
+
+
+    }else{
+      $pathname = $request->input('use_old_cv');
+    }
       // User has not applied, create a new application
       Application_form::create([
           'user_id' => auth()->user()->id,
           'job_id' => $id,
           'description'=> $request->description,
           'is_registered' => 1,
+          'cv' => $pathname,
           'status' => 'In Process',
       ]);
 
@@ -94,11 +122,23 @@ class JobFrontController extends Controller
    }
    
     if (!$request->input('use_old_cv')) {
-      $this->chatgpt($request->file('cv')->path());
-      $cvPath = $request->file('cv')->store('cv', 'public');
+
+
+      $cvFile = $request->file('cv');
+      $destinationPath = public_path('cv');
+      $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
+      $cvFile->move($destinationPath, $destinationFileName);
+      $pathname = $destinationPath.'\\'.$destinationFileName;
+      
+      PdfLabeler::dispatch($pathname);
+      Candidate::create([
+        'user_id' => Auth()->user()->id,
+        'cv' => $pathname,
+        'profession' => $request->profession,
+    ]);
 
     }else{
-      $cvPath = $request->input('use_old_cv');
+      $pathname = $request->input('use_old_cv');
     }
   
     Application_form::create([
@@ -109,7 +149,7 @@ class JobFrontController extends Controller
         'description' => $request->input('description'),
         'status' => 'In Process',
         'is_registered' => 0,
-        'cv' => $cvPath,
+        'cv' => $pathname,
         'user_ip' => $request->ip(),
        ]);
 

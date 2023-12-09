@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\User;
+use App\Models\Cv;
 use App\Models\Organization;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Role;
 use Illuminate\View\View;
+use App\Jobs\PdfLabeler;
 
 class RegisteredUserController extends Controller
 {
@@ -43,6 +45,8 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'profession' => ['string', 'required'],
+            'cv' => ['file', 'mimes:pdf', 'max:1024'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         
@@ -51,19 +55,33 @@ class RegisteredUserController extends Controller
 
         if ($request->has('candidate')) {
 
-            
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'image' => 'noImage.jpg',
             'password' => Hash::make($request->password),
         ])->assignrole('candidate');
 
-        Candidate::create([
-            'user_id' => $user->id, 
-            'skill' => $request->skill,
+        if ($request->hasFile('cv')) {
+
+            $cvFile = $request->file('cv');
+            $destinationPath = public_path('cv');
+            $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
+            $cvFile->move($destinationPath, $destinationFileName);
+            $pathname = $destinationPath.'\\'.$destinationFileName;
+            PdfLabeler::dispatch($pathname, $user);
+      
+          }
+
+          Candidate::create([
+            'user_id' => $user->id,
+            'cv' => $pathname,
+            'profession' => $request->profession,
         ]);
 
-        event(new Registered($user));
+
+        event(new Registered($user->id));
 
         Auth::login($user);
 

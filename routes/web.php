@@ -17,7 +17,9 @@ Route::get('/', function () {
     return view('pages.guest.index');
 });
 
-Route::get('chat', [CvController::class, 'chatgpt'])->name('chat');
+
+Route::post('/process-cv/{cvPath}', [CvController::class, 'store']);
+
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
 Route::get('/apply/{job_id}', [JobFrontController::class, 'apply'])->name('apply');

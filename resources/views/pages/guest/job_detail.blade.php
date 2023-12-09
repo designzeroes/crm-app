@@ -45,8 +45,30 @@
                     <div class="card-body">
                         <h4 class="mb-2">Apply Form </h4>
                         <p class="mb-4">Write a short description that, what do you understan about project. </p>
-                        <form method="POST" action="{{ route('user_apply',['job_id'=> $job->id]) }}">
+                        <form method="POST" action="{{ route('user_apply',['job_id'=> $job->id]) }}" enctype="multipart/form-data">
                             @csrf
+                            <div class="mb-3">
+                                <label for="cv" class="form-label">{{ __('CV')}}</label>
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="cv"
+                                    name="cv"
+                                    accept=".pdf"
+                                />
+                                <x-input-error :messages="$errors->get('cv')" class="mt-2" />
+                            </div>
+                                @if (!empty($cv))
+                                    <div class="mb-3">
+                                        <label for="use_existing_cv" class="form-label">{{ __('Use existing CV')}}</label>
+                                        <input
+                                            type="checkbox"
+                                            id="use_existing_cv"
+                                            name="use_old_cv"
+                                            value="{{$cv}}"
+                                        />
+                                    </div>
+                                @endif  
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ __('Description')}}</label>
                                 <textarea

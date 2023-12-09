@@ -1,21 +1,38 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Jobs;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use OpenAI;
 use Smalot\PdfParser\Parser;
-use Illuminate\Http\Request;
 use App\Models\Cv;
 use Illuminate\Support\Arr;
 
-
-class CvController extends Controller
+class PdfLabeler implements ShouldQueue
 {
-    public function chatgpt()
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $pdfFilePath;
+    protected $user;
+    public function __construct($pdfFilePath, $user = Null)
     {
+        $this->pdfFilePath = $pdfFilePath;
+        $this->user = $user;
+    }
 
-
-    $pdfFilePath = 'C:/Users/Hi-Tech/Downloads/cv-template2.pdf';
+    /**
+     * Execute the job.
+     */
+    public function handle(): void
+    {
+        
     $parser = new Parser();
-    $pdf = $parser->parseFile($pdfFilePath);
+    $pdf = $parser->parseFile($this->pdfFilePath);
     $text = $pdf->getText();
         
         $apiKey = getenv('OPENAI_API_KEY');
@@ -69,6 +86,7 @@ class CvController extends Controller
 
 
     Cv::create([
+        'user_id' => optional($this->user)->id?? null,
         'name' => $cv['name']?? null,
         'email' => $cv['email']?? null,
         'phone' => $cv['phone']?? null,
@@ -83,45 +101,4 @@ class CvController extends Controller
 
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
