@@ -71,7 +71,7 @@ class JobFrontController extends Controller
       $destinationPath = public_path('cv');
       $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
       $cvFile->move($destinationPath, $destinationFileName);
-      $pathname = $destinationPath.'\\'.$destinationFileName;
+      $pathname = $destinationPath.'//'.$destinationFileName;
       
       PdfLabeler::dispatch($pathname, Auth()->user());
       Candidate::where('user_id', Auth()->user()->id)
@@ -128,13 +128,11 @@ class JobFrontController extends Controller
       $destinationPath = public_path('cv');
       $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
       $cvFile->move($destinationPath, $destinationFileName);
-      $pathname = $destinationPath.'\\'.$destinationFileName;
+      $pathname = $destinationPath.'//'.$destinationFileName;
       
       PdfLabeler::dispatch($pathname);
       Candidate::create([
-        'user_id' => Auth()->user()->id,
         'cv' => $pathname,
-        'profession' => $request->profession,
     ]);
 
     }else{
