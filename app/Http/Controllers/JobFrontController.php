@@ -39,7 +39,7 @@ class JobFrontController extends Controller
       if (!empty($existing->user_ip)) {
         return view('pages.guest.job_detail', ['cv' => $existing->cv, 'job' => $job]);
     }
-
+       return view('pages.guest.job_detail', ['job' => $job]);
   }else{
 
     $existing = Candidate::where('user_id',Auth()->user()->id)->first();
