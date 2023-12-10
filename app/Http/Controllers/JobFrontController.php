@@ -132,9 +132,7 @@ class JobFrontController extends Controller
       
       PdfLabeler::dispatch($pathname);
       Candidate::create([
-        'user_id' => Auth()->user()->id,
         'cv' => $pathname,
-        'profession' => $request->profession,
     ]);
 
     }else{
