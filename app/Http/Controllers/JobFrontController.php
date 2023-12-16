@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Jobs\PdfLabeler;
 use App\Models\Candidate;
+use Illuminate\Support\Facades\Validator;
+
 
 class JobFrontController extends Controller
 {
@@ -32,7 +34,10 @@ class JobFrontController extends Controller
 
      $job = Job::where('id', $id)->first();
 
-         // Check if the user is not logged in or is not a candidate
+     if (strpos($request->url(), '/api/') !== false) {
+
+      return response()->json(['job' => $job]);
+  }
     if (!Auth::check() || !auth()->user()->hasRole('candidate')) {
       $existing = Application_form::where('user_ip', $request->ip())->first();
 
@@ -71,7 +76,7 @@ class JobFrontController extends Controller
       $destinationPath = public_path('cv');
       $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
       $cvFile->move($destinationPath, $destinationFileName);
-      $pathname = $destinationPath.'//'.$destinationFileName;
+      $pathname = $destinationPath. DIRECTORY_SEPARATOR .$destinationFileName;
       
       PdfLabeler::dispatch($pathname, Auth()->user());
       Candidate::where('user_id', Auth()->user()->id)
@@ -102,28 +107,46 @@ class JobFrontController extends Controller
  public function guest_apply(Request $request, $id){
 
 
-      // Validate the form input, including the file upload
-      $request->validate([
-        'name' => 'required|string|max:255',
-        'position' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'description' => 'required|max:1000',
-        'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
-    ]);
- 
-       // Check if the same email and job_id combination already exists
+$validator = Validator::make($request->all(), [
+    'name' => 'required|string|max:255',
+    'position' => 'required|string|max:255',
+    'email' => 'required|email|max:255',
+    'description' => 'required|max:1000',
+    'cv' => $request->input('use_old_cv') ? [] : 'mimes:pdf',
+]);
+
+
+    if ($validator->fails()) {
+        return response()->json(['error' => $validator->errors()], 422);
+    }
+  
        $existingApplication = Application_form::where('job_id', $id)
        ->where('email', $request->input('email'))
        ->first();
 
-   if ($existingApplication) {
-
-       return redirect()->back()->with('error', 'You have already applied for this job with the same email.');
-   }
+       if ($existingApplication) {
+        $errorMessage = 'You have already applied for this job with the same email.';
+        if (strpos($request->url(), '/api/') !== false) {
+            return response()->json(['error' => $errorMessage]);
+        }
+        return redirect()->back()->with('error', $errorMessage);
+    }
+    
    
-    if (!$request->input('use_old_cv')) {
+    if ($request->input('use_old_cv')) {
 
 
+    // // Get the previous CV path from the database
+    // $previousCvPath = Candidate::where(/* Add your condition to identify the record */)->value('cv');
+
+    //   // Delete the previous file
+    //   if ($previousCvPath && file_exists($previousCvPath)) {
+    //       unlink($previousCvPath);
+    //   }
+  
+    //   // Delete the previous record from the database
+    //   Candidate::where(/* Add your condition to identify the record */)->delete();
+  
       $cvFile = $request->file('cv');
       $destinationPath = public_path('cv');
       $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
@@ -151,13 +174,16 @@ class JobFrontController extends Controller
         'user_ip' => $request->ip(),
        ]);
 
-    return redirect()->route('frontjoblist')->with('success', 'Application submitted successfully.');
-
+       $responseMessage = 'Application submitted successfully.';
+       return strpos($request->url(), '/api/') !== false
+           ? response()->json(['success' => $responseMessage])
+           : redirect()->route('frontjoblist')->with('success', $responseMessage);
+       
  }
 
  public function view_applied(){
 
-    // Get the authenticated user
+
     $user = auth()->user();
     $id = $user->application_form->pluck('job_id')->all();
     

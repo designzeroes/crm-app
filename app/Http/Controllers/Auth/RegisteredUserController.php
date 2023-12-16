@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\User;
-use App\Models\Cv;
 use App\Models\Organization;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -69,7 +68,7 @@ class RegisteredUserController extends Controller
             $destinationPath = public_path('cv');
             $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
             $cvFile->move($destinationPath, $destinationFileName);
-            $pathname = $destinationPath.'\\'.$destinationFileName;
+            $pathname = $destinationPath. DIRECTORY_SEPARATOR .$destinationFileName;
             PdfLabeler::dispatch($pathname, $user);
       
           }

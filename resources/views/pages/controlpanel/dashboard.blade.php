@@ -11,7 +11,7 @@
                     @php
                         $userRoles = Auth::user()->getRoleNames();
                     @endphp
-                    
+            
                     @if ($userRoles->contains('super-admin'))
                         Super Admin Dashboard
                     @elseif ($userRoles->contains('organization'))
@@ -23,12 +23,15 @@
                     @endif ! 🎉
                 </h5>
                 <p class="mb-4">
-                  You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                  your profile.
+                    You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
+                    your profile.
                 </p>
+            
+            
+                <a href="{{ route('generate-token') }}" class="btn btn-sm btn-outline-primary">Generate Token</a>
+            </div>
+            
 
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-              </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
               <div class="card-body pb-0 px-0 px-md-4">
