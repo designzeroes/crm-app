@@ -117,13 +117,13 @@ class JobController extends Controller
 
         $rules = [
             'job_title' => 'nullable|string|max:255',
-            'category_id' => 'required',
-            'degree_id' => 'required',
+            'category_id' => 'nullable',
+            'degree_id' => 'nullable',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
             'status' => 'in:Active,Inactive',
-            'is_remote' => 'required',
+            'is_remote' => 'nullable',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
             'budget' => 'nullable|string',
@@ -144,18 +144,27 @@ class JobController extends Controller
 
         $categories = Categories::all();
 
+        if (strpos($request->url(), '/api/') !== false) {
+
+            return response()->json(['Responce' => 'Job created successfully']);
+        }
+    
         return redirect()->route('job.index',['categories'=>$categories])
         ->with('success', 'Job created successfully.');
 
     }
 
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
 
         $this->hasPermission('job-view');
         $job = Job::where('jobs.id', $id)->first();
         $degrees = Degree::all();
+        if (strpos($request->url(), '/api/') !== false) {
+
+            return response()->json(['job' => $job]);
+        }
         return view('pages.controlpanel.job.show', ['job'=>$job,'degrees'=> $degrees]);
 
    
@@ -206,12 +215,12 @@ class JobController extends Controller
         $rules = [
             'job_title' => 'nullable|string|max:255',
             'category_id' => 'nullable',
-            'degree_id' => 'required',
+            'degree_id' => 'nullable',
             'description' => 'nullable|string',
             'address' => 'nullable|string|max:255',
             'zipcode' => 'nullable|string|max:20',
             'status' => 'in:Active,Inactive',
-            'is_remote' => 'required',
+            'is_remote' => 'nullable',
             'skill' => 'nullable|string',
             'experience' => 'nullable|string',
             'degree_id' => 'nullable',
@@ -226,6 +235,11 @@ class JobController extends Controller
       
       Job::findOrFail($id)->update($validatedData);
 
+        if (strpos($request->url(), '/api/') !== false) {
+
+            return response()->json(['Responce' => 'Job updated successfully']);
+        }
+
       if ($request->exists('creator')) {
         return redirect()->route('org-jobs',$request->creator)->with('success', 'Job updated successfully.');
     } else {
@@ -237,13 +251,17 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
 
     $this->hasPermission('job-delete');
     $job = Job::findOrFail($id);
     $job->delete();
     
+    if (strpos($request->url(), '/api/') !== false) {
+
+        return response()->json(['Responce' => 'Job deleted successfully']);
+    }
     return redirect()->route('job.index')->with('success', 'Job deleted successfully.');
 
     }

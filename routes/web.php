@@ -8,17 +8,15 @@ use App\Http\Controllers\JobFrontController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\CvController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\PermissionController;
-
+use App\Http\Controllers\TokenController;
 
 Route::get('/', function () {
     return view('pages.guest.index');
 });
 
 
-Route::post('/process-cv/{cvPath}', [CvController::class, 'store']);
 
 
 Route::get('/jobs', [JobFrontController::class, 'FrontJobList'])->name('frontjoblist');
@@ -30,7 +28,8 @@ Route::delete('/applied_destroy/{id}', [JobFrontController::class, 'applied_dist
 Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('view-applied');
 
     Route::middleware(['auth'])->group(function () {
-
+        
+        Route::get('/generate-token', [TokenController::class, 'generateToken'])->name('generate-token');
         Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
         Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
         Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
