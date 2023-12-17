@@ -112,7 +112,7 @@ $validator = Validator::make($request->all(), [
     'position' => 'required|string|max:255',
     'email' => 'required|email|max:255',
     'description' => 'required|max:1000',
-    'cv' => $request->input('use_old_cv') ? [] : 'mimes:pdf',
+    'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
 ]);
 
 
