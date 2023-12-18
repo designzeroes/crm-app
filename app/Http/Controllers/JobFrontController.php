@@ -133,7 +133,7 @@ $validator = Validator::make($request->all(), [
     }
     
    
-    if ($request->input('use_old_cv')) {
+    if (!$request->input('use_old_cv')) {
 
 
     // // Get the previous CV path from the database
