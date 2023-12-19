@@ -33,7 +33,7 @@ class JobFrontController extends Controller
  public function apply(Request $request,$id){
 
      $job = Job::where('id', $id)->first();
-dd($job);
+
      if (strpos($request->url(), '/api/') !== false) {
 
       return response()->json(['job' => $job]);
@@ -44,7 +44,7 @@ dd($job);
       if (!empty($existing->user_ip)) {
         return view('pages.guest.job_detail', ['cv' => $existing->cv, 'job' => $job]);
     }
-
+    return view('pages.guest.job_detail', ['job' => $job]);
   }else{
 
     $existing = Candidate::where('user_id',Auth()->user()->id)->first();
