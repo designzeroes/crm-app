@@ -27,7 +27,10 @@ class JobController extends Controller
               ->withCount('application_form')
              ->get();
         }
-        
+        if (strpos($request->url(), '/api/') !== false) {
+
+            return response()->json(['Responce' => $jobs]);
+        }
          return view('pages.controlpanel.job.index', ['jobs' => $jobs]);
     }
 

@@ -61,14 +61,14 @@ class RegisteredUserController extends Controller
             'image' => 'noImage.jpg',
             'password' => Hash::make($request->password),
         ])->assignrole('candidate');
-
+        $pathname = NULL;
         if ($request->hasFile('cv')) {
 
             $cvFile = $request->file('cv');
             $destinationPath = public_path('cv');
             $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
             $cvFile->move($destinationPath, $destinationFileName);
-            $pathname = $destinationPath. DIRECTORY_SEPARATOR .$destinationFileName;
+            $pathname = $destinationPath . DIRECTORY_SEPARATOR . $destinationFileName;
             PdfLabeler::dispatch($pathname, $user);
       
           }
@@ -78,6 +78,7 @@ class RegisteredUserController extends Controller
             'cv' => $pathname,
             'profession' => $request->profession,
         ]);
+        
 
 
         event(new Registered($user->id));

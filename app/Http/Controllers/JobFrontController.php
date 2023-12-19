@@ -44,7 +44,7 @@ class JobFrontController extends Controller
       if (!empty($existing->user_ip)) {
         return view('pages.guest.job_detail', ['cv' => $existing->cv, 'job' => $job]);
     }
-    return view('pages.guest.job_detail', ['job' => $job]);
+
   }else{
 
     $existing = Candidate::where('user_id',Auth()->user()->id)->first();
@@ -76,7 +76,7 @@ class JobFrontController extends Controller
       $destinationPath = public_path('cv');
       $destinationFileName = time() . '_' . $cvFile->getClientOriginalName();
       $cvFile->move($destinationPath, $destinationFileName);
-      $pathname = $destinationPath. DIRECTORY_SEPARATOR .$destinationFileName;
+      $pathname = $destinationPath.'\\'.$destinationFileName;
       
       PdfLabeler::dispatch($pathname, Auth()->user());
       Candidate::where('user_id', Auth()->user()->id)
@@ -114,7 +114,6 @@ $validator = Validator::make($request->all(), [
     'description' => 'required|max:1000',
     'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
 ]);
-
 
     if ($validator->fails()) {
         return response()->json(['error' => $validator->errors()], 422);

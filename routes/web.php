@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TokenController;
+use App\Models\Candidate;
 
 Route::get('/', function () {
     return view('pages.guest.index');
@@ -29,13 +30,15 @@ Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('
 
     Route::middleware(['auth'])->group(function () {
         
-        Route::get('/generate-token', [TokenController::class, 'generateToken'])->name('generate-token');
-        Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
-        Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
-        Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
-        
+
         
         Route::middleware(['role:organization|super-admin'])->group(function () {
+            //Candidate selection and token generater routes
+            Route::get('/generate-token', [TokenController::class, 'generateToken'])->name('generate-token');
+            Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
+            Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
+            Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
+            
             //invitation Controller Routes
             Route::get('/invite', [InviteController::class, 'create'])->name('invite_create');
             Route::post('/invite-sent', [InviteController::class, 'store'])->name('invite_sent');

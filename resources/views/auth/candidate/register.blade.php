@@ -114,7 +114,7 @@
                           </div>
                           <div class="mb-3">
                             <label for="pdf" class="form-label">{{ __('CV')}} <small class="text-muted">(Optional)</small></label>
-                            <input type="file" class="form-control"  id="pdf" name="cv" :value="old('cv')" required autocomplete="cv" />
+                            <input type="file" class="form-control"  id="pdf" name="cv" :value="old('cv')" autocomplete="cv" />
                             <x-input-error :messages="$errors->get('cv')" class="mt-2" />
                           </div>
 
