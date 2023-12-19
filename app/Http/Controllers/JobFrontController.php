@@ -115,10 +115,7 @@ $validator = Validator::make($request->all(), [
     'cv' => $request->input('use_old_cv') ? [] : 'required|mimes:pdf',
 ]);
 
-    if ($validator->fails()) {
-        return response()->json(['error' => $validator->errors()], 422);
-    }
-  
+
        $existingApplication = Application_form::where('job_id', $id)
        ->where('email', $request->input('email'))
        ->first();
