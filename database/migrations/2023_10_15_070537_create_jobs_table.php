@@ -30,6 +30,7 @@ return new class extends Migration
             $table->text('deadline')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
             $table->string('career_page_url')->nullable();
             $table->boolean('is_pinned_in_career_page')->nullable();
         });
