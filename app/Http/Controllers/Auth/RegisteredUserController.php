@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
             'image' => 'noImage.jpg',
             'password' => Hash::make($request->password),
         ])->assignrole('candidate');
-
+        $pathname = NULL;
         if ($request->hasFile('cv')) {
 
             $cvFile = $request->file('cv');
@@ -78,6 +78,7 @@ class RegisteredUserController extends Controller
             'cv' => $pathname,
             'profession' => $request->profession,
         ]);
+        
 
 
         event(new Registered($user->id));

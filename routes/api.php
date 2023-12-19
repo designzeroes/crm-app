@@ -27,12 +27,14 @@ Route::get('/view-applied', [JobFrontController::class, 'view_applied'])->name('
 
     Route::middleware(['auth:sanctum', 'ensureToken'])->group(function () {
 
-        Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
-        Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
-        Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
-        
+
         
         Route::middleware(['role:organization|super-admin'])->group(function () {
+            //Candidate view and selection routes
+            Route::get('/applier_candidates/{id}', [ApplicationController::class, 'index'])->name('applier_candidates');
+            Route::get('/view_candidates/{form_id}', [ApplicationController::class, 'view'])->name('view_candidates');
+            Route::put('/select_candidate/{id}', [ApplicationController::class, 'select'])->name('select_candidate');
+            
             //invitation Controller Routes
             Route::get('/invite', [InviteController::class, 'create'])->name('invite_create');
             Route::post('/invite-sent', [InviteController::class, 'store'])->name('invite_sent');
